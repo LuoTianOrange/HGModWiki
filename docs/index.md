@@ -23,5 +23,8 @@ features:
     details: 草莓，不是菠萝
 ---
 ![土豆](./image/tudou.png)
+
+![大西瓜](./image/大西瓜.png)
+
 ![草莓](./image/草莓.png)
 
