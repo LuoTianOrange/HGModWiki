@@ -1,0 +1,1 @@
+import{_ as e,c as o,o as t,U as a}from"./chunks/framework.VQh26TdT.js";const m=JSON.parse('{"title":"快速入门","description":"","frontmatter":{},"headers":[],"relativePath":"快速入门.md","filePath":"快速入门.md"}'),r={name:"快速入门.md"},n=a("",14),c=[n];function s(d,p,i,_,h,l){return t(),o("div",null,c)}const u=e(r,[["render",s]]);export{m as __pageData,u as default};
