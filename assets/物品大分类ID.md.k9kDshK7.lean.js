@@ -1,1 +1,0 @@
-import{_ as t,c as d,o as r,U as e}from"./chunks/framework.zGleghPv.js";const p=JSON.parse('{"title":"ID对照表","description":"","frontmatter":{},"headers":[],"relativePath":"物品大分类ID.md","filePath":"物品大分类ID.md"}'),a={name:"物品大分类ID.md"},o=e("",9),i=[o];function n(l,h,c,s,m,_){return r(),d("div",null,i)}const b=t(a,[["render",n]]);export{p as __pageData,b as default};
