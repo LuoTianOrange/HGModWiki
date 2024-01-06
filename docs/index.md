@@ -5,7 +5,10 @@ layout: home
 hero:
   name: "皓际大冒险"
   text: "MOD编辑教程"
-  tagline: power by 灯火橘
+  tagline: Write by 灯火橘
+  image:
+    src: ./image/启动.png
+    alt: image
   actions:
     - theme: brand
       text: 开始

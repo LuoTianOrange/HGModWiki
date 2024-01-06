@@ -6,7 +6,7 @@
                 <input class="input-1" />
             </div>
         </form>
-        <div style="display: flex;width: 100%;flex-direction: row-reverse;">
+        <div>
             <button class="btn-1">生成JSON</button>
         </div>
     </div>
