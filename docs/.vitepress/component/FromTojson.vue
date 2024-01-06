@@ -50,7 +50,8 @@ const CMParameter = ref({
 }
 
 .btn-1 {
-    width: 180px;
+    margin-top: 20px;
+    width: 160px;
     height: 50px;
     border-radius: 10px;
     color: #fff;
