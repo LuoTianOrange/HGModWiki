@@ -20,10 +20,13 @@ hero:
 features:
   - title: 土豆
     details: 一个土豆，能干什么呢
+    icon: 🥔
   - title: 西瓜
     details: 西瓜会越吃越饿
+    icon: 🍉
   - title: 草莓
     details: 草莓，不是菠萝
+    icon: 🍓
 ---
 ![土豆](./image/tudou.png)
 
