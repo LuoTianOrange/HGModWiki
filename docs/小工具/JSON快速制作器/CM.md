@@ -31,6 +31,13 @@
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
+
+export default {
+    mounted() {
+        generateOutput()
+    }
+}
+    
 //工作站选择
 const places = ref([
     { key: '工作台', value: 0 },
@@ -145,11 +152,6 @@ const copyToClipboard = async () => {
     }
 }
 
-export default {
-    mounted() {
-        generateOutput()
-    }
-}
 </script>
 
 <style>
