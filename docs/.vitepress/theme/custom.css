@@ -1,3 +1,11 @@
+.VPSidebar[data-v-3cd738ec] {
+    padding: 0 0 96px;
+}
+
+.VPSidebarItem {
+  padding-left: 32px;
+}
+
 .VPSidebarItem:not(.level-0) .text{
   border-left: .25rem solid transparent;
 }
@@ -6,6 +14,9 @@
   font-weight: bold;
 }
 
-.VPSidebarItem.level-1.is-active>.item .text {
+.VPSidebarItem.level-1.is-active>.item>.text {
+  border-left-color: var(--vp-c-brand-1);
+}
+.VPSidebarItem.level-1.is-active>.item>.link>.text {
   border-left-color: var(--vp-c-brand-1);
 }
