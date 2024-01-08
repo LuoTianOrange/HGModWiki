@@ -1,3 +1,8 @@
-.VPSidebarItem.level-1.is-active>.item .link>.text{
-  border-left: 10px solid var(--vp-c-brand-1);
+.VPSidebarItem {
+  width: 100%;
+  border-left: .25rem solid transparent;
+}
+
+.VPSidebarItem.level-1.is-active>.item .link>.text {
+  border-left-color: var(--vp-c-brand-1);
 }
