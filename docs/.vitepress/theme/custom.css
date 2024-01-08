@@ -1,6 +1,9 @@
-.VPSidebarItem {
-  width: 100%;
+.VPSidebarItem .link>.text{
   border-left: .25rem solid transparent;
+}
+
+.VPSidebarItem.level-0 .text {
+  font-weight: bold;
 }
 
 .VPSidebarItem.level-1.is-active>.item .link>.text {
