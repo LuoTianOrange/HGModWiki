@@ -3,6 +3,7 @@
 import DefaultTheme from "vitepress/theme";
 import "element-plus/dist/index.css";
 import elementplus from "element-plus"
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import VueClipboard from 'vue-clipboard2'
 import FromTojson from "../components/FromTojson.vue"
 export default {
@@ -12,6 +13,7 @@ export default {
         // custom router. `siteData`` is a `ref`` of current site-level metadata.
         app.use(elementplus);
         app.use(VueClipboard);
+        app.use(ElementPlusIconsVue);
         app.component('FromTojson', FromTojson)
     },
 };

@@ -1,11 +1,15 @@
 <template>
     <div class="main">
         <el-form class="labelbox">
-            <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
-                <el-label for="from">{{ label }}</el-label>
-                <el-input class="input-1" v-model="CMParameter[CMlabelKey[index]]" />
+            <el-form-item class="labeldiv">
+                <el-label for="from">ID(炼金物品专用ID)</el-label>
+                <el-input class="input-1" v-model="CMParameter['ID']" />
             </el-form-item>
-            <el-form-item label="工作站" class="labeldiv">
+            <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
+                <el-label for="from" v-if="label !== 'ID(炼金物品专用ID)'">{{ label }}</el-label>
+                <el-input class="input-1" v-model="CMParameter[CMlabelKey[index]]" v-if="label !== 'ID(炼金物品专用ID)'" />
+            </el-form-item>
+            <el-form-item label="工作站" class="labeldiv workspace">
                 <el-select v-model="selectedPlace" placeholder="请选择工作站">
                     <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
                     </el-option>
@@ -13,8 +17,8 @@
             </el-form-item>
         </el-form>
         <div style="margin-top: 20px;">
-            <el-button type="primary" @click="generateOutput">生成JSON</el-button>
-            <el-button type="primary" @click="copyToClipboard">复制JSON</el-button><br>
+            <el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>
+            <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制JSON</el-button><br>
             <el-input type="textarea" :rows="5" placeholder="点击按钮生成json" v-model="outputString" style="margin-top: 20px;"
                 class="el-place" />
         </div>
@@ -24,7 +28,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-
+import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 const selectedPlace = ref('')
 //工作站选择
 const places = ref([
@@ -79,7 +83,7 @@ const places = ref([
     { key: '魔石熔炉', value: 48 },
     { key: '核子熔炉', value: 49 },
 ])
-
+//标签
 const CMlabel = ref([
     "ID(炼金物品专用ID)",
     "mat1(配方物品1的ID)",
@@ -93,16 +97,16 @@ const CMlabel = ref([
     "place(工作站ID)"
 ])
 const CMParameter = reactive({
-    ID: '',
-    mat1: '',
-    mat1num: '',
-    mat2: '',
-    mat2num: '',
-    mat3: '',
-    mat3num: '',
-    result: '',
-    resultnum: '',
-    place: ''
+    ID: '0',
+    mat1: '0',
+    mat1num: '0',
+    mat2: '0',
+    mat2num: '0',
+    mat3: '0',
+    mat3num: '0',
+    result: '0',
+    resultnum: '0',
+    place: '0'
 })
 
 const CMlabelKey = ref(Object.keys(CMParameter))
@@ -159,6 +163,12 @@ const copyToClipboard = async () => {
     width: 160px;
     height: 50px;
     border-radius: 10px;
+}
+
+.workspace {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 @media screen and (width <=768px) {

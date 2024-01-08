@@ -2,40 +2,49 @@
   "hash": "c1e8b1d7",
   "configHash": "04ab93e3",
   "lockfileHash": "b295aa96",
-  "browserHash": "0fffdfbd",
+  "browserHash": "5636d9ee",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "f166fe60",
+      "fileHash": "077050a6",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "ef20dd27",
+      "fileHash": "655fa130",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "414c834d",
+      "fileHash": "56534b22",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "5e949a79",
+      "fileHash": "ae037b8d",
       "needsInterop": false
     },
     "vue-clipboard2": {
       "src": "../../../../node_modules/vue-clipboard2/vue-clipboard.js",
       "file": "vue-clipboard2.js",
-      "fileHash": "4e272894",
+      "fileHash": "7a36231f",
       "needsInterop": true
+    },
+    "@element-plus/icons-vue": {
+      "src": "../../../../node_modules/@element-plus/icons-vue/dist/index.js",
+      "file": "@element-plus_icons-vue.js",
+      "fileHash": "c62881e8",
+      "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-ZSOUMSRM": {
+      "file": "chunk-ZSOUMSRM.js"
+    },
     "chunk-TISNN2FI": {
       "file": "chunk-TISNN2FI.js"
     },
