@@ -124,7 +124,11 @@ const generateOutput = () => {
     //    result += `"${CMlabelKey.value[i]}":${value},\n`
     //}
     //result = result.slice(0, -2) + '\n}'
-    outputString.value = JSON.stringify(CMParameter, null, 4)
+    outputString.value = JSON.stringify(CMParameter, (k, v) => {
+        if(v === "") {
+            return 0
+        }
+    }, 4)
 }
 //复制文本到剪切板
 const copyToClipboard = async () => {
