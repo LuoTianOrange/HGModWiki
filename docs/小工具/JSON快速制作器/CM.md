@@ -128,6 +128,7 @@ const generateOutput = () => {
         if(v === "") {
             return 0
         }
+        return v;
     }, 4)
 }
 //复制文本到剪切板
