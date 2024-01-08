@@ -49,7 +49,7 @@ export default defineConfig({
       {
         text: '小工具',
         items: [
-          { text: 'JSON快速制作器', link: '/小工具/JSON快速制作器' },
+          { text: 'JSON快速制作器', items: [{text: 'CM', link: '/小工具/JSON快速制作器/CM'}] },
           { text: '物品大分类ID', link: '/小工具/物品大分类ID' },
           { text: '武器小分类ID', link: '/小工具/武器小分类ID' },
           { text: '建筑小分类ID', link: '/小工具/建筑小分类ID' },
