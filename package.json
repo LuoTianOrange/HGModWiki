@@ -3,9 +3,9 @@
     "vitepress": "^1.0.0-rc.35"
   },
   "scripts": {
-    "docs:dev": "run dev",
-    "docs:build": "run build",
-    "docs:preview": "run preview"
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
