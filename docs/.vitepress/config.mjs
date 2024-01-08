@@ -9,7 +9,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
-      { text: '开始', link: '/什么是MOD' },
+      { text: '开始', link: '/介绍/什么是MOD' },
       { text: '基础内容', link: '/了解参数' },
       { text: '小工具', link: '/JSON快速制作器' }
     ],
@@ -18,7 +18,7 @@ export default defineConfig({
       {
         text: '介绍',
         items: [
-          { text: '什么是MOD', link: '/什么是MOD' },
+          { text: '什么是MOD', link: '/介绍/什么是MOD' },
           { text: '快速入门', link: '/快速入门' }
         ]
       },
