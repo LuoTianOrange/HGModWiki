@@ -8,7 +8,7 @@ hero:
   tagline: Write by 灯火橘
   image:
     src: https://s11.ax1x.com/2024/01/06/pizU8KK.png
-    alt: image
+    alt: logo
   actions:
     - theme: brand
       text: 开始
@@ -21,8 +21,8 @@ features:
   - title: 土豆
     details: 一个土豆，能干什么呢
     icon: 
-      file: image/tudou.png
-      alt: image
+      src: /image/tudou.png
+      alt: 土豆
   - title: 西瓜
     details: 西瓜会越吃越饿
     icon: 🍉
