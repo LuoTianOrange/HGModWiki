@@ -19,10 +19,10 @@
             </el-form-item>
         </el-form>
         <div style="margin-top: 20px;">
-            <el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>
+            // <el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>
             <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
-            <el-input type="textarea" :rows="10" placeholder="点击按钮生成json" v-model="outputString" style="margin-top: 20px;"
-                class="el-place" />
+            <el-input type="textarea" :rows="12" v-model="outputString" style="margin-top: 20px;"
+                class="el-place" @load="generateOutput" />
         </div>
     </div>
 </template>
@@ -31,7 +31,6 @@
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
-//const selectedPlace = ref('')
 //工作站选择
 const places = ref([
     { key: '工作台', value: 0 },
