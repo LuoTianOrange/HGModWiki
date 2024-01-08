@@ -146,14 +146,10 @@ const copyToClipboard = async () => {
     }
 }
 
-</script>
+window.addEventListener('load', () => {
+    generateOutput()
+})
 
-<script>
-export default {
-    mounted() {
-        generateOutput()
-    }
-}
 </script>
 
 <style>
