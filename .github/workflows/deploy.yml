@@ -1,26 +1,46 @@
-name: Deploy
+name: pushDocs
 
 on:
+  // 配置当push进入什么分支的时候执行
   push:
-    branches:
-      - main
+    branches: 
+     - main
+
 
 jobs:
-  deploy:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+     // 具体的执行步骤
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm i pnpm -g 
-      - run: pnpm install --no-frozen-lockfile
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@main
 
-      - name: Build
-        run: pnpm docs:build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+     // 使用的node版本   
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@main
         with:
-          github_token: ${{ secrets.KEY }}
-          publish_dir: docs/.vitepress/dist
+          node-version:  ${{ matrix.node }}
+      
+		// 执行安装
+      - name: Install dependencies
+        run: npm install
+    
+    // 执行打包
+      - name: Build VuePress
+        run: npm run build
+      
+    // 执行部署
+      - name: Deploy to Pages
+        run: |
+          cd .vitepress/dist 
+          git init
+          git config user.name "gelxgx"
+          git config user.email "${{ secrets.GIT_EMAIL }}"
+          git add -A
+          git commit -m 'deploy'
+          git push -f https://gelxgx:${{ secrets.ACCESS_TOKEN }}@github.com/gelxgx/blog.git master:gh-pages
+          cd -
