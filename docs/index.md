@@ -30,7 +30,7 @@ features:
     details: 草莓，不是菠萝
     icon: 🍓
 ---
-![土豆](https://hgadventure.huijiwiki.com/wiki/文件:土豆.png)
+![土豆](https://huiji-public.huijistatic.com/hgadventure/uploads/4/49/%E5%9C%9F%E8%B1%86.png)
 
 ![大西瓜](./image/大西瓜.png)
 
