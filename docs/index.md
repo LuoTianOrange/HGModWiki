@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 开始
-      link: /什么是MOD
+      link: /介绍/什么是MOD
     # - theme: alt
     #   text: API Examples
     #   link: /api-examples
