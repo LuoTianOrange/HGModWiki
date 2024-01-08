@@ -34,9 +34,8 @@ jobs:
       # 执行部署
       - name: Deploy to Pages
         run: |
-          ls -a
-          ls ./.vitepress
-          cd ./.vitepress/dist 
+          ls .vitepress
+          cd .vitepress/dist 
           git init
           git config user.name "gelxgx"
           git config user.email "${{ secrets.GIT_EMAIL }}"
