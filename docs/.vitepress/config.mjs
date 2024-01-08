@@ -26,14 +26,14 @@ export default defineConfig({
     sidebar: [
       {
         text: '介绍',
-        children: [
+        items: [
           { text: '什么是MOD', link: '/介绍/什么是MOD' },
           { text: '快速入门', link: '/介绍/快速入门' }
         ]
       },
       {
         text: '基础内容',
-        children: [
+        items: [
           { text: '了解参数', link: '/基础内容//了解参数' },
           { text: '多物品', link: '/基础内容/多物品' },
           { text: '自定义弹幕', link: '/基础内容/自定义弹幕' },
@@ -48,7 +48,7 @@ export default defineConfig({
       // },
       {
         text: '小工具',
-        children: [
+        items: [
           { text: 'JSON快速制作器', items: [{text: 'CM', link: '/小工具/JSON快速制作器/CM'}] },
           { text: '物品大分类ID', link: '/小工具/物品大分类ID' },
           { text: '武器小分类ID', link: '/小工具/武器小分类ID' },
