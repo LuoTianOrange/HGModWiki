@@ -115,6 +115,7 @@ const CMlabelKey = ref(Object.keys(CMParameter))
 const outputString = ref('')
 
 const onInput = (val) => {
+    console.log(val)
     this.$emit('input', parseInt(val))
 }
     
@@ -146,10 +147,7 @@ const copyToClipboard = async () => {
     }
 }
 
-window.addEventListener('load', () => {
-    generateOutput()
-})
-
+generateOutput()
 </script>
 
 <style>
