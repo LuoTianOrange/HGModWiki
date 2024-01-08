@@ -116,7 +116,8 @@ const outputString = ref('')
 
 const onInput = (val) => {
     this.$emit('input', parseInt(val))
-},
+}
+    
 //生成json
 const generateOutput = () => {
     // console.log(CMParameter)  
