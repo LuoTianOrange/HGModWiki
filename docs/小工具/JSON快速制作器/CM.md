@@ -9,7 +9,7 @@
             </el-form-item>
             <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
                 <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
-                <el-input class="input-1" v-model.number="CMParameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable />
+                <el-input class="input-1" v-model.number="CMParameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');generateOutput()" @input="generateOutput" clearable />
             </el-form-item>
             <el-form-item label="工作站" class="labeldiv workspace">
                 <el-select v-model="CMParameter['place']" placeholder="请选择工作站" @change="generateOutput">
