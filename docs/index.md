@@ -21,7 +21,7 @@ features:
   - title: 土豆
     details: 一个土豆，能干什么呢
     icon: 
-      src: ./土豆.png
+      src: https://hgadventure.huijiwiki.com/wiki/文件:土豆.png
       alt: 土豆
   - title: 西瓜
     details: 西瓜会越吃越饿
