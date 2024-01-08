@@ -1,4 +1,4 @@
-.VPSidebarItem .text{
+.VPSidebarItem:not(.level-0) .text{
   border-left: .25rem solid transparent;
 }
 
