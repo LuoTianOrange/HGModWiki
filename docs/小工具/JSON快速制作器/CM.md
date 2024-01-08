@@ -4,12 +4,12 @@
     <div class="main">
         <el-form class="labelbox">
             <el-form-item class="labeldiv">
-                <el-label for="from">ID(炼金物品专用ID)</el-label>
-                <el-input class="input-1" v-model="CMParameter['ID']" @input="onInput" @change="generateOutput" clearable />
+                <el-label for="from">配方ID</el-label>
+                <el-input class="input-1" v-model.number="CMParameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @change="generateOutput" clearable />
             </el-form-item>
             <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
-                <el-label for="from" v-if="label !== 'ID(炼金物品专用ID)'">{{ label }}</el-label>
-                <el-input class="input-1" v-model="CMParameter[CMlabelKey[index]]" v-if="label !== 'ID(炼金物品专用ID)'" @input="onInput" @change="generateOutput" clearable />
+                <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
+                <el-input class="input-1" v-model.number="CMParameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @change="generateOutput" clearable />
             </el-form-item>
             <el-form-item label="工作站" class="labeldiv workspace">
                 <el-select v-model="CMParameter['place']" placeholder="请选择工作站" @change="generateOutput">
@@ -87,7 +87,7 @@ const places = ref([
 ])
 //标签
 const CMlabel = ref([
-    "配方ID",
+    "",
     "材料1的ID",
     "材料1所需数量",
     "材料2的ID",
@@ -113,11 +113,6 @@ const CMParameter = reactive({
 
 const CMlabelKey = ref(Object.keys(CMParameter))
 const outputString = ref('')
-
-const onInput = (val) => {
-    console.log(val)
-    this.$emit('input', parseInt(val))
-}
     
 //生成json
 const generateOutput = () => {
