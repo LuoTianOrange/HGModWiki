@@ -47,6 +47,7 @@ export default defineConfig({
           { text: '伤害类型ID', link: '/伤害类型ID' },
           { text: '弹幕ID', link: '/弹幕ID' },
           { text: '物品ID', link: '/物品ID' },
+          { text: '工作站ID', link: '/工作站ID' },
           { text: '随机生成器', link: '/随机生成器' },
         ]
       }

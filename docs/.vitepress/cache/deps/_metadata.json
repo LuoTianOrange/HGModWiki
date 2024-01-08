@@ -1,44 +1,44 @@
 {
-  "hash": "c1e8b1d7",
+  "hash": "31e72ffa",
   "configHash": "04ab93e3",
-  "lockfileHash": "b295aa96",
-  "browserHash": "5636d9ee",
+  "lockfileHash": "44cd0d01",
+  "browserHash": "785acbac",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "077050a6",
+      "fileHash": "beefb6e8",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "655fa130",
+      "fileHash": "e0e475eb",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "56534b22",
+      "fileHash": "6af09b10",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "ae037b8d",
+      "fileHash": "eb0244a4",
+      "needsInterop": false
+    },
+    "@element-plus/icons-vue": {
+      "src": "../../../../node_modules/@element-plus/icons-vue/dist/index.js",
+      "file": "@element-plus_icons-vue.js",
+      "fileHash": "3f0e5e24",
       "needsInterop": false
     },
     "vue-clipboard2": {
       "src": "../../../../node_modules/vue-clipboard2/vue-clipboard.js",
       "file": "vue-clipboard2.js",
-      "fileHash": "7a36231f",
+      "fileHash": "81bac1f8",
       "needsInterop": true
-    },
-    "@element-plus/icons-vue": {
-      "src": "../../../../node_modules/@element-plus/icons-vue/dist/index.js",
-      "file": "@element-plus_icons-vue.js",
-      "fileHash": "c62881e8",
-      "needsInterop": false
     }
   },
   "chunks": {
