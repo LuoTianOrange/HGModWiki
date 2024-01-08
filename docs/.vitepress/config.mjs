@@ -33,7 +33,7 @@ export default defineConfig({
       },
       {
         title: '基础内容',
-        items: [
+        children: [
           { text: '了解参数', link: '/基础内容//了解参数' },
           { text: '多物品', link: '/基础内容/多物品' },
           { text: '自定义弹幕', link: '/基础内容/自定义弹幕' },
@@ -47,8 +47,8 @@ export default defineConfig({
       //   ]
       // },
       {
-        text: '小工具',
-        items: [
+        title: '小工具',
+        children: [
           { text: 'JSON快速制作器', items: [{text: 'CM', link: '/小工具/JSON快速制作器/CM'}] },
           { text: '物品大分类ID', link: '/小工具/物品大分类ID' },
           { text: '武器小分类ID', link: '/小工具/武器小分类ID' },
