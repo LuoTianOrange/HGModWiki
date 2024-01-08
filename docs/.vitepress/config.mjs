@@ -15,6 +15,7 @@ export default defineConfig({
     ],
   ],
   themeConfig: {
+    sidebar: 'auto',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
