@@ -1,6 +1,7 @@
-<img src="https://s11.ax1x.com/2024/01/06/pizU8KK.png" width="200px">
+<img src="https://s11.ax1x.com/2024/01/06/pizU8KK.png" width="200px" align="center">
 
-<div style="font-size:2rem;text-align: center;font-weight:bolder;">皓际大冒险 ModWIKI</div>
+# 皓际大冒险 ModWIKI
+
 这是一个使用 Vitepress 构建的项目，主要用于介绍皓际大冒险的 Mod 制作方法，以及 Mod 的参数设定。此外，我还提供了一些制作 Mod 的小工具和游戏内的 ID对照表。
 
 ## 主要功能
