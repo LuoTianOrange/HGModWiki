@@ -1,0 +1,1 @@
+import{_ as t,c as d,o as r,U as e}from"./chunks/framework.wiSZYwxo.js";const p=JSON.parse('{"title":"ID对照表","description":"","frontmatter":{},"headers":[],"relativePath":"建筑小分类ID.md","filePath":"建筑小分类ID.md"}'),a={name:"建筑小分类ID.md"},o=e("",6),n=[o];function i(l,s,_,c,h,u){return r(),d("div",null,n)}const g=t(a,[["render",i]]);export{p as __pageData,g as default};
