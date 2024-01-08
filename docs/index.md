@@ -21,7 +21,7 @@ features:
   - title: 土豆
     details: 一个土豆，能干什么呢
     icon: 
-      src: ./image/tudou.png
+      src: https://github.com/HBcao233/HGModWiki/blob/main/docs%2Fimage%2Ftudou.png
       alt: image
   - title: 西瓜
     details: 西瓜会越吃越饿
