@@ -5,6 +5,15 @@ export default defineConfig({
   title: "皓际大冒险Mod教程",
   base: "/HGModWiki/",
   description: "A VitePress Site",
+  head: [
+    [
+      "meta",
+      {
+        name:"referrer",
+        content:"no-referrer"
+      }
+    ],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
