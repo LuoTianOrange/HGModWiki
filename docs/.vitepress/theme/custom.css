@@ -7,5 +7,5 @@
 }
 
 .VPSidebarItem.level-2.is-active>.item>.indicator{
-    background-color: transparent;
+    background-color: transparent !important;
 }
