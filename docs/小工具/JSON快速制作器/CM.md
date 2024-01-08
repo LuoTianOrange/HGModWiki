@@ -19,7 +19,7 @@
             </el-form-item>
         </el-form>
         <div style="margin-top: 20px;">
-            // <el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>
+            <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
             <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
             <el-input type="textarea" :rows="12" v-model="outputString" style="margin-top: 20px;"
                 class="el-place" @load="generateOutput" />
