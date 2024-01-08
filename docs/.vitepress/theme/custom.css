@@ -1,11 +1,3 @@
-.VPSidebar {
-    padding: 32px 0 96px !important;
-}
-
-.VPSidebarItem.level-0 {
-  padding-left: 16px;
-}
-
 .VPSidebarItem.level-0.has-active > .indicator{
   background-color: var(--vp-c-brand-1);
 }
