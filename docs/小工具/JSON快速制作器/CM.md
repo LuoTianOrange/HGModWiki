@@ -144,6 +144,12 @@ const copyToClipboard = async () => {
         })
     }
 }
+
+export default {
+    mounted() {
+        generateOutput()
+    }
+}
 </script>
 
 <style>
