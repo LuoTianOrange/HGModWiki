@@ -10,6 +10,6 @@
   border-left: .25rem solid transparent;
 }
 
-.VPSidebarItem.level-0.is-active > .items{
+.VPSidebarItem.level-0.has-active > .items{
   border-left-color: var(--vp-c-brand-1);
 }
