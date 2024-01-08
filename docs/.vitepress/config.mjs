@@ -25,14 +25,14 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: '介绍',
-        items: [
+        title: '介绍',
+        children: [
           { text: '什么是MOD', link: '/介绍/什么是MOD' },
           { text: '快速入门', link: '/介绍/快速入门' }
         ]
       },
       {
-        text: '基础内容',
+        title: '基础内容',
         items: [
           { text: '了解参数', link: '/基础内容//了解参数' },
           { text: '多物品', link: '/基础内容/多物品' },
