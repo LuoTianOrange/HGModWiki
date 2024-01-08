@@ -114,7 +114,7 @@ const CMParameter = reactive({
 const CMlabelKey = ref(Object.keys(CMParameter))
 const outputString = ref('')
 
-const onInput(val) {
+const onInput = (val) => {
     this.$emit('input', parseInt(val))
 },
 //生成json
