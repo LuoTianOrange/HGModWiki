@@ -34,7 +34,7 @@ export default defineConfig({
       {
         text: '基础内容',
         items: [
-          { text: '了解参数', link: '/基础内容//了解参数' },
+          { text: '了解参数', link: '/基础内容/了解参数' },
           { text: '多物品', link: '/基础内容/多物品' },
           { text: '自定义弹幕', link: '/基础内容/自定义弹幕' },
           { text: '异常处理', link: '/基础内容/异常处理' },
@@ -49,7 +49,11 @@ export default defineConfig({
       {
         text: '小工具',
         items: [
-          { text: 'JSON快速制作器', items: [{text: 'CM', link: '/小工具/JSON快速制作器/CM'}] },
+          { text: 'JSON快速制作器', items: [
+            { text: 'CM', link: '/小工具/JSON快速制作器/CM' },
+            { text: 'WSITEM', link: '/小工具/JSON快速制作器/WSITEM'},
+            { text: 'WSAMMO', link: '/小工具/JSON快速制作器/WSAMMO'},
+          ] },
           { text: '物品大分类ID', link: '/小工具/物品大分类ID' },
           { text: '武器小分类ID', link: '/小工具/武器小分类ID' },
           { text: '建筑小分类ID', link: '/小工具/建筑小分类ID' },
