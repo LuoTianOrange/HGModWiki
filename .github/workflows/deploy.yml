@@ -34,12 +34,11 @@ jobs:
       # 执行部署
       - name: Deploy to Pages
         run: |
-          ls .vitepress
           cd .vitepress/dist 
           git init
-          git config user.name "gelxgx"
+          git config user.name "HBcao233"
           git config user.email "${{ secrets.GIT_EMAIL }}"
           git add -A
           git commit -m 'deploy'
-          git push -f https://gelxgx:${{ secrets.ACCESS_TOKEN }}@github.com/gelxgx/blog.git master:gh-pages
+          git push -f https://HBcao233:${{ secrets.ACCESS_TOKEN }}@github.com/HBcao233/HGModWiki.git master:gh-pages
           cd -
