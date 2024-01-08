@@ -20,7 +20,7 @@ hero:
 features:
   - title: 土豆
     details: 一个土豆，能干什么呢
-    icon: 🥔
+    icon: ./image/tudou.png
   - title: 西瓜
     details: 西瓜会越吃越饿
     icon: 🍉
