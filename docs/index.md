@@ -7,7 +7,7 @@ hero:
   text: "MOD编辑教程"
   tagline: Write by 灯火橘
   image:
-    src: https://s11.ax1x.com/2024/01/06/pizU8KK.png
+    src: /启动.png
     alt: logo
   actions:
     - theme: brand
@@ -31,9 +31,3 @@ features:
     icon:
       src: https://hgadventure.huijiwiki.com/wiki/Special:FilePath/草莓.png
 ---
-![土豆](https://hgadventure.huijistatic.com/wiki/Special:FilePath/土豆.png)
-
-![大西瓜](https://hgadventure.huijiwiki.com/wiki/Special:FilePath/大西瓜.png)
-
-![草莓](https://hgadventure.huijiwiki.com/wiki/Special:FilePath/草莓.png)
-
