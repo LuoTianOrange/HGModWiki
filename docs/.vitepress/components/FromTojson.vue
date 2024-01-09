@@ -259,10 +259,17 @@ const generateOutput = () => {
             break
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
-                if(v === "") {
+                if (v === "") {
                     return;
                 }
-                if(typeof v === 'string' && !/^\d+$/.test(v)) return '只能是正整数';
+                if (typeof v === 'string'){
+                    if (/^\d+$/.test(v)) {
+                        return parseInt(v);
+                    } else {
+                        return '只能是正整数';
+                    }
+                } 
+                
                 return v;
             }, 4)
             break
