@@ -2,25 +2,25 @@
     <div class="main">
         <el-form class="labelbox">
             <el-form-item class="labeldiv">
-                <el-label for="from">ID(炼金物品专用ID)</el-label>
-                <el-input class="input-1" v-model="CMParameter['ID']" clearable />
+                <el-label for="from">配方ID</el-label>
+                <el-input class="input-1" v-model.number="CMParameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable />
             </el-form-item>
             <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
-                <el-label for="from" v-if="label !== 'ID(炼金物品专用ID)'">{{ label }}</el-label>
-                <el-input class="input-1" v-model="CMParameter[CMlabelKey[index]]" v-if="label !== 'ID(炼金物品专用ID)'" clearable />
+                <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
+                <el-input class="input-1" v-model.number="CMParameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable />
             </el-form-item>
             <el-form-item label="工作站" class="labeldiv workspace">
-                <el-select v-model="selectedPlace" placeholder="请选择工作站">
+                <el-select v-model="CMParameter['place']" placeholder="请选择工作站" @change="generateOutput">
                     <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
                     </el-option>
                 </el-select>
             </el-form-item>
         </el-form>
         <div style="margin-top: 20px;">
-            <el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>
+            <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
             <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
-            <el-input type="textarea" :rows="5" placeholder="点击按钮生成json" v-model="outputString" style="margin-top: 20px;"
-                class="el-place" />
+            <el-input type="textarea" :rows="12" v-model="outputString" style="margin-top: 20px;"
+                class="el-place" @load="generateOutput" />
         </div>
     </div>
 </template>
@@ -29,7 +29,7 @@
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
-const selectedPlace = ref('')
+    
 //工作站选择
 const places = ref([
     { key: '工作台', value: 0 },
@@ -85,44 +85,49 @@ const places = ref([
 ])
 //标签
 const CMlabel = ref([
-    "ID(炼金物品专用ID)",
-    "mat1(配方物品1的ID)",
-    "mat1num(配方物品1所需数量)",
-    "mat2(配方物品2的ID)",
-    "mat2num(配方物品2所需数量)",
-    "mat3(配方物品3的ID)",
-    "mat3num(配方物品3所需数量)",
-    "result(配方结果物品ID)",
-    "resultnum(配方结果物品获得数量)",
-    "place(工作站ID)"
+    "",
+    "材料1的ID",
+    "材料1所需数量",
+    "材料2的ID",
+    "材料2所需数量",
+    "材料3的ID",
+    "材料3所需数量",
+    "输出物品ID)",
+    "输出物品获得数量",
 ])
 //参数
 const CMParameter = reactive({
-    ID: '0',
-    mat1: '0',
-    mat1num: '0',
-    mat2: '0',
-    mat2num: '0',
-    mat3: '0',
-    mat3num: '0',
-    result: '0',
-    resultnum: '0',
-    place: '0'
+    ID: 0,
+    mat1: 0,
+    mat1num: 0,
+    mat2: 0,
+    mat2num: 0,
+    mat3: 0,
+    mat3num: 0,
+    result: 0,
+    resultnum: 0,
+    place: 0
 })
 
 const CMlabelKey = ref(Object.keys(CMParameter))
 const outputString = ref('')
+    
 //生成json
 const generateOutput = () => {
     // console.log(CMParameter)  
-    CMParameter.place = selectedPlace.value;
-    let result = '{' + '\n'
-    for (let i = 0; i < CMlabelKey.value.length; i++) {
-        const value = CMParameter[CMlabelKey.value[i]];
-        result += `"${CMlabelKey.value[i]}":${value},\n`
-    }
-    result = result.slice(0, -2) + '\n}'
-    outputString.value = result
+    //CMParameter.place = selectedPlace.value;
+    //let result = '{' + '\n'
+    //for (let i = 0; i < CMlabelKey.value.length; i++) {
+    //    const value = CMParameter[CMlabelKey.value[i]];
+    //    result += `"${CMlabelKey.value[i]}":${value},\n`
+    //}
+    //result = result.slice(0, -2) + '\n}'
+    outputString.value = JSON.stringify(CMParameter, (k, v) => {
+        if(v === "") {
+            return 0
+        }
+        return v;
+    }, 4)
 }
 //复制文本到剪切板
 const copyToClipboard = async () => {
@@ -139,6 +144,8 @@ const copyToClipboard = async () => {
         })
     }
 }
+
+generateOutput()
 </script>
 
 <style>
