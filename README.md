@@ -25,5 +25,5 @@ npm install
 在安装完成后，你可以通过以下命令来运行本项目：
 
 ```bash
-npx run dev
+npm run dev
 ```
