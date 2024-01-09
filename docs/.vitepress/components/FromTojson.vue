@@ -21,10 +21,10 @@
                         <el-label for="from">配方ID</el-label>
                         <el-input class="input-1" v-model.number="CM_Parameter.ID" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    <br/>
+                    <div style="width: 100%; "></div>
                     <el-form-item label="材料1" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.mat1" filterable remote placeholder="mat1"
-                          :remote-method="remoteMethod" :loading="loading">
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
                             </el-option>
@@ -34,6 +34,59 @@
                         <el-label for="from">材料1数量</el-label>
                         <el-input class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
+
+                    <el-form-item label="材料2" class="labeldiv workspace">
+                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote placeholder="mat2"
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
+                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
+                                {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
+                            </el-option>
+                        </el-select></client-only>
+                    </el-form-item>
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">材料2数量</el-label>
+                        <el-input class="input-1" v-model.number="CM_Parameter.mat2num" placeholder="mat2num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+
+                    <el-form-item label="材料3" class="labeldiv workspace">
+                        <client-only><el-select v-model="CM_Parameter.mat3" filterable remote placeholder="mat3"
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
+                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
+                                {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
+                            </el-option>
+                        </el-select></client-only>
+                    </el-form-item>
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">材料3数量</el-label>
+                        <el-input class="input-1" v-model.number="CM_Parameter.mat3num" placeholder="mat3num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+
+                    <el-form-item label="材料4" class="labeldiv workspace">
+                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote placeholder="mat4"
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
+                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
+                                {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
+                            </el-option>
+                        </el-select></client-only>
+                    </el-form-item>
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">材料4数量</el-label>
+                        <el-input class="input-1" v-model.number="CM_Parameter.mat4num" placeholder="mat4num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+
+                    <el-form-item label="输出物品" class="labeldiv workspace">
+                        <client-only><el-select v-model="CM_Parameter.result" filterable remote placeholder="result"
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
+                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
+                                {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
+                            </el-option>
+                        </el-select></client-only>
+                    </el-form-item>
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">输出物品数量</el-label>
+                        <el-input class="input-1" v-model.number="CM_Parameter.resultnum" placeholder="resultnum" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                    
                     <el-form-item label="工作站" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.place" filterable placeholder="请选择工作站" @change="generateOutput">
                             <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
@@ -163,18 +216,6 @@ const places = ref([
     { key: '魔石熔炉', value: 48 },
     { key: '核子熔炉', value: 49 },
 ])
-//标签
-const CMlabel = ref([
-    "",
-    "材料1的ID",
-    "材料1所需数量",
-    "材料2的ID",
-    "材料2所需数量",
-    "材料3的ID",
-    "材料3所需数量",
-    "输出物品ID",
-    "输出物品获得数量",
-])
 
 const WSITEM_Parameter = reactive({
     ID: 0,
@@ -195,7 +236,6 @@ const WSAMMO_Parameter = reactive({
     ID: 0,
 })
 
-const CMlabelKey = ref(Object.keys(CM_Parameter))
 const WSITEM_Output = ref('')
 const CM_Output = ref('')
 const WSAMMO_Output = ref('')
