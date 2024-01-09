@@ -1,6 +1,6 @@
-<script setup>
+<!--<script setup>
 import FromToJson from '/.vitepress/components/FromToJson.vue';
-</script>
+</script>-->
 ### JSON快速制作器
 #### CM快速制作
 <FromTojson />
