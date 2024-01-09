@@ -1,1 +1,0 @@
-import{aw as t,p as d,m as r,aN as a}from"./chunks/framework.iUIbX1we.js";const p=JSON.parse('{"title":"ID对照表","description":"","frontmatter":{},"headers":[],"relativePath":"小工具/建筑小分类ID.md","filePath":"小工具/建筑小分类ID.md"}'),e={name:"小工具/建筑小分类ID.md"},o=a("",6),n=[o];function i(l,s,_,h,c,u){return r(),d("div",null,n)}const m=t(e,[["render",i]]);export{p as __pageData,m as default};
