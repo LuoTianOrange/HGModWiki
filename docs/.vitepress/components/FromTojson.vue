@@ -70,18 +70,22 @@
 import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
-
+import requests from './requests';
 
 const loading = ref(false)
 const options = ref([])
-const remoteMethod = (query) => {
+const remoteMethod = async (query) => {
   console.log(query)
   if (query) {
     loading.value = true
-    setTimeout(() => {
+    await requests.request({
+      url: 'https://baidu.com',
+      method: 'GET',
+    }).then((r) => {
+      console.log(r)
       loading.value = false
       options.value = [ { id: 1, name: '土豆'} ]
-    }, 200)
+    })
   } else {
     options.value = []
   }
