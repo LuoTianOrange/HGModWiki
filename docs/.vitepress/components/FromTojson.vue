@@ -75,6 +75,7 @@ const CM_mat1 = ref('')
 const CM_mat1_loading = ref(false)
 const CM_mat1_options = ref([])
 const remoteMethod = (query) => {
+  console.log(query)
   if (query) {
     CM_mat1_loading.value = true
     setTimeout(() => {
@@ -84,6 +85,7 @@ const remoteMethod = (query) => {
   } else {
     CM_mat1_options.value = []
   }
+  console.log(CM_mat1_options.value)
 }
     
 const activeName = ref('WSITEM')
