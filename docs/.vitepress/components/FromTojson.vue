@@ -91,7 +91,7 @@ const remoteMethod = async (query) => {
         //console.log(r)
         loading.value = false
         if(!r.data) return;
-        let r = r.data.query.results
+        r = r.data.query.results
         let res = []
         Object.keys(r).forEach(i => {
             let v = r[i].printouts
