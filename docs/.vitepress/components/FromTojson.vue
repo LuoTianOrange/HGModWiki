@@ -153,7 +153,11 @@ const CMlabelKey = ref(Object.keys(CMParameter))
 const WSITEM_Output = ref('')
 const CM_Output = ref('')
 const WSAMMO_Output = ref('')
-    
+
+const handleClick = function(tab, e) {
+    //console.log(tab, e);
+    generateOutput()
+}
 //生成json
 const generateOutput = () => {
     // console.log(CM_Parameter)  
