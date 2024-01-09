@@ -88,9 +88,9 @@ const remoteMethod = async (query) => {
             format: 'json'
         }
       }).then((r) => {
-        //console.log(r)
+        console.log(r.data)
         loading.value = false
-        if(!r.data) return;
+        if(!r.data || !r.data.query.results) return;
         r = r.data.query.results
         let res = []
         Object.keys(r).forEach(i => {
