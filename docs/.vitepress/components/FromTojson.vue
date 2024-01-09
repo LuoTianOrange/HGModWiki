@@ -21,11 +21,11 @@
                         <el-label for="from">配方ID</el-label>
                         <el-input class="input-1" v-model.number="CM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    <el-form-item label="mat1" class="labeldiv">
+                    <el-form-item label="mat1" class="labeldiv workspace">
                         <el-select v-model="CM_mat1" filterable remote placeholder=""
                           :remote-method="remoteMethod" :loading="loading">
                             <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
-                                <img :src="item.src" style="width:16px;height:16px" /> {{item.name}}
+                                <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -71,19 +71,19 @@ import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 
-const CM_mat1 = ref('')
-const CM_mat1_loading = ref(false)
-const CM_mat1_options = ref([])
+const CM_mat1 = ''
+const CM_mat1_loading = false
+const CM_mat1_options = []
 const remoteMethod = function(query) {
     console.log(query)
     if (query !== '') {
-        CM_mat1_loading.value = true;
+        CM_mat1_loading = true;
         setTimeout(() => {
-            CM_mat1_loading.value = false;
-            CM_mat1_options.value = [{ id: 1, name: '土豆'}]
+            CM_mat1_loading = false;
+            CM_mat1_options = [{ id: 1, name: '土豆'}]
         }, 200);
     } else {
-        CM_mat1_options.value = [];
+        CM_mat1_options = [];
     }
 }
     
