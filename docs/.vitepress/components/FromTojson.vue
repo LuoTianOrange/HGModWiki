@@ -1,27 +1,60 @@
 <template>
     <div class="main">
-        <el-form class="labelbox">
-            <el-form-item class="labeldiv">
-                <el-label for="from">配方ID</el-label>
-                <el-input class="input-1" v-model.number="CMParameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
-            </el-form-item>
-            <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
-                <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
-                <el-input class="input-1" v-model.number="CMParameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
-            </el-form-item>
-            <el-form-item label="工作站" class="labeldiv workspace">
-                <el-select v-model="CMParameter['place']" placeholder="请选择工作站" @change="generateOutput">
-                    <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-        </el-form>
-        <div style="margin-top: 20px;">
-            <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
-            <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
-            <el-input type="textarea" :rows="12" v-model="outputString" style="margin-top: 20px;"
-                class="el-place" @load="generateOutput" />
-        </div>
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="WSITEM" name="WSITEM">
+                <el-form class="labelbox">
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">物品ID</el-label>
+                        <el-input class="input-1" v-model.number="WSITEM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                </el-form>
+                <div style="margin-top: 20px;">
+                    <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-input type="textarea" :rows="12" v-model="WSITEM_Output" style="margin-top: 20px;"
+                        class="el-place" />
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="CM" name="CM">
+                <el-form class="labelbox">
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">配方ID</el-label>
+                        <el-input class="input-1" v-model.number="CM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                    <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
+                        <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
+                        <el-input class="input-1" v-model.number="CM_Parameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                    <el-form-item label="工作站" class="labeldiv workspace">
+                        <el-select v-model="CM_Parameter['place']" placeholder="请选择工作站" @change="generateOutput">
+                            <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <div style="margin-top: 20px;">
+                    <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-input type="textarea" :rows="12" v-model="CM_Output" style="margin-top: 20px;"
+                        class="el-place" />
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="WSAMMO" name="WSAMMO">
+                <el-form class="labelbox">
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">弹幕ID</el-label>
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                </el-form>
+                <div style="margin-top: 20px;">
+                    <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-input type="textarea" :rows="20" v-model="WSAMMO_Output" style="margin-top: 20px;"
+                        class="el-place" />
+                </div>
+            </el-tab-pane>
+        </el-tabs>
+        
     </div>
 </template>
 
@@ -29,7 +62,8 @@
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
-    
+
+const activeName = ref('WSITEM')
 //工作站选择
 const places = ref([
     { key: '工作台', value: 0 },
@@ -95,8 +129,11 @@ const CMlabel = ref([
     "输出物品ID",
     "输出物品获得数量",
 ])
-//参数
-const CMParameter = reactive({
+
+const WSITEM_Parameter = reactive({
+    ID: 0,
+})
+const CM_Parameter = reactive({
     ID: 0,
     mat1: 0,
     mat1num: 0,
@@ -108,31 +145,62 @@ const CMParameter = reactive({
     resultnum: 0,
     place: 0
 })
+const WSAMMO_Parameter = reactive({
+    ID: 0,
+})
 
 const CMlabelKey = ref(Object.keys(CMParameter))
-const outputString = ref('')
+const WSITEM_Output = ref('')
+const CM_Output = ref('')
+const WSAMMO_Output = ref('')
     
 //生成json
 const generateOutput = () => {
-    // console.log(CMParameter)  
-    //CMParameter.place = selectedPlace.value;
-    //let result = '{' + '\n'
-    //for (let i = 0; i < CMlabelKey.value.length; i++) {
-    //    const value = CMParameter[CMlabelKey.value[i]];
-    //    result += `"${CMlabelKey.value[i]}":${value},\n`
-    //}
-    //result = result.slice(0, -2) + '\n}'
-    outputString.value = JSON.stringify(CMParameter, (k, v) => {
-        if(v === "") {
-            return 0
-        }
-        return v;
-    }, 4)
+    // console.log(CM_Parameter)  
+    switch (activeName.value) {
+        case 'WSITEM':
+            WSITEM_Output.value = JSON.stringify(WSITEM_Parameter, (k, v) => {
+                if(v === "") {
+                    return;
+                }
+                return v;
+            }, 4)
+            break
+        case 'CM':
+            CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
+                if(v === "") {
+                    return 0
+                }
+                return v;
+            }, 4)
+            break
+        case 'WSAMMO':
+            WSAMMO_Output.value = JSON.stringify(WSAMMO_Parameter, (k, v) => {
+                if(v === "") {
+                    return;
+                }
+                return v;
+            }, 4)
+            break
+    }
+    
 }
 //复制文本到剪切板
 const copyToClipboard = async () => {
+    var r = ''
+    switch (activeName.value) {
+        case 'WSITEM':
+            r = WSITEM_Output.value
+            break
+        case 'CM':
+            r = CM_Output.value
+            break
+        case 'WSAMMO':
+            r = WSAMMO_Output.value
+            break
+    }
     try {
-        await navigator.clipboard.writeText(outputString.value)
+        await navigator.clipboard.writeText(r)
         ElMessage({
             message: '复制成功',
             type: 'success',
