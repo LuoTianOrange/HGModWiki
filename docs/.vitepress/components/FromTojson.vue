@@ -23,7 +23,7 @@
                     </el-form-item>
                     <div style="width: 100%; "></div>
                     <el-form-item label="材料1" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat1" filterable remote allow-create placeholder="mat1"
+                        <client-only><el-select v-model="CM_Parameter.mat1" placeholder="mat1" filterable remote allow-create default-first-option 
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -36,7 +36,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料2" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote allow-create placeholder="mat2"
+                        <client-only><el-select v-model="CM_Parameter.mat2" placeholder="mat2" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -49,7 +49,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料3" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat3" filterable remote allow-create placeholder="mat3"
+                        <client-only><el-select v-model="CM_Parameter.mat3" placeholder="mat3" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -62,7 +62,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料4" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote allow-create placeholder="mat4"
+                        <client-only><el-select v-model="CM_Parameter.mat2" placeholder="mat4" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -75,7 +75,7 @@
                     </el-form-item>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.result" filterable remote allow-create placeholder="result"
+                        <client-only><el-select v-model="CM_Parameter.result" placeholder="result" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
