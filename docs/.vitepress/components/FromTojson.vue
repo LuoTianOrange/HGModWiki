@@ -88,9 +88,18 @@ const remoteMethod = async (query) => {
             format: 'json'
         }
       }).then((r) => {
-        console.log(r)
+        //console.log(r)
         loading.value = false
-        options.value = [ { id: 1, name: '萝卜'} ]
+        if(!r.data) return;
+        let res = []
+        r.data.query.results.forEach((ai, i) => {
+            let v = ai.printouts
+            let src = v['图片'][0]
+            if (src.indexOf('.') === -1) src = src + '.png'
+            src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src
+            res.push({ id: v.Id[0], name: v['名称'][0], src: src })
+        })
+        options.value = res
       })
   } else {
     options.value = []
