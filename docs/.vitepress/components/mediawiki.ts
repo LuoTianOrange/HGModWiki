@@ -1,5 +1,5 @@
 import requests from './requests';
-import { dict, raise, isString, isNumber, showInfo } from './util';
+import { dict, isString, isNumber } from './util';
 import { toFormData } from 'axios';
 import * as http from 'http';
 import * as https from 'https';
@@ -69,7 +69,7 @@ export class MediaWiki {
         if (reason == 'Incorrect username or password entered. Please try again.') {
           reason = '账号或密码错误, 请确认后重试';
         }
-        raise(`登录失败 ${reason}`);
+        console.error(`登录失败 ${reason}`);
       }
     }
     await this.site_init();
@@ -194,33 +194,7 @@ export class MediaWiki {
         return '';
       }
     }
-
-    public async edit(text: string) {
-      if (!this.site.logged_in) {
-        raise('未登录');
-      }
-      if (!this.can('edit')) {
-        raise('上传错误: 无 edit 权限');
-      }
-      if (!this.site.writeapi) {
-        raise('当前站点无写api');
-      }
-
-      let token = await this.site.get_token('edit');
-      let res = await this.site.post('edit', {
-        title: this.name,
-        summary: `/* Edit ${this.name} by VSCode wikiSMTP Extensions */`,
-        text: text,
-        bot: 1,
-        token: token,
-      })
-      res = res['edit'];
-      if (res['result'] == 'Success') {
-        showInfo('编辑成功！');
-        return;
-      }
-      console.log(res);
-    }
+    
   }
 
   public async site_init(): Promise<void> {
