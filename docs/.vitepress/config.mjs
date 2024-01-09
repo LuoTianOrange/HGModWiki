@@ -5,6 +5,7 @@ export default defineConfig({
   title: "皓际大冒险Mod教程",
   base: "/HGModWiki/",
   description: "A VitePress Site",
+  image: "/public/启动.png",
   head: [
     [
       "meta",
