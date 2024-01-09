@@ -71,7 +71,6 @@ import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 import requests from './requests';
-import { MediaWiki } from './mediawiki';
 
 const loading = ref(false)
 const options = ref([])
@@ -79,22 +78,19 @@ const remoteMethod = async (query) => {
   //console.log(query)
   if (query) {
       loading.value = true
-      let config = {
-          host: 'hgadventure.huijiwiki.com',
-          bot: {
-              username: '',
-              password: '',
-          }
-      }
-      let mw = new MediaWiki(config);
-      await mw.site_init();
+      let url = 'https://hgadventure.huijiwiki.com/w/api.php'
       await requests.request({
-        url: 'https://hgadventure.huijiwiki.com/wiki/w/api.php?action=ask&query=[[type::物品]] [[id::1]]',
+        url: url,
         method: 'GET',
+        params: {
+            action: 'ask',
+            query: `[[type::物品]] [[id::${query}]] OR [[type::物品]] [[名称::${query}]]|?Id|?名称|?图片`,
+            format: 'json'
+        }
       }).then((r) => {
         console.log(r)
         loading.value = false
-        options.value = [ { id: 1, name: '土豆'} ]
+        options.value = [ { id: 1, name: '萝卜'} ]
       })
   } else {
     options.value = []
