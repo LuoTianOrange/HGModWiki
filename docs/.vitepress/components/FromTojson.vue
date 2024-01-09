@@ -79,12 +79,13 @@ const remoteMethod = async (query) => {
   if (query) {
       loading.value = true
       let url = 'https://hgadventure.huijiwiki.com/w/api.php'
+      
       await requests.request({
         url: url,
         method: 'GET',
         params: {
             action: 'ask',
-            query: `[[type::物品]] [[id::${query}]] OR [[type::物品]] [[名称::${query}]]|?Id|?名称|?图片`,
+            query: `[[type::物品]] [[${/^\d+$/.test(query) ? 'Id' : '名称'}::${query}]]|?Id|?名称|?图片`,
             format: 'json'
         }
       }).then((r) => {
