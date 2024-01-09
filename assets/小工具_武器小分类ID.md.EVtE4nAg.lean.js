@@ -1,0 +1,1 @@
+import{aw as t,p as d,m as r,aN as e}from"./chunks/framework.iUIbX1we.js";const m=JSON.parse('{"title":"ID对照表","description":"","frontmatter":{},"headers":[],"relativePath":"小工具/武器小分类ID.md","filePath":"小工具/武器小分类ID.md"}'),a={name:"小工具/武器小分类ID.md"},o=e("",5),n=[o];function i(h,s,_,l,c,p){return r(),d("div",null,n)}const u=t(a,[["render",i]]);export{m as __pageData,u as default};

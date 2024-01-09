@@ -1,1 +1,0 @@
-import{_ as t,c as d,o as r,U as e}from"./chunks/framework.wiSZYwxo.js";const u=JSON.parse('{"title":"ID对照表","description":"","frontmatter":{},"headers":[],"relativePath":"物品大分类ID.md","filePath":"物品大分类ID.md"}'),a={name:"物品大分类ID.md"},o=e("",5),n=[o];function i(l,c,m,s,h,_){return r(),d("div",null,n)}const f=t(a,[["render",i]]);export{u as __pageData,f as default};
