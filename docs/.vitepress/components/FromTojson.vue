@@ -262,6 +262,18 @@ const generateOutput = () => {
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
                 if (v === "") {
+                    if (k === 'mat1num' || k === 'resultnum') {
+                        return 1;
+                   }
+                    if (k === 'mat2num' && CM_Parameter.mat2 != '') {
+                        return 1;
+                    }
+                    if (k === 'mat3num' && CM_Parameter.mat3 != '') {
+                        return 1;
+                    }
+                    if (k === 'mat4num' && CM_Parameter.mat4 != '') {
+                        return 1;
+                    }
                     return;
                 }
                 if (typeof v === 'string'){
@@ -271,16 +283,8 @@ const generateOutput = () => {
                         return '只能是正整数';
                     }
                 } 
-                console.log(k, CM_Parameter)
-                if (k === 'mat2num' && CM_Parameter.mat2 != '') {
-                    return 1;
-                }
-                if (k === 'mat3num' && CM_Parameter.mat3 != '') {
-                    return 1;
-                }
-                if (k === 'mat4num' && CM_Parameter.mat4 != '') {
-                    return 1;
-                }
+                //console.log(k, CM_Parameter)
+                
                 return v;
             }, 4)
             break
