@@ -26,7 +26,7 @@
                         <client-only><el-select v-model="CM_Parameter.mat1" filterable remote allow-create placeholder="mat1"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                {{item.name}} <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
                         </el-select></client-only>
                     </el-form-item>
@@ -39,7 +39,7 @@
                         <client-only><el-select v-model="CM_Parameter.mat2" filterable remote allow-create placeholder="mat2"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                {{item.name}} <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
                         </el-select></client-only>
                     </el-form-item>
@@ -52,7 +52,7 @@
                         <client-only><el-select v-model="CM_Parameter.mat3" filterable remote allow-create placeholder="mat3"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                {{item.name}} <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
                         </el-select></client-only>
                     </el-form-item>
@@ -65,7 +65,7 @@
                         <client-only><el-select v-model="CM_Parameter.mat2" filterable remote allow-create placeholder="mat4"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                {{item.name}} <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
                         </el-select></client-only>
                     </el-form-item>
@@ -78,7 +78,7 @@
                         <client-only><el-select v-model="CM_Parameter.result" filterable remote allow-create placeholder="result"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                {{item.name}} <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
                         </el-select></client-only>
                     </el-form-item>
