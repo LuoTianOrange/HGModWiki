@@ -5,6 +5,7 @@ export default defineConfig({
   title: "皓际大冒险Mod教程",
   base: "/HGModWiki/",
   description: "A VitePress Site",
+  image: "/public/启动.png",
   head: [
     [
       "meta",
@@ -20,7 +21,7 @@ export default defineConfig({
       { text: '主页', link: '/' },
       { text: '开始', link: '/介绍/什么是MOD' },
       { text: '基础内容', link: '/基础内容/了解参数' },
-      { text: '小工具', link: '/小工具/JSON快速制作器/CM' }
+      { text: '小工具', link: '/小工具/JSON快速制作器#CM快速制作' }
     ],
 
     sidebar: [
