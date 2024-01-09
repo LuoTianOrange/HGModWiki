@@ -7,7 +7,7 @@ hero:
   text: "MOD编辑教程"
   tagline: Write by 灯火橘
   image:
-    src: /启动.png
+    src: https://s11.ax1x.com/2024/01/06/pizU8KK.png
     alt: logo
   actions:
     - theme: brand
