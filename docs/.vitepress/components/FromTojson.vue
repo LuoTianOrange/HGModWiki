@@ -74,7 +74,7 @@ import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 const CM_mat1 = ref('')
 const CM_mat1_loading = ref(false)
 const CM_mat1_options = ref([])
-const remoteMethod = (query: string) => {
+const remoteMethod = (query) => {
   if (query) {
     CM_mat1_loading.value = true
     setTimeout(() => {
