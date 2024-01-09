@@ -21,6 +21,12 @@
                         <el-label for="from">配方ID</el-label>
                         <el-input class="input-1" v-model.number="CM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
+                    <el-select v-model="CM_mat1" filterable remote reserve-keyword 
+                        :remote-method="remoteMethod" :loading="loading">
+                        <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
+                            <img src="{item.src}" /> {item.name}
+                        </el-option>
+                    </el-select>
                     <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
                         <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
                         <el-input class="input-1" v-model.number="CM_Parameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
@@ -63,6 +69,21 @@ import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 
+const CM_mat1 = ref('')
+const CM_mat1_loading = ref(false)
+const CM_mat1_options = ref([])
+const remoteMethod = function(query) {
+    if (query !== '') {
+        CM_mat1_loading.value = true;
+        setTimeout(() => {
+            CM_mat1_loading.value = false;
+            CM_mat1_options.value = [{ id: 1, name: '土豆'}]
+        }, 200);
+    } else {
+        CM_mat1_options.value = [];
+    }
+}
+    
 const activeName = ref('WSITEM')
 //工作站选择
 const places = ref([
