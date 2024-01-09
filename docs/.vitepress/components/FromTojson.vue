@@ -25,7 +25,7 @@
                         <client-only><el-select v-model="CM_Parameter.mat1" filterable remote placeholder="mat1"
                           :remote-method="remoteMethod" :loading="loading">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
-                                <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
+                                <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" /> {{item.name}}
                             </el-option>
                         </el-select></client-only>
                     </el-form-item>
