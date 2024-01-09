@@ -229,8 +229,10 @@ const CM_Parameter = reactive({
     mat2num: '',
     mat3: '',
     mat3num: '',
+    mat4: '',
+    mat4num: '',
     result: '',
-    resultnum: '',
+    resultnum: 1,
     place: 0
 })
 const WSAMMO_Parameter = reactive({
@@ -270,6 +272,15 @@ const generateOutput = () => {
                     }
                 } 
                 
+                if (k === 'mat2num' && CM_Parameter.mat2 != '') {
+                    return 1;
+                }
+                if (k === 'mat3num' && CM_Parameter.mat3 != '') {
+                    return 1;
+                }
+                if (k === 'mat4num' && CM_Parameter.mat4 != '') {
+                    return 1;
+                }
                 return v;
             }, 4)
             break
