@@ -24,7 +24,7 @@
                     <el-form-item label="mat1" class="labeldiv workspace">
                         <el-select v-model="CM_mat1" filterable remote placeholder=""
                           :remote-method="remoteMethod" :loading="loading">
-                            <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
+                            <el-option v-for="mat in CM_mat1_options" :key="mat.id" :value="mat.id">
                                 <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
                             </el-option>
                         </el-select>
@@ -34,7 +34,7 @@
                         <el-input class="input-1" v-model.number="CM_Parameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <el-form-item label="工作站" class="labeldiv workspace">
-                        <el-select v-model="CM_Parameter['place']" placeholder="请选择工作站" @change="generateOutput">
+                        <el-select v-model="CM_Parameter['place']" filterable placeholder="请选择工作站" @change="generateOutput">
                             <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
                             </el-option>
                         </el-select>
