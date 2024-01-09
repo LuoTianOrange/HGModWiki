@@ -25,7 +25,7 @@
                         <el-select v-model="CM_mat1" filterable remote placeholder="mat1"
                           :remote-method="remoteMethod" :loading="CM_mat1_loading">
                             <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
-                                <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{ item.name }}
+                                <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -33,12 +33,12 @@
                         <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
                         <el-input class="input-1" v-model.number="CM_Parameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    <el-form-item label="工作站" class="labeldiv workspace">
-                        <el-select v-model="CM_Parameter['place']" filterable placeholder="请选择工作站" @change="generateOutput">
-                            <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
+                    //<el-form-item label="工作站" class="labeldiv workspace">
+                    //    <el-select v-model="CM_Parameter['place']" filterable placeholder="请选择工作站" @change="generateOutput">
+                    //        <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
+                    //        </el-option>
+                    //    </el-select>
+                    //</el-form-item>
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
@@ -85,7 +85,7 @@ const remoteMethod = (query) => {
   } else {
     CM_mat1_options.value = []
   }
-  console.log(CM_mat1_options)
+  console.log(CM_mat1_options.value)
 }
     
 const activeName = ref('WSITEM')
@@ -243,9 +243,9 @@ const copyToClipboard = async () => {
 }
 
 
-onMounted(() => {
+//onMounted(() => {
   generateOutput()
-})
+//})
 </script>
 
 <style>
