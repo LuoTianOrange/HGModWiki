@@ -21,17 +21,17 @@
                         <el-label for="from">配方ID</el-label>
                         <el-input class="input-1" v-model.number="CM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    <el-form-item label="mat1" class="labeldiv workspace">
-                        <el-select v-model="CM_mat1" filterable remote placeholder="mat1"
-                          :remote-method="remoteMethod" :loading="CM_mat1_loading">
-                            <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
+                    <el-form-item label="材料1" class="labeldiv workspace">
+                        <el-select v-model="CM_Parameter['mat1']" filterable remote placeholder="mat1"
+                          :remote-method="remoteMethod" :loading="loading">
+                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
                             </el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
-                        <el-label for="from" v-if="label !== ''">{{ label }}</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter[CMlabelKey[index]]" v-if="label !== ''" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-label for="from">材料1数量</el-label>
+                        <el-input class="input-1" v-model.number="CM_Parameter['mat1num']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <el-form-item label="工作站" class="labeldiv workspace">
                         <el-select v-model="CM_Parameter['place']" filterable placeholder="请选择工作站" @change="generateOutput">
@@ -71,9 +71,9 @@ import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 
-const CM_mat1 = ref('')
-const CM_mat1_loading = ref(false)
-const CM_mat1_options = ref([])
+
+const loading = ref(false)
+const options = ref([])
 const remoteMethod = (query) => {
   console.log(query)
   if (query) {
@@ -159,15 +159,15 @@ const WSITEM_Parameter = reactive({
     ID: 0,
 })
 const CM_Parameter = reactive({
-    ID: 0,
-    mat1: 0,
-    mat1num: 0,
-    mat2: 0,
-    mat2num: 0,
-    mat3: 0,
-    mat3num: 0,
-    result: 0,
-    resultnum: 0,
+    ID: 10001,
+    mat1: '',
+    mat1num: 1,
+    mat2: '',
+    mat2num: '',
+    mat3: '',
+    mat3num: '',
+    result: '',
+    resultnum: '',
     place: 0
 })
 const WSAMMO_Parameter = reactive({
@@ -198,7 +198,7 @@ const generateOutput = () => {
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
                 if(v === "") {
-                    return 0
+                    return;
                 }
                 return v;
             }, 4)
