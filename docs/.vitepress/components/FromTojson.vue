@@ -271,7 +271,7 @@ const generateOutput = () => {
                         return '只能是正整数';
                     }
                 } 
-                
+                console.log(k, CM_Parameter)
                 if (k === 'mat2num' && CM_Parameter.mat2 != '') {
                     return 1;
                 }
