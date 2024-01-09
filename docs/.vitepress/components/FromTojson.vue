@@ -22,20 +22,20 @@
                         <el-input class="input-1" v-model.number="CM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <el-form-item label="材料1" class="labeldiv workspace">
-                        <el-select v-model="CM_Parameter['mat1']" filterable remote placeholder="mat1"
+                        <el-select v-model="CM_Parameter.mat1" filterable remote placeholder="mat1"
                           :remote-method="remoteMethod" :loading="loading">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
                             </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
+                    <el-form-item class="labeldiv">
                         <el-label for="from">材料1数量</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter['mat1num']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <el-form-item label="工作站" class="labeldiv workspace">
                         <el-select v-model="CM_Parameter['place']" filterable placeholder="请选择工作站" @change="generateOutput">
-                            <el-option v-for="place in places" :key="place.value" :label="place.key" :value="place.value">
+                            <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -77,15 +77,15 @@ const options = ref([])
 const remoteMethod = (query) => {
   console.log(query)
   if (query) {
-    CM_mat1_loading.value = true
+    loading.value = true
     setTimeout(() => {
-      CM_mat1_loading.value = false
-      CM_mat1_options.value = [ { id: 1, name: '土豆'} ]
+      loading.value = false
+      options.value = [ { id: 1, name: '土豆'} ]
     }, 200)
   } else {
-    CM_mat1_options.value = []
+    options.value = []
   }
-  console.log(CM_mat1_options.value)
+  console.log(options.value)
 }
     
 const activeName = ref('WSITEM')
