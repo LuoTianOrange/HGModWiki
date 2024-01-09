@@ -1,0 +1,11 @@
+.VPSidebarItem.level-0.has-active > .item > .indicator{
+  background-color: var(--vp-c-brand-1);
+}
+
+.VPSidebarItem.level-0 > .items {
+  padding-left: 5px;
+}
+
+.VPSidebarItem.level-2.is-active>.item>.indicator{
+    background-color: transparent !important;
+}

@@ -1,4 +1,4 @@
-<img src="https://s11.ax1x.com/2024/01/06/pizU8KK.png" width="200px" align="center">
+<img src="/docs/public/启动.png" width="200px" align="center">
 
 # 皓际大冒险 ModWIKI
 
@@ -25,5 +25,5 @@ npm install
 在安装完成后，你可以通过以下命令来运行本项目：
 
 ```bash
-npx vitepress dev docs 
+npm run dev
 ```

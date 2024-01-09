@@ -7,12 +7,12 @@ hero:
   text: "MOD编辑教程"
   tagline: Write by 灯火橘
   image:
-    src: https://s11.ax1x.com/2024/01/06/pizU8KK.png
-    alt: image
+    src: /启动.png
+    alt: logo
   actions:
     - theme: brand
       text: 开始
-      link: /什么是MOD
+      link: /介绍/什么是MOD
     # - theme: alt
     #   text: API Examples
     #   link: /api-examples
@@ -20,17 +20,14 @@ hero:
 features:
   - title: 土豆
     details: 一个土豆，能干什么呢
-    icon: 🥔
+    icon: 
+      src: https://hgadventure.huijiwiki.com/wiki/Special:FilePath/土豆.png
   - title: 西瓜
     details: 西瓜会越吃越饿
-    icon: 🍉
+    icon:
+      src: https://hgadventure.huijiwiki.com/wiki/Special:FilePath/大西瓜.png
   - title: 草莓
     details: 草莓，不是菠萝
-    icon: 🍓
+    icon:
+      src: https://hgadventure.huijiwiki.com/wiki/Special:FilePath/草莓.png
 ---
-![土豆](./image/tudou.png)
-
-![大西瓜](./image/大西瓜.png)
-
-![草莓](./image/草莓.png)
-

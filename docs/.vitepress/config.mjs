@@ -5,11 +5,20 @@ export default defineConfig({
   title: "皓际大冒险Mod教程",
   base: "/HGModWiki/",
   description: "A VitePress Site",
+  head: [
+    [
+      "meta",
+      {
+        name:"referrer",
+        content:"no-referrer"
+      }
+    ],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
-      { text: '开始', link: '/什么是MOD' },
+      { text: '开始', link: '/介绍/什么是MOD' },
       { text: '基础内容', link: '/了解参数' },
       { text: '小工具', link: '/JSON快速制作器' }
     ],
@@ -18,17 +27,17 @@ export default defineConfig({
       {
         text: '介绍',
         items: [
-          { text: '什么是MOD', link: '/什么是MOD' },
-          { text: '快速入门', link: '/快速入门' }
+          { text: '什么是MOD', link: '/介绍/什么是MOD' },
+          { text: '快速入门', link: '/介绍/快速入门' }
         ]
       },
       {
         text: '基础内容',
         items: [
-          { text: '了解参数', link: '/了解参数' },
-          { text: '多物品', link: '/多物品' },
-          { text: '自定义弹幕', link: '/自定义弹幕' },
-          { text: '异常处理', link: '/异常处理' },
+          { text: '了解参数', link: '/基础内容/了解参数' },
+          { text: '多物品', link: '/基础内容/多物品' },
+          { text: '自定义弹幕', link: '/基础内容/自定义弹幕' },
+          { text: '异常处理', link: '/基础内容/异常处理' },
         ]
       },
       // {
@@ -40,15 +49,19 @@ export default defineConfig({
       {
         text: '小工具',
         items: [
-          { text: 'JSON快速制作器', link: '/JSON快速制作器' },
-          { text: '物品大分类ID', link: '/物品大分类ID' },
-          { text: '武器小分类ID', link: '/武器小分类ID' },
-          { text: '建筑小分类ID', link: '/建筑小分类ID' },
-          { text: '伤害类型ID', link: '/伤害类型ID' },
-          { text: '弹幕ID', link: '/弹幕ID' },
-          { text: '物品ID', link: '/物品ID' },
-          { text: '工作站ID', link: '/工作站ID' },
-          { text: '随机生成器', link: '/随机生成器' },
+          { text: 'JSON快速制作器', items: [
+            { text: 'CM', link: '/小工具/JSON快速制作器/CM' },
+            { text: 'WSITEM', link: '/小工具/JSON快速制作器/WSITEM'},
+            { text: 'WSAMMO', link: '/小工具/JSON快速制作器/WSAMMO'},
+          ] },
+          { text: '物品大分类ID', link: '/小工具/物品大分类ID' },
+          { text: '武器小分类ID', link: '/小工具/武器小分类ID' },
+          { text: '建筑小分类ID', link: '/小工具/建筑小分类ID' },
+          { text: '伤害类型ID', link: '/小工具/伤害类型ID' },
+          { text: '弹幕ID', link: '/小工具/弹幕ID' },
+          { text: '物品ID', link: '/小工具/物品ID' },
+          { text: '工作站ID', link: '/小工具/工作站ID' },
+          { text: '随机生成器', link: '/小工具/随机生成器' },
         ]
       }
     ],
