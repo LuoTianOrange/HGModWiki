@@ -23,7 +23,7 @@
                     </el-form-item>
                     <div style="width: 100%; "></div>
                     <el-form-item label="材料1" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat1" placeholder="mat1" filterable remote allow-create default-first-option 
+                        <client-only><el-select v-model="CM_Parameter.mat1" clearable placeholder="mat1" filterable remote allow-create default-first-option 
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -36,7 +36,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料2" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" placeholder="mat2" filterable remote allow-create default-first-option
+                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat2" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -49,7 +49,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料3" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat3" placeholder="mat3" filterable remote allow-create default-first-option
+                        <client-only><el-select v-model="CM_Parameter.mat3" clearable placeholder="mat3" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -62,7 +62,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料4" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" placeholder="mat4" filterable remote allow-create default-first-option
+                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat4" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -75,7 +75,7 @@
                     </el-form-item>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.result" placeholder="result" filterable remote allow-create default-first-option
+                        <client-only><el-select v-model="CM_Parameter.result" clearable placeholder="result" filterable remote allow-create default-first-option
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
@@ -262,18 +262,11 @@ const generateOutput = () => {
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
                 if (v === "") {
-                    if (k === 'mat1num' || k === 'resultnum') {
-                        return 1;
-                   }
-                    if (k === 'mat2num' && CM_Parameter.mat2 != '') {
-                        return 1;
-                    }
-                    if (k === 'mat3num' && CM_Parameter.mat3 != '') {
-                        return 1;
-                    }
-                    if (k === 'mat4num' && CM_Parameter.mat4 != '') {
-                        return 1;
-                    }
+                    if (k === 'mat1' || k === 'result') return '必填';
+                    if (k === 'mat1num' || k === 'resultnum') return 1;
+                    if (k === 'mat2num' && CM_Parameter.mat2 != '') return 1;
+                    if (k === 'mat3num' && CM_Parameter.mat3 != '') return 1;                    
+                    if (k === 'mat4num' && CM_Parameter.mat4 != '') return 1;
                     return;
                 }
                 if (typeof v === 'string'){
