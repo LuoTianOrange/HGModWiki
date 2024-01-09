@@ -25,7 +25,7 @@
                         <el-select v-model="CM_mat1" filterable remote placeholder="mat1"
                           :remote-method="remoteMethod" :loading="CM_mat1_loading">
                             <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
-                                <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
+                                <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{ item.name }}
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -85,7 +85,7 @@ const remoteMethod = (query) => {
   } else {
     CM_mat1_options.value = []
   }
-  console.log(CM_mat1_options.value)
+  console.log(CM_mat1_options)
 }
     
 const activeName = ref('WSITEM')
