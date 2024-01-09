@@ -149,7 +149,7 @@ const WSAMMO_Parameter = reactive({
     ID: 0,
 })
 
-const CMlabelKey = ref(Object.keys(CMParameter))
+const CMlabelKey = ref(Object.keys(CM_Parameter))
 const WSITEM_Output = ref('')
 const CM_Output = ref('')
 const WSAMMO_Output = ref('')
