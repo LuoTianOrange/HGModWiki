@@ -91,9 +91,10 @@ const remoteMethod = async (query) => {
         //console.log(r)
         loading.value = false
         if(!r.data) return;
+        let r = r.data.query.results
         let res = []
-        r.data.query.results.forEach((ai, i) => {
-            let v = ai.printouts
+        Object.keys(r).forEach(i => {
+            let v = r[i].printouts
             let src = v['图片'][0]
             if (src.indexOf('.') === -1) src = src + '.png'
             src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src
