@@ -22,9 +22,9 @@
                         <el-input class="input-1" v-model.number="CM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <el-form-item label="mat1" class="labeldiv workspace">
-                        <el-select v-model="CM_mat1" filterable remote placeholder=""
-                          :remote-method="remoteMethod" :loading="loading">
-                            <el-option v-for="mat in CM_mat1_options" :key="mat.id" :value="mat.id">
+                        <el-select v-model="CM_mat1" filterable remote placeholder="mat1"
+                          :remote-method="remoteMethod" :loading="CM_mat1_loading">
+                            <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
                                 <img :src="item.src" style="width:16px;height:16px" v-if="item.src" /> {{item.name}}
                             </el-option>
                         </el-select>
