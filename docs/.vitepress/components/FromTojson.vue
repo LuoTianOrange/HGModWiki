@@ -23,7 +23,7 @@
                     </el-form-item>
                     <div style="width: 100%; "></div>
                     <el-form-item label="材料1" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat1" filterable remote placeholder="mat1"
+                        <client-only><el-select v-model="CM_Parameter.mat1" filterable remote allow-create placeholder="mat1"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
@@ -36,7 +36,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料2" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote placeholder="mat2"
+                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote allow-create placeholder="mat2"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
@@ -49,7 +49,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料3" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat3" filterable remote placeholder="mat3"
+                        <client-only><el-select v-model="CM_Parameter.mat3" filterable remote allow-create placeholder="mat3"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
@@ -62,7 +62,7 @@
                     </el-form-item>
 
                     <el-form-item label="材料4" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote placeholder="mat4"
+                        <client-only><el-select v-model="CM_Parameter.mat2" filterable remote allow-create placeholder="mat4"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
@@ -75,7 +75,7 @@
                     </el-form-item>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.result" filterable remote placeholder="result"
+                        <client-only><el-select v-model="CM_Parameter.result" filterable remote allow-create placeholder="result"
                           :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? '(' + item.name +')' : '')" :value="item.id">
                                 {{item.name}} <img :src="item.src" style="width:16px;height:16px;display:inline-block" v-if="item.src" />
@@ -145,6 +145,7 @@ const remoteMethod = async (query) => {
       }).then((r) => {
         console.log(r.data)
         loading.value = false
+        options.value = []
         if(!r.data || !r.data.query.results) return;
         r = r.data.query.results
         let res = []
