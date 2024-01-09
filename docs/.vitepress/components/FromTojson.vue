@@ -71,25 +71,34 @@ import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 import requests from './requests';
+import { MediaWiki } from './mediawiki';
 
 const loading = ref(false)
 const options = ref([])
 const remoteMethod = async (query) => {
-  console.log(query)
+  //console.log(query)
   if (query) {
-    loading.value = true
-    await requests.request({
-      url: 'https://baidu.com',
-      method: 'GET',
-    }).then((r) => {
-      console.log(r)
-      loading.value = false
-      options.value = [ { id: 1, name: '土豆'} ]
-    })
+      loading.value = true
+      let config = {
+          host: 'hgadventure.huijiwiki.com',
+          bot: {
+              username: '',
+              password: '',
+          }
+      }
+      let mw = new MediaWiki(config);
+      await mw.site_init();
+      await requests.request({
+        url: 'https://hgadventure.huijiwiki.com/wiki/w/api.php?action=ask&query=[[type::物品]] [[id::1]]',
+        method: 'GET',
+      }).then((r) => {
+        console.log(r)
+        loading.value = false
+        options.value = [ { id: 1, name: '土豆'} ]
+      })
   } else {
     options.value = []
   }
-  console.log(options.value)
 }
     
 const activeName = ref('WSITEM')
