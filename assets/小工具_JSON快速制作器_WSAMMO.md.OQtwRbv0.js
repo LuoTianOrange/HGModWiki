@@ -1,0 +1,1 @@
+import{aw as e,p as t,m as a}from"./chunks/framework.iUIbX1we.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"小工具/JSON快速制作器/WSAMMO.md","filePath":"小工具/JSON快速制作器/WSAMMO.md"}'),r={name:"小工具/JSON快速制作器/WSAMMO.md"};function o(s,n,c,p,d,i){return a(),t("div")}const f=e(r,[["render",o]]);export{_ as __pageData,f as default};
