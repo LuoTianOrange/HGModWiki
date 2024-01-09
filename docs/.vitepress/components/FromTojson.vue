@@ -71,19 +71,19 @@ import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DocumentCopy,Plus } from '@element-plus/icons-vue'
 
-const CM_mat1 = ''
-const CM_mat1_loading = false
-const CM_mat1_options = []
+const CM_mat1 = ref('')
+const CM_mat1_loading = ref(false)
+const CM_mat1_options = ref([])
 const remoteMethod = function(query) {
     console.log(query)
     if (query !== '') {
-        CM_mat1_loading = true;
+        CM_mat1_loading.value = true;
         setTimeout(() => {
-            CM_mat1_loading = false;
-            CM_mat1_options = [{ id: 1, name: '土豆'}]
+            CM_mat1_loading.value = false;
+            CM_mat1_options.value = [{ id: 1, name: '土豆'}]
         }, 200);
     } else {
-        CM_mat1_options = [];
+        CM_mat1_options.value = [];
     }
 }
     
