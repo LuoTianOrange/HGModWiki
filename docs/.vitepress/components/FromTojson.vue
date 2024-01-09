@@ -24,7 +24,7 @@
                     <el-select v-model="CM_mat1" filterable remote reserve-keyword 
                         :remote-method="remoteMethod" :loading="loading">
                         <el-option v-for="item in CM_mat1_options" :key="item.id" :label="item.name" :value="item.id">
-                            <img src="{item.src}" /> {item.name}
+                            <img :src="item.src" style="width:16px;height:16px" /> {{item.name}}
                         </el-option>
                     </el-select>
                     <el-form-item v-for="(label, index) in CMlabel" :key="index" class="labeldiv">
