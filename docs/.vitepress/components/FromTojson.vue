@@ -18,11 +18,11 @@
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">物品中文名</el-label>
-                        <el-input class="input-1" v-model.number="WSITEM_Parameter.nameCn" placeholder="nameCn" @input="generateOutput" clearable type="text" show-word-limit />
+                        <el-input class="input-1" v-model="WSITEM_Parameter.nameCn" placeholder="nameCn" @input="generateOutput" clearable type="text" />
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">物品英文名</el-label>
-                        <el-input class="input-1" v-model.number="WSITEM_Parameter.nameEn" placeholder="nameEn" @input="generateOutput" clearable type="text" show-word-limit />
+                        <el-input class="input-1" v-model="WSITEM_Parameter.nameEn" placeholder="nameEn" @input="generateOutput" clearable type="text" />
                     </el-form-item>
                 </el-form>
                 <div style="margin-top: 20px;">
@@ -277,7 +277,7 @@ const toUnicode = function (s) {
       while (r.length < 4) {
         r = '0' + r;
       }
-      r = '\u' + r;
+      r = '\\u' + r;
     }
     res += r;
   }
