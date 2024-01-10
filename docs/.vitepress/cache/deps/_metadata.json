@@ -1,44 +1,50 @@
 {
-  "hash": "31e72ffa",
+  "hash": "4615ae69",
   "configHash": "04ab93e3",
-  "lockfileHash": "44cd0d01",
-  "browserHash": "785acbac",
+  "lockfileHash": "9a33d99e",
+  "browserHash": "dc6c9bf3",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "beefb6e8",
+      "fileHash": "4597fd29",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "e0e475eb",
+      "fileHash": "1927be00",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "6af09b10",
+      "fileHash": "dc687ff9",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "eb0244a4",
+      "fileHash": "ce63ca7d",
       "needsInterop": false
     },
     "@element-plus/icons-vue": {
       "src": "../../../../node_modules/@element-plus/icons-vue/dist/index.js",
       "file": "@element-plus_icons-vue.js",
-      "fileHash": "3f0e5e24",
+      "fileHash": "be843acf",
       "needsInterop": false
     },
     "vue-clipboard2": {
       "src": "../../../../node_modules/vue-clipboard2/vue-clipboard.js",
       "file": "vue-clipboard2.js",
-      "fileHash": "81bac1f8",
+      "fileHash": "8e904463",
       "needsInterop": true
+    },
+    "axios": {
+      "src": "../../../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "4a6352e2",
+      "needsInterop": false
     }
   },
   "chunks": {
@@ -48,8 +54,8 @@
     "chunk-TISNN2FI": {
       "file": "chunk-TISNN2FI.js"
     },
-    "chunk-LQ2VYIYD": {
-      "file": "chunk-LQ2VYIYD.js"
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
     }
   }
 }

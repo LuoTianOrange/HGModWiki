@@ -1,6 +1,6 @@
 import {
   __commonJS
-} from "./chunk-LQ2VYIYD.js";
+} from "./chunk-ZS7NZCD4.js";
 
 // node_modules/clipboard/dist/clipboard.min.js
 var require_clipboard_min = __commonJS({
