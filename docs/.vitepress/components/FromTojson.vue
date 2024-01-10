@@ -279,7 +279,7 @@ const toUnicode = function (s) {
       while (r.length < 4) {
         r = '0' + r;
       }
-      r = '\\u' + r;
+      r = `\u${r}`;
     }
     res += r;
   }
@@ -326,8 +326,8 @@ const generateOutput = () => {
                         return '只能是正整数';
                     }
                 } 
-                if (typeof v === 'int') {
-                    if ((k === 'mat2num' && CM_Parameter.mat2 === '')|| (k === 'mat3num' && CM_Parameter.mat2 === '') || (k === 'mat4num && CM_Parameter.mat2 === '')) return;
+                if (typeof v === 'number') {
+                    if ((k === 'mat2num' && CM_Parameter.mat2 === '') || (k === 'mat3num' && CM_Parameter.mat2 === '') || (k === 'mat4num' && CM_Parameter.mat2 === '')) return;
                 }
                 //console.log(k, CM_Parameter)
                 
