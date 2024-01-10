@@ -271,7 +271,7 @@ const handleClick = function(tab, e) {
 }
 
 const toUnicode = function (s) {
-  return s.replace(/[^\x20-\x7F]/g, x => "\\u" + ("000"+x.codePointAt(0).toString(16)).slice(-4));
+  return s.replace(/[^\x00-\x7F]/g, x => "\\u" + ("000"+x.codePointAt(0).toString(16)).slice(-4));
 }
     
 //生成json
