@@ -279,7 +279,7 @@ const toUnicode = function (s) {
       while (r.length < 4) {
         r = '0' + r;
       }
-      r = `\u${r}`;
+      r = String.raw`\u${r}`;
     }
     res += r;
   }
