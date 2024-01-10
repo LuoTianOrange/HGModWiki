@@ -267,7 +267,7 @@ const WSAMMO_Output = ref('')
 
 const handleClick = function(tab, e) {
     //console.log(tab, e);
-    generateOutput()
+    setTimeout(generateOutput, 10);
 }
 
 const toUnicode = function (s) {
@@ -362,9 +362,9 @@ const copyToClipboard = async () => {
 }
 
 
-//onMounted(() => {
+onMounted(() => {
   generateOutput()
-//})
+})
 </script>
 
 <style>
