@@ -267,6 +267,20 @@ const handleClick = function(tab, e) {
     //console.log(tab, e);
     generateOutput()
 }
+
+const toUnicode = function (s) {
+  var res = '';
+  for (var i = 0; i < theString.length; i++) {
+    var r = s.charCodeAt(i).toString(16).toUpperCase();
+    while (r.length < 4) {
+      r = '0' + r;
+    }
+    r = '\\u' + r;
+    res += r;
+  }
+  return res;
+}
+    
 //生成json
 const generateOutput = () => {
     // console.log(CM_Parameter)  
@@ -277,6 +291,16 @@ const generateOutput = () => {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
+                if (typeof v === 'string'){
+                    if (k === 'GOBJID') {
+                        if (/^\d+$/.test(v)) {
+                            return parseInt(v);
+                        } else {
+                            return '只能是正整数';
+                        }
+                    }
+                    return toUnicode(v);
+                } 
                 return v;
             }, 4)
             break
