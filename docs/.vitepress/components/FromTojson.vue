@@ -16,8 +16,11 @@
                                 @change="generateOutput">
                                 <el-option v-for="item in options" :key="item.id"
                                     :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
-                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                    <span style="vertical-align: top;">{{ item.name }}</span>
+                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                        v-if="item.src" />
+                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                        item.id }}</span>
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
@@ -56,8 +59,11 @@
                                 @change="generateOutput">
                                 <el-option v-for="item in options" :key="item.id"
                                     :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
-                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                    <span style="vertical-align: top;">{{ item.name }}</span>
+                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                        v-if="item.src" />
+                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                        item.id }}</span>
                                 </el-option>
                             </el-select>
                         </client-only>
@@ -75,8 +81,11 @@
                                 @change="generateOutput">
                                 <el-option v-for="item in options" :key="item.id"
                                     :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
-                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                    <span style="vertical-align: top;">{{ item.name }}</span>
+                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                        v-if="item.src" />
+                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                        item.id }}</span>
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
@@ -93,8 +102,11 @@
                                 @change="generateOutput" style="width: 100%">
                                 <el-option v-for="item in options" :key="item.id"
                                     :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
-                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                    <span style="vertical-align: top;">{{ item.name }}</span>
+                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                        v-if="item.src" />
+                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                        item.id }}</span>
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
@@ -111,12 +123,15 @@
                                 @change="generateOutput">
                                 <el-option v-for="item in options" :key="item.id"
                                     :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
-                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                    <span style="vertical-align: top;">{{ item.name }}</span>
+                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                        v-if="item.src" />
+                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                        item.id }}</span>
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
-                    <el-form-item class="labeldiv" >
+                    <el-form-item class="labeldiv">
                         <el-label for="from">材料4数量</el-label>
                         <el-input-number class="input-1" v-model.number="CM_Parameter.mat4num" placeholder="mat4num"
                             :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
@@ -129,8 +144,11 @@
                                 @change="generateOutput">
                                 <el-option v-for="item in options" :key="item.id"
                                     :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
-                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                    <span style="vertical-align: top;">{{ item.name }}</span>
+                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                        v-if="item.src" />
+                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                        item.id }}</span>
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
@@ -455,5 +473,4 @@ onMounted(() => {
 .el-form-item__content {
     flex-direction: column !important;
     align-items: flex-start !important;
-}
-</style>
+}</style>
