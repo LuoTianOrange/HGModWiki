@@ -274,7 +274,7 @@ const toUnicode = function (s) {
   var res = '';
   for (var i = 0; i < s.length; i++) {
     var r = s.charAt(i);
-    if (!/[0-9a-zA-Z]/.test(r)) {
+    if (s.charCodeAt(i) > 127) {
       r = s.charCodeAt(i).toString(16).toUpperCase();
       while (r.length < 4) {
         r = '0' + r;
