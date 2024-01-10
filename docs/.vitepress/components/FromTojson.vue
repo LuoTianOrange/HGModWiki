@@ -400,12 +400,17 @@ const WSITEM_ph = reactive([
 const WSITEM_build = reactive([
     ['建筑生命值', 'BuildHP'],
 ])
-
+//是否近战攻击
 const isCloseATK = ref('否')
+//是否随机攻击角度
 const isRDAngle = ref('否')
+//是否有碰撞器
 const iscollider = ref('否')
+//是否在表面
 const issurface = ref('否')
+//是否在水中
 const isBdInSea = ref('否')
+//是否可放于副手
 const isOHand = ref('否')
 //物品分类
 const itemTypeGroup = ref([

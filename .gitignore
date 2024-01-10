@@ -17,6 +17,7 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 docs/.vitepress/cache
+.VSCodeCounter
 
 # Editor directories and files
 .vscode/*
