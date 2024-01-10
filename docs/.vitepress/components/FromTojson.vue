@@ -238,7 +238,7 @@ const remoteMethod = async (query) => {
 
 const activeName = ref('WSITEM')
 //工作站选择
-const places = ref([
+const places = [
     { key: '工作台', value: 0 },
     { key: '熔炉', value: 1 },
     { key: '随手制造', value: 2 },
@@ -289,7 +289,7 @@ const places = ref([
     { key: '法法商店', value: 47 },
     { key: '魔石熔炉', value: 48 },
     { key: '核子熔炉', value: 49 },
-])
+]
 
 const WSITEM_Parameter = reactive({
     ID: 10001,
@@ -450,7 +450,7 @@ const RateGroup = [
     { 'key' : 'MX', 'value' : 9 },
     { 'key' : 'EX', 'value' : 10 },
     { 'key' : 'GX', 'value' : 11 }
-])
+]
 
 const CM_Parameter = reactive({
     ID: 10001,
