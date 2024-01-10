@@ -111,7 +111,7 @@
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <div style="width: 100%; "></div>
-                    <template v-for="(ai,i) in [1,0,0,1]">
+                    <template v-for="(ai,i) in [1,0,0,0]">
                       <el-form-item :label="'材料'+(i+1)" class="labeldiv workspace">
                         <client-only>
                             <el-select v-model="CM_Parameter['mat'+(i+1)]" clearable :placeholder="'mat'+(i+1)" filterable remote
