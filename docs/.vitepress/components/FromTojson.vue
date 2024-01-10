@@ -56,8 +56,8 @@
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="{{k[0]}}" class="labeldiv workspace" v-for="k in [['力量补正','STRRate'],['智力补正','INTRate'],['技巧补正','TECRate']]">
-                            <el-select v-model="WSITEM_Parameter[k[1]]" clearable placeholder="k[1]" filterable @change="generateOutput">
+                        <el-form-item :label="k[0]" class="labeldiv workspace" v-for="k in [['力量补正','STRRate'],['智力补正','INTRate'],['技巧补正','TECRate']]">
+                            <el-select v-model="WSITEM_Parameter[k[1]]" clearable :placeholder="k[1]" filterable @change="generateOutput">
                                 <el-option v-for="i in RateGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
@@ -88,7 +88,7 @@
                         <el-form-item label="是否是地板" class="labeldiv workspace">
                             <el-switch v-model="WSITEM_Parameter.surface" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                         </el-form-item>
-                        <el-form-item label="是否在水中" class="labeldiv workspace">
+                        <el-form-item label="是否只能放在液体中" class="labeldiv workspace">
                             <el-switch v-model="WSITEM_Parameter.BdInSea" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                         </el-form-item>
                     </el-form>
@@ -112,9 +112,9 @@
                     </el-form-item>
                     <div style="width: 100%; "></div>
                     <span v-for="(ai,i) in [1,0,0,1]">
-                      <el-form-item label="材料{{i+1}}" class="labeldiv workspace">
+                      <el-form-item :label="'材料'+(i+1)" class="labeldiv workspace">
                         <client-only>
-                            <el-select v-model="CM_Parameter['mat'+(i+1)]" clearable placeholder="mat{{i+1}}" filterable remote
+                            <el-select v-model="CM_Parameter['mat'+(i+1)]" clearable :placeholder="'mat'+(i+1)" filterable remote
                                 allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
                                 @change="generateOutput">
                                 <el-option v-for="item in options" :key="item.id"
@@ -130,7 +130,7 @@
                       </el-form-item>
                       <el-form-item class="labeldiv el-from-item">
                         <el-label for="from">材料{{i+1}}数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter['mat'+(i+1)+'num']" placeholder="mat{{i+1}}num"
+                        <el-input-number class="input-1" v-model.number="CM_Parameter['mat'+(i+1)+'num']" :placeholder="'mat'+(i+1)+'num'"
                             min="{{i+1}}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                             clearable maxlength="10" type="text" show-word-limit />
                       </el-form-item>
