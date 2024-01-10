@@ -367,7 +367,9 @@ const generateOutput = () => {
                     }
                 }
                 if (typeof v === 'number') {
-                    if ((k === 'mat2num' && CM_Parameter.mat2 === '') || (k === 'mat3num' && CM_Parameter.mat2 === '') || (k === 'mat4num' && CM_Parameter.mat2 === '')) return;
+                    if ((k === 'mat2num' && CM_Parameter.mat2 === '') || 
+                        (k === 'mat3num' && CM_Parameter.mat3 === '') || 
+                        (k === 'mat4num' && CM_Parameter.mat4 === '')) return;
                 }
                 //console.log(k, CM_Parameter)
 
