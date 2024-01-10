@@ -270,7 +270,7 @@ const handleClick = function(tab, e) {
 
 const toUnicode = function (s) {
   var res = '';
-  for (var i = 0; i < theString.length; i++) {
+  for (var i = 0; i < s.length; i++) {
     var r = s.charCodeAt(i).toString(16).toUpperCase();
     while (r.length < 4) {
       r = '0' + r;
