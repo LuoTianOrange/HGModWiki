@@ -5,24 +5,31 @@
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
                         <el-label for="from">物品ID</el-label>
-                        <el-input class="input-1" v-model.number="WSITEM_Parameter.ID" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input class="input-1" v-model.number="WSITEM_Parameter.ID"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                            maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="模板物品ID" class="labeldiv workspace">
-                        <client-only><el-select v-model="WSITEM_Parameter.GOBJID" clearable placeholder="GOBJID" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
-                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
-                            </el-option>
-                        </el-select></client-only>
+                        <client-only><el-select v-model="WSITEM_Parameter.GOBJID" clearable placeholder="GOBJID" filterable
+                                remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
+                                @change="generateOutput">
+                                <el-option v-for="item in options" :key="item.id"
+                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
+                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                </el-option>
+                            </el-select></client-only>
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">物品中文名</el-label>
-                        <el-input class="input-1" v-model="WSITEM_Parameter.nameCn" placeholder="nameCn" @input="generateOutput" clearable type="text" />
+                        <el-input class="input-1" v-model="WSITEM_Parameter.nameCn" placeholder="nameCn"
+                            @input="generateOutput" clearable type="text" />
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">物品英文名</el-label>
-                        <el-input class="input-1" v-model="WSITEM_Parameter.nameEn" placeholder="nameEn" @input="generateOutput" clearable type="text" />
+                        <el-input class="input-1" v-model="WSITEM_Parameter.nameEn" placeholder="nameEn"
+                            @input="generateOutput" clearable type="text" />
                     </el-form-item>
                 </el-form>
                 <div style="margin-top: 20px;">
@@ -32,99 +39,132 @@
                         class="el-place" />
                 </div>
             </el-tab-pane>
-            
+
             <el-tab-pane label="CM" name="CM">
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
                         <el-label for="from">配方ID</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter.ID" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input class="input-1" v-model.number="CM_Parameter.ID"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                            maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <div style="width: 100%; "></div>
                     <el-form-item label="材料1" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat1" clearable placeholder="mat1" filterable remote allow-create default-first-option 
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
-                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
-                            </el-option>
-                        </el-select></client-only>
+                        <client-only>
+                            <el-select v-model="CM_Parameter.mat1" clearable placeholder="mat1" filterable remote
+                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
+                                @change="generateOutput">
+                                <el-option v-for="item in options" :key="item.id"
+                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
+                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                </el-option>
+                            </el-select>
+                        </client-only>
                     </el-form-item>
-                    <el-form-item class="labeldiv">
+                    <el-form-item class="labeldiv el-from-item">
                         <el-label for="from">材料1数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num" :min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num"
+                            :min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="材料2" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat2" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
-                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
-                            </el-option>
-                        </el-select></client-only>
+                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat2" filterable remote
+                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
+                                @change="generateOutput">
+                                <el-option v-for="item in options" :key="item.id"
+                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
+                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                </el-option>
+                            </el-select></client-only>
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">材料2数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat2num" placeholder="mat2num" :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat2num" placeholder="mat2num"
+                            :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="材料3" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat3" clearable placeholder="mat3" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput" style="width: 100%">
-                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
-                            </el-option>
-                        </el-select></client-only>
+                        <client-only><el-select v-model="CM_Parameter.mat3" clearable placeholder="mat3" filterable remote
+                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
+                                @change="generateOutput" style="width: 100%">
+                                <el-option v-for="item in options" :key="item.id"
+                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
+                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                </el-option>
+                            </el-select></client-only>
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">材料3数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat3num" placeholder="mat3num" :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat3num" placeholder="mat3num"
+                            :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="材料4" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat4" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
-                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
-                            </el-option>
-                        </el-select></client-only>
+                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat4" filterable remote
+                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
+                                @change="generateOutput">
+                                <el-option v-for="item in options" :key="item.id"
+                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                    <span style="vertical-align: top;">{{ item.name }}</span> <img :src="item.src"
+                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                </el-option>
+                            </el-select></client-only>
                     </el-form-item>
-                    <el-form-item class="labeldiv">
+                    <el-form-item class="labeldiv" >
                         <el-label for="from">材料4数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat4num" placeholder="mat4num" :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat4num" placeholder="mat4num"
+                            :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.result" clearable placeholder="result" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
-                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
-                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
-                            </el-option>
-                        </el-select></client-only>
+                        <client-only><el-select v-model="CM_Parameter.result" clearable placeholder="result" filterable
+                                remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
+                                @change="generateOutput">
+                                <el-option v-for="item in options" :key="item.id"
+                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                    <span style="vertical-align: top;">{{ item.name }}</span> 
+                                    <img :src="item.src"
+                                        style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                                    <span style="float:right;color:#ccc">{{ item.id }}</span>
+                                </el-option>
+                            </el-select></client-only>
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">输出物品数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.resultnum" placeholder="resultnum" :min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.resultnum" placeholder="resultnum"
+                            :min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    
+
                     <el-form-item label="工作站" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.place" filterable placeholder="请选择工作站" @change="generateOutput" style="width: 100%">
-                            <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
-                            </el-option>
-                        </el-select></client-only>
+                        <client-only><el-select v-model="CM_Parameter.place" filterable placeholder="请选择工作站"
+                                @change="generateOutput" style="width: 100%">
+                                <el-option v-for="item in places" :key="item.value" :label="item.key" :value="item.value">
+                                </el-option>
+                            </el-select></client-only>
                     </el-form-item>
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
-                    <el-input type="textarea" :rows="12" v-model="CM_Output" style="margin-top: 20px;"
-                        class="el-place" />
+                    <el-input type="textarea" :rows="12" v-model="CM_Output" style="margin-top: 20px;" class="el-place" />
                 </div>
             </el-tab-pane>
-            
+
             <el-tab-pane label="WSAMMO" name="WSAMMO">
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
                         <el-label for="from">弹幕ID</el-label>
-                        <el-input class="input-1" v-model.number="WSAMMO_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter['ID']"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                            maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                 </el-form>
                 <div style="margin-top: 20px;">
@@ -135,53 +175,53 @@
                 </div>
             </el-tab-pane>
         </el-tabs>
-        
+
     </div>
 </template>
 
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-import { DocumentCopy,Plus } from '@element-plus/icons-vue'
+import { DocumentCopy, Plus } from '@element-plus/icons-vue'
 import requests from './requests';
 
 const loading = ref(false)
 const options = ref([])
 const remoteMethod = async (query) => {
-  //console.log(query)
-  if (query) {
-      loading.value = true
-      let url = 'https://hgadventure.huijiwiki.com/w/api.php'
-      
-      await requests.request({
-        url: url,
-        method: 'GET',
-        params: {
-            action: 'ask',
-            query: `[[type::物品]] [[${/^\d+$/.test(query) ? 'Id' : '名称'}::~${query}]]|?Id|?名称|?图片`,
-            format: 'json'
-        }
-      }).then((r) => {
-        console.log(r.data)
-        loading.value = false
-        options.value = []
-        if(!r.data || !r.data.query.results) return;
-        r = r.data.query.results
-        let res = []
-        Object.keys(r).forEach(i => {
-            let v = r[i].printouts
-            let src = v['图片'][0]
-            if (src.indexOf('.') === -1) src = src + '.png'
-            src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src
-            res.push({ id: v.Id[0], name: v['名称'][0], src: src })
+    //console.log(query)
+    if (query) {
+        loading.value = true
+        let url = 'https://hgadventure.huijiwiki.com/w/api.php'
+
+        await requests.request({
+            url: url,
+            method: 'GET',
+            params: {
+                action: 'ask',
+                query: `[[type::物品]] [[${/^\d+$/.test(query) ? 'Id' : '名称'}::~${query}]]|?Id|?名称|?图片`,
+                format: 'json'
+            }
+        }).then((r) => {
+            console.log(r.data)
+            loading.value = false
+            options.value = []
+            if (!r.data || !r.data.query.results) return;
+            r = r.data.query.results
+            let res = []
+            Object.keys(r).forEach(i => {
+                let v = r[i].printouts
+                let src = v['图片'][0]
+                if (src.indexOf('.') === -1) src = src + '.png'
+                src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src
+                res.push({ id: v.Id[0], name: v['名称'][0], src: src })
+            })
+            options.value = res
         })
-        options.value = res
-      })
-  } else {
-    options.value = []
-  }
+    } else {
+        options.value = []
+    }
 }
-    
+
 const activeName = ref('WSITEM')
 //工作站选择
 const places = ref([
@@ -265,26 +305,26 @@ const WSITEM_Output = ref('')
 const CM_Output = ref('')
 const WSAMMO_Output = ref('')
 
-const handleClick = function(tab, e) {
+const handleClick = function (tab, e) {
     //console.log(tab, e);
     setTimeout(generateOutput, 10);
 }
 
 const toUnicode = function (s) {
-  return s.replace(/[^\x00-\x7F]/g, x => "\\u" + ("000"+x.codePointAt(0).toString(16)).slice(-4));
+    return s.replace(/[^\x00-\x7F]/g, x => "\\u" + ("000" + x.codePointAt(0).toString(16)).slice(-4));
 }
-    
+
 //生成json
 const generateOutput = () => {
     // console.log(CM_Parameter)  
     switch (activeName.value) {
         case 'WSITEM':
             WSITEM_Output.value = JSON.stringify(WSITEM_Parameter, (k, v) => {
-                if(v === "") {
+                if (v === "") {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
-                if (typeof v === 'string'){
+                if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
                             return parseInt(v);
@@ -293,7 +333,7 @@ const generateOutput = () => {
                         }
                     }
                     return toUnicode(v);
-                } 
+                }
                 return v;
             }, 4).replace('\\\\u', '\\u')
             break
@@ -303,35 +343,35 @@ const generateOutput = () => {
                     if (k === 'mat1' || k === 'result') return '必填';
                     if (k === 'mat1num' || k === 'resultnum') return 1;
                     if (k === 'mat2num' && CM_Parameter.mat2 != '') return 1;
-                    if (k === 'mat3num' && CM_Parameter.mat3 != '') return 1;                    
+                    if (k === 'mat3num' && CM_Parameter.mat3 != '') return 1;
                     if (k === 'mat4num' && CM_Parameter.mat4 != '') return 1;
                     return;
                 }
-                if (typeof v === 'string'){
+                if (typeof v === 'string') {
                     if (/^\d+$/.test(v)) {
                         return parseInt(v);
                     } else {
                         return '只能是正整数';
                     }
-                } 
+                }
                 if (typeof v === 'number') {
                     if ((k === 'mat2num' && CM_Parameter.mat2 === '') || (k === 'mat3num' && CM_Parameter.mat2 === '') || (k === 'mat4num' && CM_Parameter.mat2 === '')) return;
                 }
                 //console.log(k, CM_Parameter)
-                
+
                 return v;
             }, 4)
             break
         case 'WSAMMO':
             WSAMMO_Output.value = JSON.stringify(WSAMMO_Parameter, (k, v) => {
-                if(v === "") {
+                if (v === "") {
                     return;
                 }
                 return v;
             }, 4)
             break
     }
-    
+
 }
 //复制文本到剪切板
 const copyToClipboard = async () => {
@@ -363,7 +403,7 @@ const copyToClipboard = async () => {
 
 
 onMounted(() => {
-  generateOutput()
+    generateOutput()
 })
 </script>
 
@@ -412,5 +452,10 @@ onMounted(() => {
     .el-place {
         width: 500px;
     }
+}
+
+.el-form-item__content {
+    flex-direction: column !important;
+    align-items: flex-start !important;
 }
 </style>
