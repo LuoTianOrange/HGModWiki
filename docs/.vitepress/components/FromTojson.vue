@@ -5,7 +5,24 @@
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
                         <el-label for="from">物品ID</el-label>
-                        <el-input class="input-1" v-model.number="WSITEM_Parameter['ID']" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input class="input-1" v-model.number="WSITEM_Parameter.ID" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+
+                    <el-form-item label="模板物品ID" class="labeldiv workspace">
+                        <client-only><el-select v-model="WSITEM_Parameter.GOBJID" clearable placeholder="GOBJID" filterable remote allow-create default-first-option
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
+                            <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
+                                <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
+                            </el-option>
+                        </el-select></client-only>
+                    </el-form-item>
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">物品中文名</el-label>
+                        <el-input class="input-1" v-model.number="WSITEM_Parameter.nameCn" placeholder="nameCn" @input="generateOutput" clearable type="text" show-word-limit />
+                    </el-form-item>
+                    <el-form-item class="labeldiv">
+                        <el-label for="from">物品英文名</el-label>
+                        <el-input class="input-1" v-model.number="WSITEM_Parameter.nameEn" placeholder="nameEn" @input="generateOutput" clearable type="text" show-word-limit />
                     </el-form-item>
                 </el-form>
                 <div style="margin-top: 20px;">
@@ -32,7 +49,7 @@
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">材料1数量</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="材料2" class="labeldiv workspace">
@@ -219,7 +236,10 @@ const places = ref([
 ])
 
 const WSITEM_Parameter = reactive({
-    ID: 0,
+    ID: 10001,
+    GOBJID: '',
+    nameCn: '',
+    nameEn: '',
 })
 const CM_Parameter = reactive({
     ID: 10001,
@@ -254,6 +274,7 @@ const generateOutput = () => {
         case 'WSITEM':
             WSITEM_Output.value = JSON.stringify(WSITEM_Parameter, (k, v) => {
                 if(v === "") {
+                    if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
                 return v;
