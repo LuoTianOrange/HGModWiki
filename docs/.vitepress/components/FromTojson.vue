@@ -271,13 +271,13 @@ const handleClick = function(tab, e) {
 const toUnicode = function (s) {
   var res = '';
   for (var i = 0; i < s.length; i++) {
-    var r = s.charCodeAt(i);
+    var r = i;
     if (!/[0-9a-zA-Z]/.test(s.charCodeAt(i))) {
-      var r = r.toString(16).toUpperCase();
+      r = s.charCodeAt(i).toString(16).toUpperCase();
       while (r.length < 4) {
         r = '0' + r;
       }
-      r = '\\u' + r;
+      r = '\u' + r;
     }
     res += r;
   }
