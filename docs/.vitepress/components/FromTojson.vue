@@ -25,7 +25,7 @@
                     </el-form-item>
                     <el-form-item class="labeldiv" v-for="i in WSITEM_ph">
                         <el-label for="from">{{ i[0] }}</el-label>
-                        <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[0]"
+                        <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" />
                     </el-form-item>
                     <el-form-item label="物品类型" class="labeldiv workspace">
@@ -36,9 +36,8 @@
                             </el-select>
                         </client-only>
                     </el-form-item>
-                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="isOHand" @change="generateOutput">
-                        <el-switch v-model="WSITEM_Parameter.isOHand" inline-prompt active-text="是" inactive-text="否">
-                        </el-switch>
+                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="isOHand" >
+                        <el-switch v-model="WSITEM_Parameter.isOHand" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                     </el-form-item>
                 </el-form>
                 
@@ -52,40 +51,23 @@
                             </el-select>
                         </el-form-item>
                         <el-form-item label="伤害类型" class="labeldiv workspace">
-                            <el-select>
+                            <el-select v-model="WSITEM_Parameter.demageType" clearable placeholder="demageType" filterable @change="generateOutput">
                                 <el-option v-for="i in damageTypeGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="力量补正" class="labeldiv workspace">
-                            <el-select>
-                                <el-option v-for="i in STRRateGroup" :key="i.index" :label="i.key"
+                        <el-form-item label="{{k[0]}}" class="labeldiv workspace" v-for="k in [['力量补正','STRRate'],['智力补正','INTRate'],['技巧补正','TECRate']]">
+                            <el-select v-model="WSITEM_Parameter[k[1]]" clearable placeholder="k[1]" filterable @change="generateOutput">
+                                <el-option v-for="i in RateGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="智力补正" class="labeldiv workspace">
-                            <el-select>
-                                <el-option v-for="i in INTRateGroup" :key="i.index" :label="i.key"
-                                    :value="i.value"></el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="技巧补正" class="labeldiv workspace">
-                            <el-select>
-                                <el-option v-for="i in TECRateGroup" :key="i.index" :label="i.key"
-                                    :value="i.value"></el-option>
-                            </el-select>
-                        </el-form-item>
+                        
                         <el-form-item label="是否近战攻击" class="labeldiv workspace">
-                            <el-radio-group v-model="isCloseATK">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                            <el-switch v-model="WSITEM_Parameter.CloseATK" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                         </el-form-item>
                         <el-form-item label="是否随机攻击角度" class="labeldiv workspace">
-                            <el-radio-group v-model="isRDAngle">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                            <el-switch v-model="WSITEM_Parameter.RDAngle" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                         </el-form-item>
                     </el-form>
                 </div>
@@ -95,28 +77,19 @@
                     <el-form class="labelbox">
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">建筑生命值</el-label>
-                            <el-input-number class="input-1" v-model.number="WSITEM_build.BuildHP" placeholder="BuildHP"
+                            <el-input-number class="input-1" v-model.number="WSITEM_Parameter.BuildHP" placeholder="BuildHP"
                                 :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <div style="width: 100%;"></div>
                         <el-form-item label="是否有碰撞器" class="labeldiv workspace">
-                            <el-radio-group v-model="iscollider">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                            <el-switch v-model="WSITEM_Parameter.collider" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                         </el-form-item>
-                        <el-form-item label="是否在表面" class="labeldiv workspace">
-                            <el-radio-group v-model="issurface">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                        <el-form-item label="是否是地板" class="labeldiv workspace">
+                            <el-switch v-model="WSITEM_Parameter.surface" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                         </el-form-item>
                         <el-form-item label="是否在水中" class="labeldiv workspace">
-                            <el-radio-group v-model="isBdInSea">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                            <el-switch v-model="WSITEM_Parameter.BdInSea" inline-prompt size="large" active-text="是" inactive-text="否" @change="generateOutput" />
                         </el-form-item>
                     </el-form>
                 </div>
@@ -203,7 +176,7 @@
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
                         <el-label for="from">弹幕ID</el-label>
-                        <el-input class="input-1" v-model.number="WSAMMO_Parameter['ID']"
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.ID"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
@@ -328,34 +301,29 @@ const WSITEM_Parameter = reactive({
     itemType: '',
     isOHand: false,
     weaponType: '',
+    demageType: '',
+    STRRate: '',
+    INTRate: '',
+    TECRate: '',
+    CloseATK: false,
+    RDAngle: false,
+    BuildHP: '',
+    collider: false,
+    surface: false,
+    BdInSea: false,
 })
-const WSITEM_ph = reactive([
+const WSITEM_ph = [
     ['物品中文名', 'nameCn'],
     ['物品英文名', 'nameEn'],
     ['物品描述', 'description'],
-    ['攻击力', 'atk'],
+    ['攻击力（饱食度）', 'atk'],
     ['图片路径', 'iconPath'],
     ['最大堆叠数量', 'maxNum'],
     ['物品价格', 'price'],
-])
+]
 
-const WSITEM_build = reactive([
-    ['建筑生命值', 'BuildHP'],
-])
-//是否近战攻击
-const isCloseATK = ref('否')
-//是否随机攻击角度
-const isRDAngle = ref('否')
-//是否有碰撞器
-const iscollider = ref('否')
-//是否在表面
-const issurface = ref('否')
-//是否在水中
-const isBdInSea = ref('否')
-//是否可放于副手
-const isOHand = ref('否')
 //物品分类
-const itemTypeGroup = ref([
+const itemTypeGroup = [
     { 'key': '未知(礼物)', 'value': 1 },
     { 'key': '工具', 'value': 2 },
     { 'key': '武器', 'value': 3 },
@@ -396,8 +364,8 @@ const itemTypeGroup = ref([
     { 'key': '盲盒', 'value': 38 },
     { 'key': '鱼饵', 'value': 39 },
     { 'key': '肥料', 'value': 40 },
-    { 'key': '未知(?)', 'value': 41 },
-    { 'key': '未知(?)', 'value': 42 },
+    { 'key': '未知(导线)', 'value': 41 },
+    { 'key': '未知(剪线器)', 'value': 42 },
     { 'key': '陨石', 'value': 43 },
     { 'key': '未知(藏宝图)', 'value': 44 },
     { 'key': '土壤肥料', 'value': 45 },
@@ -423,9 +391,9 @@ const itemTypeGroup = ref([
     { 'key': '动物', 'value': 65 },
     { 'key': '辅助机', 'value': 66 },
     { 'key': '物质线', 'value': 67 }
-])
+]
 //武器小分类
-const weaponTypeGroup = ref([
+const weaponTypeGroup = [
     { 'key': '特殊', 'value': 1 },
     { 'key': '剑', 'value': 2 },
     { 'key': '短剑', 'value': 3 },
@@ -452,9 +420,9 @@ const weaponTypeGroup = ref([
     { 'key': '回旋镖', 'value': 24 },
     { 'key': '元素爆破', 'value': 25 },
     { 'key': '枪剑', 'value': 26 }
-])
+]
 //伤害类型
-const damageTypeGroup = ref([
+const damageTypeGroup = [
     { 'key': '未知', 'value': -1 },
     { 'key': '魔法', 'value': 1 },
     { 'key': '魔物', 'value': 2 },
@@ -466,9 +434,10 @@ const damageTypeGroup = ref([
     { 'key': '暗伤害', 'value': 8 },
     { 'key': '元素', 'value': 9 },
     { 'key': '未知', 'value': 10 }
-])
-//力量补正
-const STRRateGroup = ref([
+]
+    
+//补正
+const RateGroup = [
     { 'key' : '无', 'value' : 0 },
     { 'key' : 'E', 'value' : 1 },
     { 'key' : 'D', 'value' : 2 },
@@ -482,36 +451,7 @@ const STRRateGroup = ref([
     { 'key' : 'EX', 'value' : 10 },
     { 'key' : 'GX', 'value' : 11 }
 ])
-//智力补正
-const INTRateGroup = ref([
-    { 'key' : '无', 'value' : 0 },
-    { 'key' : 'E', 'value' : 1 },
-    { 'key' : 'D', 'value' : 2 },
-    { 'key' : 'C', 'value' : 3 },
-    { 'key' : 'B', 'value' : 4 },
-    { 'key' : 'A', 'value' : 5 },
-    { 'key' : 'S', 'value' : 6 },
-    { 'key' : 'SS', 'value' : 7 },
-    { 'key' : 'SSS', 'value' : 8 },
-    { 'key' : 'MX', 'value' : 9 },
-    { 'key' : 'EX', 'value' : 10 },
-    { 'key' : 'GX', 'value' : 11 }
-])
-//技巧补正
-const TECRateGroup = ref([
-    { 'key' : '无', 'value' : 0 },
-    { 'key' : 'E', 'value' : 1 },
-    { 'key' : 'D', 'value' : 2 },
-    { 'key' : 'C', 'value' : 3 },
-    { 'key' : 'B', 'value' : 4 },
-    { 'key' : 'A', 'value' : 5 },
-    { 'key' : 'S', 'value' : 6 },
-    { 'key' : 'SS', 'value' : 7 },
-    { 'key' : 'SSS', 'value' : 8 },
-    { 'key' : 'MX', 'value' : 9 },
-    { 'key' : 'EX', 'value' : 10 },
-    { 'key' : 'GX', 'value' : 11 }
-])
+
 const CM_Parameter = reactive({
     ID: 10001,
     mat1: '',
@@ -553,6 +493,19 @@ const generateOutput = () => {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
+                if (WSITEM_Parameter.itemType != 3 && 
+                    (k === 'weaponType' || 
+                     k === 'demageType' || 
+                     k === 'STRRate' || 
+                     k === 'INTRate' || 
+                     k === 'TECRate' || 
+                     k === 'CloseATK' || 
+                     k === 'RDAngle' )) return;
+                if (WSITEM_Parameter.itemType != 7 && 
+                    (k === 'BuildHP' || 
+                     k === 'collider' || 
+                     k === 'surface' || 
+                     k === 'BdInSea' )) return;
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
