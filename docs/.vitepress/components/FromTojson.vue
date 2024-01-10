@@ -279,7 +279,7 @@ const generateOutput = () => {
     // console.log(CM_Parameter)  
     switch (activeName.value) {
         case 'WSITEM':
-            WSITEM_Output.value = toUnicode(JSON.stringify(WSITEM_Parameter, (k, v) => {
+            WSITEM_Output.value = JSON.stringify(WSITEM_Parameter, (k, v) => {
                 if(v === "") {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
@@ -292,9 +292,10 @@ const generateOutput = () => {
                             return '只能是正整数';
                         }
                     }
+                    return toUnicode(v);
                 } 
                 return v;
-            }, 4))
+            }, 4).replace('\\\\u', '\\u')
             break
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
