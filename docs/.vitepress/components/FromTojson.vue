@@ -36,11 +36,9 @@
                             </el-select>
                         </client-only>
                     </el-form-item>
-                    <el-form-item label="是否可放于副手" class="labeldiv workspace">
-                        <el-radio-group v-model="isOHand">
-                            <el-radio-button label="是" />
-                            <el-radio-button label="否" />
-                        </el-radio-group>
+                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="isOHand" @change="generateOutput">
+                        <el-switch v-model="WSITEM_Parameter.isOHand" inline-prompt active-text="是" inactive-text="否">
+                        </el-switch>
                     </el-form-item>
                 </el-form>
                 
@@ -48,7 +46,7 @@
                     <el-label style="font-size: 1.3rem;">武器专用参数</el-label>
                     <el-form class="labelbox">
                         <el-form-item label="武器类型" class="labeldiv workspace">
-                            <el-select>
+                            <el-select v-model="WSITEM_Parameter.weaponType" clearable placeholder="weaponType" filterable @change="generateOutput">
                                 <el-option v-for="i in weaponTypeGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
@@ -245,7 +243,7 @@ const remoteMethod = async (query) => {
                 format: 'json'
             }
         }).then((r) => {
-            console.log(r.data)
+            //console.log(r.data)
             loading.value = false
             options.value = []
             if (!r.data || !r.data.query.results) return;
@@ -328,6 +326,8 @@ const WSITEM_Parameter = reactive({
     description: '',
     atk: '',
     itemType: '',
+    isOHand: false,
+    weaponType: '',
 })
 const WSITEM_ph = reactive([
     ['物品中文名', 'nameCn'],
