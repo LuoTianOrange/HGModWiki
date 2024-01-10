@@ -271,19 +271,7 @@ const handleClick = function(tab, e) {
 }
 
 const toUnicode = function (s) {
-  var res = '';
-  for (var i = 0; i < s.length; i++) {
-    var r = s.charAt(i);
-    if (s.charCodeAt(i) > 127) {
-      r = s.charCodeAt(i).toString(16).toUpperCase();
-      while (r.length < 4) {
-        r = '0' + r;
-      }
-      r = String.raw`\u${r}`;
-    }
-    res += r;
-  }
-  return res;
+  return s.replace(/[^\x20-\x7F]/g, x => "\\u" + ("000"+x.codePointAt(0).toString(16)).slice(-4));
 }
     
 //生成json
@@ -291,7 +279,7 @@ const generateOutput = () => {
     // console.log(CM_Parameter)  
     switch (activeName.value) {
         case 'WSITEM':
-            WSITEM_Output.value = JSON.stringify(WSITEM_Parameter, (k, v) => {
+            WSITEM_Output.value = toUnicode(JSON.stringify(WSITEM_Parameter, (k, v) => {
                 if(v === "") {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
@@ -304,10 +292,9 @@ const generateOutput = () => {
                             return '只能是正整数';
                         }
                     }
-                    return toUnicode(v);
                 } 
                 return v;
-            }, 4)
+            }, 4))
             break
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
