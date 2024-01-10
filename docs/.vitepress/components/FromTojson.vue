@@ -32,6 +32,7 @@
                         class="el-place" />
                 </div>
             </el-tab-pane>
+            
             <el-tab-pane label="CM" name="CM">
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
@@ -49,7 +50,7 @@
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">材料1数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num" :min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="材料2" class="labeldiv workspace">
@@ -62,7 +63,7 @@
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">材料2数量</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter.mat2num" placeholder="mat2num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat2num" placeholder="mat2num" :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="材料3" class="labeldiv workspace">
@@ -75,7 +76,7 @@
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">材料3数量</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter.mat3num" placeholder="mat3num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat3num" placeholder="mat3num" :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="材料4" class="labeldiv workspace">
@@ -88,7 +89,7 @@
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">材料4数量</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter.mat4num" placeholder="mat4num" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat4num" placeholder="mat4num" :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
@@ -101,7 +102,7 @@
                     </el-form-item>
                     <el-form-item class="labeldiv">
                         <el-label for="from">输出物品数量</el-label>
-                        <el-input class="input-1" v-model.number="CM_Parameter.resultnum" placeholder="resultnum" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
+                        <el-input-number class="input-1" v-model.number="CM_Parameter.resultnum" placeholder="resultnum" :min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     
                     <el-form-item label="工作站" class="labeldiv workspace">
@@ -118,6 +119,7 @@
                         class="el-place" />
                 </div>
             </el-tab-pane>
+            
             <el-tab-pane label="WSAMMO" name="WSAMMO">
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
