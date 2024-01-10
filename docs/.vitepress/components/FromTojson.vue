@@ -271,6 +271,7 @@ const handleClick = function(tab, e) {
 const toUnicode = function (s) {
   var res = '';
   for (var i = 0; i < s.length; i++) {
+    if (/[0-9a-zA-Z]/.test(s.charCodeAt(i))) continue;
     var r = s.charCodeAt(i).toString(16).toUpperCase();
     while (r.length < 4) {
       r = '0' + r;
