@@ -10,7 +10,7 @@
 
                     <el-form-item label="模板物品ID" class="labeldiv workspace">
                         <client-only><el-select v-model="WSITEM_Parameter.GOBJID" clearable placeholder="GOBJID" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput" style="width: 100%">
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
@@ -42,7 +42,7 @@
                     <div style="width: 100%; "></div>
                     <el-form-item label="材料1" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.mat1" clearable placeholder="mat1" filterable remote allow-create default-first-option 
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput" style="width: 100%">
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
@@ -55,7 +55,7 @@
 
                     <el-form-item label="材料2" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat2" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput" style="width: 100%">
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
@@ -81,7 +81,7 @@
 
                     <el-form-item label="材料4" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat4" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput" style="width: 100%">
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
@@ -94,7 +94,7 @@
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.result" clearable placeholder="result" filterable remote allow-create default-first-option
-                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput" style="width: 100%">
+                          :remote-method="remoteMethod" :loading="loading" @change="generateOutput">
                             <el-option v-for="item in options" :key="item.id" :label="item.id + (item.name ? ' (' + item.name +')' : '')" :value="item.id">
                                 <span style="vertical-align: top;">{{item.name}}</span> <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block" v-if="item.src" />
                             </el-option>
@@ -396,6 +396,10 @@ const copyToClipboard = async () => {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.workspace .el-select__input {
+    width: 100% !important;
 }
 
 @media screen and (width <=768px) {
