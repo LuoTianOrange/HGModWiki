@@ -111,7 +111,7 @@
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <div style="width: 100%; "></div>
-                    <span v-for="(ai,i) in [1,0,0,1]">
+                    <template v-for="(ai,i) in [1,0,0,1]">
                       <el-form-item :label="'材料'+(i+1)" class="labeldiv workspace">
                         <client-only>
                             <el-select v-model="CM_Parameter['mat'+(i+1)]" clearable :placeholder="'mat'+(i+1)" filterable remote
@@ -134,7 +134,7 @@
                             min="{{i+1}}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                             clearable maxlength="10" type="text" show-word-limit />
                       </el-form-item>
-                    </span>
+                    </template>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.result" clearable placeholder="result" filterable
