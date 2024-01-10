@@ -21,7 +21,7 @@ export default defineConfig({
       { text: '主页', link: '/' },
       { text: '开始', link: '/介绍/什么是MOD' },
       { text: '基础内容', link: '/基础内容/了解参数' },
-      { text: '小工具', link: '/小工具/JSON快速制作器#CM快速制作' }
+      { text: '小工具', link: '/小工具/JSON快速制作器' }
     ],
 
     sidebar: [
@@ -50,11 +50,7 @@ export default defineConfig({
       {
         text: '小工具',
         items: [
-          { text: 'JSON快速制作器', link: '/小工具/JSON快速制作器', items: [
-            { text: 'CM', link: '/小工具/JSON快速制作器#CM快速制作' },
-            { text: 'WSITEM', link: '/小工具/JSON快速制作器#WSITEM快速制作'},
-            { text: 'WSAMMO', link: '/小工具/JSON快速制作器#WSAMMO快速制作'},
-          ] },
+          { text: 'JSON快速制作器', link: '/小工具/JSON快速制作器' },
           { text: '物品大分类ID', link: '/小工具/物品大分类ID' },
           { text: '武器小分类ID', link: '/小工具/武器小分类ID' },
           { text: '建筑小分类ID', link: '/小工具/建筑小分类ID' },
