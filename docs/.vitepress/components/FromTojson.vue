@@ -131,7 +131,7 @@
                       <el-form-item class="labeldiv el-from-item">
                         <el-label for="from">材料{{i+1}}数量</el-label>
                         <el-input-number class="input-1" v-model.number="CM_Parameter['mat'+(i+1)+'num']" :placeholder="'mat'+(i+1)+'num'"
-                            min="{{i+1}}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            :min="ai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                             clearable maxlength="10" type="text" show-word-limit />
                       </el-form-item>
                     </template>
