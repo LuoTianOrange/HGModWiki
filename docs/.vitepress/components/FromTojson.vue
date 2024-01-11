@@ -355,7 +355,8 @@ const remoteMethod = async (query) => {
             let res = []
             if (WSITEM_Parameter.ID) res.push({ id: WSITEM_Parameter.ID, name: WSITEM_Parameter.nameCn });
             //console.log(Object.values(r))
-            r = Object.values(r).sort((a, b) => {return similar(b.printouts['名称'][0], query) - similar(a.printouts['名称'][0], query)})
+            r = Object.values(r)
+            r.sort((a, b) => {return similar(b.printouts['名称'][0], query) - similar(a.printouts['名称'][0], query)})
             r.forEach(i => {
                 let v = i.printouts
                 let src = v['图片'][0]
