@@ -65,6 +65,27 @@
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
+                        <el-form-item class="labeldiv" v-for="i in [['最小攻击力', 'miniATK'], ['弹幕ID', 'AmmoID']]">
+                          <el-label for="from">{{ i[0] }}</el-label>
+                          <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                            @input="generateOutput" clearable type="text" />
+                        </el-form-item>
+                        
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">弹幕数量</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter.AmmoNum" placeholder="AmmoNum"
+                            @input="generateOutput" clearable :min="1" />
+                        </el-form-item>
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">攻击速度（实际值=该值除100）</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter.atkSpeed" placeholder="atkSpeed"
+                            @input="generateOutput" clearable :min="0" :max="2000" />
+                        </el-form-item>
+                        <el-form-item class="labeldiv" v-for="i in [['魔力消耗（实际值=该值除100）', 'MPCost'], ['生命消耗（实际值=该值除100）', 'HPCost'], ['耐力消耗（实际值=该值除100）', 'EPCost'], ['G值消耗（实际值=该值除10）', 'GCost'], ['过载消耗', 'OLCost']]">
+                          <el-label for="from">{{i[0]}}</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                            @input="generateOutput" clearable :min="0" />
+                        </el-form-item>
                         
                         <el-form-item label="是否近战攻击" class="labeldiv workspace">
                             <el-radio-group v-model="WSITEM_Parameter.CloseATK" @change="generateOutput">
@@ -72,11 +93,28 @@
                           <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                         </el-form-item>
+                        
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">攻击角度</el-label>
+                          <el-input class="input-1" v-model="WSITEM_Parameter.DAngle" :placeholder="DAngle"
+                            @input="generateOutput" clearable type="text" />
+                        </el-form-item>
                         <el-form-item label="是否随机攻击角度" class="labeldiv workspace">
-                            <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
-                          <el-radio-button :label="true">是</el-radio-button>
-                          <el-radio-button :label="false">否</el-radio-button>
-                        </el-radio-group>
+                          <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
+                            <el-radio-button :label="true">是</el-radio-button>
+                            <el-radio-button :label="false">否</el-radio-button>
+                          </el-radio-group>
+                        </el-form-item>
+                        
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">反作用力</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter.PPower" placeholder="PPower"
+                            @input="generateOutput" clearable :min="0" />
+                        </el-form-item>
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">使用弹药类型</el-label>
+                          <el-input class="input-1" v-model="WSITEM_Parameter.UseAType" :placeholder="UseAType"
+                            @input="generateOutput" clearable type="text" />
                         </el-form-item>
                     </el-form>
                 </div>
@@ -85,11 +123,43 @@
                     <el-label style="font-size: 1.3rem;">建筑专用参数</el-label>
                     <el-form class="labelbox">
                         <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">大建筑类型</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.BDType" placeholder="BDType"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="number" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">建筑类型</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.BuildingType" placeholder="BuildingType"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="number" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">光照颜色</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightColor" placeholder="LightColor"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="number" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">光照范围</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightRange" placeholder="LightColor"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="number" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">光照强度</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightIntensity" placeholder="LightIntensity"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="number" show-word-limit />
+                        </el-form-item>
+                        
+                        <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">建筑生命值</el-label>
                             <el-input-number class="input-1" v-model.number="WSITEM_Parameter.BuildHP" placeholder="BuildHP"
                                 :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
+                        
                         <div style="width: 100%;"></div>
                         <el-form-item label="是否有碰撞器" class="labeldiv workspace">
                             <el-radio-group v-model="WSITEM_Parameter.collider" @change="generateOutput">
@@ -329,6 +399,9 @@ const WSITEM_Parameter = reactive({
     collider: false,
     surface: false,
     BdInSea: false,
+    Size: '',
+    FposX: '',
+    FposY: '',
 })
 const WSITEM_ph = [
     ['物品中文名', 'nameCn'],
@@ -338,6 +411,9 @@ const WSITEM_ph = [
     ['图片路径', 'iconPath'],
     ['最大堆叠数量', 'maxNum'],
     ['物品价格', 'price'],
+    ['贴图大小', 'Size'],
+    ['贴图位置X', 'FposX'],
+    ['贴图位置Y', 'FposY'],
 ]
 
 //物品分类
@@ -518,9 +594,24 @@ const generateOutput = () => {
                      k === 'INTRate' || 
                      k === 'TECRate' || 
                      k === 'CloseATK' || 
-                     k === 'RDAngle' )) return;
+                     k === 'RDAngle' ||
+                     k === 'AmmoID' ||
+                     k === 'atkSpeed' || 
+                     k === 'MPCost' ||
+                     k === 'HPCost' ||
+                     k === 'EPCost' ||
+                     k === 'GCost' ||
+                     k === 'OLCost' ||
+                     k === 'DAngle' ||
+                     k === 'PPower' ||
+                     k === 'UseAType')) return;
                 if (WSITEM_Parameter.itemType != 7 && 
-                    (k === 'BuildHP' || 
+                    (k === 'BDType' || 
+                     k === 'BuildingType' || 
+                     k === 'LightColor' ||
+                     k === 'LightRange' ||
+                     k === 'LightIntensity' ||
+                     k === 'BuildHP' || 
                      k === 'collider' || 
                      k === 'surface' || 
                      k === 'BdInSea' )) return;
