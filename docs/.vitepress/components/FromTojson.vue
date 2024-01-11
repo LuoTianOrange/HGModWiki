@@ -142,11 +142,11 @@
                             <el-input class="input-1" v-model="WSITEM_Parameter.LightColor" placeholder="LightColor"
                                 @input="generateOutput"
                                 clearable maxlength="8" type="text" show-word-limit />
-                            <client-only><el-color-picker v-model="WSITEM_Parameter.LightColor" show-alpha :predefine="['#ff4b4b','#55f5ff', '#ffff00', '#ff7c81', '#fb6e92', '#7c9eff', '#81fe7c', '#ffaa4b', 'green', '#006da0', '#7b92ff', '#eda4ff', '#fea500', '#ff7061', '#fffe84', '916df6', '93c0ff', '93fdff', '93ffc3', 'c3c3c3', 'snow']" @change="generateOutput" /></client-only>
+                            <client-only><el-color-picker v-model="WSITEM_Parameter.LightColor" show-alpha color-format="hex" :predefine="['#ff4b4b','#55f5ff', '#ffff00', '#ff7c81', '#fb6e92', '#7c9eff', '#81fe7c', '#ffaa4b', 'green', '#006da0', '#7b92ff', '#eda4ff', '#fea500', '#ff7061', '#fffe84', '916df6', '93c0ff', '93fdff', '93ffc3', 'c3c3c3', 'snow']" @change="generateOutput" /></client-only>
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">光照范围</el-label>
-                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightRange" placeholder="LightColor"
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightRange" placeholder="LightRange"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
@@ -462,7 +462,7 @@ const WSITEM_Parameter = reactive({
     UseAType: '',
     BDType: '',
     BuildingType: '',
-    LightColor: 'ffffffff',
+    LightColor: '',
     LightRange: '',
     LightIntensity: '',
     BuildHP: '',
