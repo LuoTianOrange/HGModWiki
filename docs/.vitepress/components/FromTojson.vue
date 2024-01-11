@@ -186,6 +186,34 @@
                     </el-form>
                 </div>
                 
+                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)">
+                    <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
+                    <el-form class="labelbox">
+                      <el-row :gutter="5" v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
+                        <el-col :span="10">
+                          <el-form-item class="labeldiv">
+                            <el-label for="from">Buff ID</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.buffs[index]" placeholder="buff ID"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="text" show-word-limit />
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="10">
+                          <el-form-item class="labeldiv">
+                            <el-label for="from">Buff等级</el-label>
+                            <el-input-number class="input-1" v-model="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
+                                :min="1" @input="generateOutput"
+                                clearable maxlength="10" />
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="4" style="display: flex;justify-content: center;align-items: center;">
+                          <el-button type="primary" :icon="Plus" circle v-if="index == 0" @click="addBuff"/>
+                          <el-button type="danger" :icon="Minus" circle v-if="index != 0" @click="delBuff(index)"/>
+                        </el-col>
+                      </el-row>
+                    </el-form>
+                </div>
+                
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
@@ -288,7 +316,7 @@
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-import { DocumentCopy, Plus } from '@element-plus/icons-vue'
+import { DocumentCopy, Plus, Minus } from '@element-plus/icons-vue'
 import requests from './requests';
 
 const loading = ref(false)
@@ -469,6 +497,8 @@ const WSITEM_Parameter = reactive({
     collider: false,
     surface: false,
     BdInSea: false,
+    buffs: [''],
+    buffsLV: [1],
 })
 
 //物品分类
@@ -628,6 +658,18 @@ const handleClick = function (tab, e) {
     setTimeout(generateOutput, 10);
 }
 
+const addBuff = () => {
+  WSITEM_Parameter.buffs.push('');
+  WSITEM_Parameter.buffsLV.push(1);
+  generateOutput();
+}
+
+const delBuff = (index) => {
+  WSITEM_Parameter.buffs.splice(index, 1);
+  WSITEM_Parameter.buffsLV.splice(index, 1);
+  generateOutput();
+}
+
 const toUnicode = function (s) {
     return s.replace(/[^\x00-\x7F]/g, x => "\\u" + ("000" + x.codePointAt(0).toString(16)).slice(-4));
 }
@@ -672,6 +714,8 @@ const generateOutput = () => {
                      k === 'collider' || 
                      k === 'surface' || 
                      k === 'BdInSea' )) return;
+                if (!(WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)) &&
+                     (k === 'buffs' || k === 'buffsLV')) return;
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
@@ -684,6 +728,9 @@ const generateOutput = () => {
                       return v.replace('#', '')
                     }
                     return toUnicode(v);
+                }
+                if (k === 'buffs' || k === 'buffsLV') {
+                  return v.filter((x) => {return x != ''});
                 }
                 return v;
             }, 4).replace('\\\\u', '\\u')
