@@ -462,7 +462,7 @@ const WSITEM_Parameter = reactive({
     UseAType: '',
     BDType: '',
     BuildingType: '',
-    LightColor: '',
+    LightColor: 'ffffffff',
     LightRange: '',
     LightIntensity: '',
     BuildHP: '',
