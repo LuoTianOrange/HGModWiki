@@ -712,7 +712,7 @@ const generateOutput = () => {
                      k === 'collider' || 
                      k === 'surface' || 
                      k === 'BdInSea' )) return;
-                if (WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20) &&
+                if (!(WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)) &&
                      k === 'buffs' || k === 'buffsLV') return;
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
