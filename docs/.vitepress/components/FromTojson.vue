@@ -38,8 +38,8 @@
                     </el-form-item>
                     <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="isOHand" >
                         <el-radio-group v-model="WSITEM_Parameter.isOHand" @change="generateOutput">
-                          <el-radio-button label="是" />
-                          <el-radio-button label="否" />
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                     </el-form-item>
                 </el-form>
@@ -68,14 +68,14 @@
                         
                         <el-form-item label="是否近战攻击" class="labeldiv workspace">
                             <el-radio-group v-model="WSITEM_Parameter.CloseATK" @change="generateOutput">
-                          <el-radio-button label="是" />
-                          <el-radio-button label="否" />
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                         </el-form-item>
                         <el-form-item label="是否随机攻击角度" class="labeldiv workspace">
                             <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
-                          <el-radio-button label="是" />
-                          <el-radio-button label="否" />
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                         </el-form-item>
                     </el-form>
@@ -93,20 +93,20 @@
                         <div style="width: 100%;"></div>
                         <el-form-item label="是否有碰撞器" class="labeldiv workspace">
                             <el-radio-group v-model="WSITEM_Parameter.collider" @change="generateOutput">
-                          <el-radio-button label="是" />
-                          <el-radio-button label="否" />
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                         </el-form-item>
                         <el-form-item label="是否是地板" class="labeldiv workspace">
                             <el-radio-group v-model="WSITEM_Parameter.surface" @change="generateOutput">
-                          <el-radio-button label="是" />
-                          <el-radio-button label="否" />
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                         </el-form-item>
                         <el-form-item label="是否只能放在液体中" class="labeldiv workspace">
                           <el-radio-group v-model="WSITEM_Parameter.BdInSea" @change="generateOutput">
-                          <el-radio-button label="是" />
-                          <el-radio-button label="否" />
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                         </el-form-item>
                     </el-form>
