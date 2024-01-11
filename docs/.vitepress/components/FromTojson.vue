@@ -498,7 +498,7 @@ const WSITEM_Parameter = reactive({
     surface: false,
     BdInSea: false,
     buffs: [''],
-    buffsLV: [''],
+    buffsLV: [1],
 })
 
 //物品分类
@@ -661,11 +661,13 @@ const handleClick = function (tab, e) {
 const addBuff = () => {
   WSITEM_Parameter.buffs.push('');
   WSITEM_Parameter.buffsLV.push(1);
+  generateOutput();
 }
 
 const delBuff = (index) => {
   WSITEM_Parameter.buffs.splice(index, 1);
   WSITEM_Parameter.buffsLV.splice(index, 1);
+  generateOutput();
 }
 
 const toUnicode = function (s) {
