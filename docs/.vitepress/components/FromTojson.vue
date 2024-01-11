@@ -201,7 +201,7 @@
                         <el-col :span="10">
                           <el-form-item class="labeldiv">
                             <el-label for="from">Buff等级</el-label>
-                            <el-input-number class="input-1" v-model.number="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
+                            <el-input-number class="input-1" v-model="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
                                 :min="0" @input="generateOutput"
                                 clearable maxlength="10" />
                           </el-form-item>
@@ -713,7 +713,7 @@ const generateOutput = () => {
                      k === 'surface' || 
                      k === 'BdInSea' )) return;
                 if (!(WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)) &&
-                     k === 'buffs' || k === 'buffsLV') return;
+                     (k === 'buffs' || k === 'buffsLV')) return;
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
@@ -728,7 +728,6 @@ const generateOutput = () => {
                     return toUnicode(v);
                 }
                 if (k === 'buffs' || k === 'buffsLV') {
-                  console.log(v);
                   return v.filter((x) => {return x != ''});
                 }
                 return v;
