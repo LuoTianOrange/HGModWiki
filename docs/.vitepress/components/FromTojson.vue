@@ -294,6 +294,44 @@ import requests from './requests';
 
 const loading = ref(false)
 const options = ref([])
+
+function similar(s, t, f=3) {
+    if (!s || !t) {
+        return 0
+    }
+    var l = s.length > t.length ? s.length : t.length
+    var n = s.length
+    var m = t.length
+    var d = []
+    var min = function(a, b, c) {
+        return a < b ? (a < c ? a : c) : (b < c ? b : c)
+    }
+    var i, j, si, tj, cost
+    if (n === 0) return m
+    if (m === 0) return n
+    for (i = 0; i <= n; i++) {
+        d[i] = []
+        d[i][0] = i
+    }
+    for (j = 0; j <= m; j++) {
+        d[0][j] = j
+    }
+    for (i = 1; i <= n; i++) {
+        si = s.charAt(i - 1)
+        for (j = 1; j <= m; j++) {
+            tj = t.charAt(j - 1)
+            if (si === tj) {
+                cost = 0
+            } else {
+                cost = 1
+            }
+            d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+        }
+    }
+    let res = (1 - d[n][m] / l)
+    return res.toFixed(f)
+}
+
 const remoteMethod = async (query) => {
     //console.log(query)
     if (query) {
@@ -316,6 +354,7 @@ const remoteMethod = async (query) => {
             r = r.data.query.results
             let res = []
             if (WSITEM_Parameter.ID) res.push({ id: WSITEM_Parameter.ID, name: WSITEM_Parameter.nameCn });
+            r = r.sort((a, b) => {return similar(a.printouts['名称'][0], b.printouts['名称'][0])})
             Object.keys(r).forEach(i => {
                 let v = r[i].printouts
                 let src = v['图片'][0]
