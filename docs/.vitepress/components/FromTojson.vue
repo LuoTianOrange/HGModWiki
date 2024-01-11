@@ -28,6 +28,16 @@
                         <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" />
                     </el-form-item>
+                    <el-form-item class="labeldiv" v-for="i in [
+                      ['贴图大小', 'Size'],
+                      ['贴图位置X', 'FposX'],
+                      ['贴图位置Y', 'FposY'],
+                      ['最大堆叠数量', 'maxNum'],
+                      ['物品价格', 'price']]">)
+                        <el-label for="from">{{ i[0] }}</el-label>
+                        <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                    </el-form-item>
                     <el-form-item label="物品类型" class="labeldiv workspace">
                         <client-only>
                             <el-select v-model="WSITEM_Parameter.itemType" clearable placeholder="itemType" filterable @change="generateOutput">
@@ -67,8 +77,8 @@
                         </el-form-item>
                         <el-form-item class="labeldiv" v-for="i in [['最小攻击力', 'miniATK'], ['弹幕ID', 'AmmoID']]">
                           <el-label for="from">{{ i[0] }}</el-label>
-                          <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
-                            @input="generateOutput" clearable type="text" />
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                         </el-form-item>
                         
                         <el-form-item class="labeldiv">
@@ -96,8 +106,8 @@
                         
                         <el-form-item class="labeldiv">
                           <el-label for="from">攻击角度</el-label>
-                          <el-input class="input-1" v-model="WSITEM_Parameter.DAngle" :placeholder="DAngle"
-                            @input="generateOutput" clearable type="text" />
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" :placeholder="DAngle"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                         <el-form-item label="是否随机攻击角度" class="labeldiv workspace">
                           <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
@@ -114,7 +124,7 @@
                         <el-form-item class="labeldiv">
                           <el-label for="from">使用弹药类型</el-label>
                           <el-input class="input-1" v-model="WSITEM_Parameter.UseAType" :placeholder="UseAType"
-                            @input="generateOutput" clearable type="text" />
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                     </el-form>
                 </div>
@@ -126,31 +136,31 @@
                             <el-label for="from">大建筑类型</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.BDType" placeholder="BDType"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="number" show-word-limit />
+                                clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">建筑类型</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.BuildingType" placeholder="BuildingType"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="number" show-word-limit />
+                                clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">光照颜色</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.LightColor" placeholder="LightColor"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="number" show-word-limit />
+                                clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">光照范围</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.LightRange" placeholder="LightColor"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="number" show-word-limit />
+                                clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">光照强度</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.LightIntensity" placeholder="LightIntensity"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="number" show-word-limit />
+                                clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         
                         <el-form-item class="labeldiv el-from-item">
@@ -409,11 +419,6 @@ const WSITEM_ph = [
     ['物品描述', 'description'],
     ['攻击力（饱食度）', 'atk'],
     ['图片路径', 'iconPath'],
-    ['最大堆叠数量', 'maxNum'],
-    ['物品价格', 'price'],
-    ['贴图大小', 'Size'],
-    ['贴图位置X', 'FposX'],
-    ['贴图位置Y', 'FposY'],
 ]
 
 //物品分类
