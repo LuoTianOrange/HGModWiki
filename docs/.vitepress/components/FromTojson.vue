@@ -23,103 +23,170 @@
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
-                    <el-form-item class="labeldiv" v-for="i in WSITEM_ph">
+                    <el-form-item class="labeldiv" v-for="i in [['物品中文名', 'nameCn'],['物品英文名', 'nameEn'],['物品描述', 'description'],['图片路径', 'iconPath'],]">
                         <el-label for="from">{{ i[0] }}</el-label>
-                        <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[0]"
+                        <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" />
+                    </el-form-item>
+                    <el-form-item class="labeldiv" v-for="i in [['攻击力(饱食度)','atk'],['贴图大小', 'Size'],['贴图位置X', 'FposX'],['贴图位置Y', 'FposY'],['最大堆叠数量', 'maxNum'],['物品价格', 'price']]">
+                        <el-label for="from">{{ i[0] }}</el-label>
+                        <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                     </el-form-item>
                     <el-form-item label="物品类型" class="labeldiv workspace">
                         <client-only>
-                            <el-select>
+                            <el-select v-model="WSITEM_Parameter.itemType" clearable placeholder="itemType" filterable @change="generateOutput">
                                 <el-option v-for="i in itemTypeGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
                         </client-only>
                     </el-form-item>
-                    <el-form-item label="是否可放于副手" class="labeldiv workspace">
-                        <el-radio-group v-model="isOHand">
-                            <el-radio-button label="是" />
-                            <el-radio-button label="否" />
+                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="isOHand" >
+                        <el-radio-group v-model="WSITEM_Parameter.isOHand" @change="generateOutput">
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                     </el-form-item>
                 </el-form>
-                <div style="margin-top: 20px;">
+                
+                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 3">
                     <el-label style="font-size: 1.3rem;">武器专用参数</el-label>
                     <el-form class="labelbox">
                         <el-form-item label="武器类型" class="labeldiv workspace">
-                            <el-select>
+                            <el-select v-model="WSITEM_Parameter.weaponType" clearable placeholder="weaponType" filterable @change="generateOutput">
                                 <el-option v-for="i in weaponTypeGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="伤害类型" class="labeldiv workspace">
-                            <el-select>
+                            <el-select v-model="WSITEM_Parameter.demageType" clearable placeholder="demageType" filterable @change="generateOutput">
                                 <el-option v-for="i in damageTypeGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="力量补正" class="labeldiv workspace">
-                            <el-select>
-                                <el-option v-for="i in STRRateGroup" :key="i.index" :label="i.key"
+                        <el-form-item :label="k[0]" class="labeldiv workspace" v-for="k in [['力量补正','STRRate'],['智力补正','INTRate'],['技巧补正','TECRate']]">
+                            <el-select v-model="WSITEM_Parameter[k[1]]" clearable :placeholder="k[1]" filterable @change="generateOutput">
+                                <el-option v-for="i in RateGroup" :key="i.index" :label="i.key"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="智力补正" class="labeldiv workspace">
-                            <el-select>
-                                <el-option v-for="i in INTRateGroup" :key="i.index" :label="i.key"
-                                    :value="i.value"></el-option>
-                            </el-select>
+                        <el-form-item class="labeldiv" v-for="i in [['最小攻击力', 'miniATK'], ['弹幕ID', 'AmmoID']]">
+                          <el-label for="from">{{ i[0] }}</el-label>
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                         </el-form-item>
-                        <el-form-item label="技巧补正" class="labeldiv workspace">
-                            <el-select>
-                                <el-option v-for="i in TECRateGroup" :key="i.index" :label="i.key"
-                                    :value="i.value"></el-option>
-                            </el-select>
+                        
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">弹幕数量</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter.AmmoNum" placeholder="AmmoNum"
+                            @input="generateOutput" clearable :min="1" />
                         </el-form-item>
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">攻击速度（实际值=该值除100）</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter.atkSpeed" placeholder="atkSpeed"
+                            @input="generateOutput" clearable :min="0" :max="2000" />
+                        </el-form-item>
+                        <el-form-item class="labeldiv" v-for="i in [['魔力消耗（实际值=该值除100）', 'MPCost'], ['生命消耗（实际值=该值除100）', 'HPCost'], ['耐力消耗（实际值=该值除100）', 'EPCost'], ['G值消耗（实际值=该值除10）', 'GCost'], ['过载消耗', 'OLCost']]">
+                          <el-label for="from">{{i[0]}}</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                            @input="generateOutput" clearable :min="0" />
+                        </el-form-item>
+                        
                         <el-form-item label="是否近战攻击" class="labeldiv workspace">
-                            <el-radio-group v-model="isCloseATK">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                            <el-radio-group v-model="WSITEM_Parameter.CloseATK" @change="generateOutput">
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
+                        </el-radio-group>
+                        </el-form-item>
+                        
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">攻击角度</el-label>
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" :placeholder="DAngle"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                         <el-form-item label="是否随机攻击角度" class="labeldiv workspace">
-                            <el-radio-group v-model="isRDAngle">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                          <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
+                            <el-radio-button :label="true">是</el-radio-button>
+                            <el-radio-button :label="false">否</el-radio-button>
+                          </el-radio-group>
+                        </el-form-item>
+                        
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">反作用力</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter.PPower" placeholder="PPower"
+                            @input="generateOutput" clearable :min="0" />
+                        </el-form-item>
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">使用弹药类型</el-label>
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" :placeholder="UseAType"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                     </el-form>
                 </div>
-                <div style="margin-top: 20px;" v-if="itemTypeGroup.key == '建筑'">
+                
+                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 7">
                     <el-label style="font-size: 1.3rem;">建筑专用参数</el-label>
                     <el-form class="labelbox">
                         <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">大建筑类型</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.BDType" placeholder="BDType"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="text" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">建筑类型</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.BuildingType" placeholder="BuildingType"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="text" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">光照颜色</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightColor" placeholder="LightColor"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="text" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">光照范围</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightRange" placeholder="LightColor"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="text" show-word-limit />
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">光照强度</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightIntensity" placeholder="LightIntensity"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                clearable maxlength="10" type="text" show-word-limit />
+                        </el-form-item>
+                        
+                        <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">建筑生命值</el-label>
-                            <el-input-number class="input-1" v-model.number="WSITEM_build.BuildHP" placeholder="BuildHP"
+                            <el-input-number class="input-1" v-model.number="WSITEM_Parameter.BuildHP" placeholder="BuildHP"
                                 :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
+                        
                         <div style="width: 100%;"></div>
                         <el-form-item label="是否有碰撞器" class="labeldiv workspace">
-                            <el-radio-group v-model="iscollider">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                            <el-radio-group v-model="WSITEM_Parameter.collider" @change="generateOutput">
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
+                        </el-radio-group>
                         </el-form-item>
-                        <el-form-item label="是否在表面" class="labeldiv workspace">
-                            <el-radio-group v-model="issurface">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                        <el-form-item label="是否是地板" class="labeldiv workspace">
+                            <el-radio-group v-model="WSITEM_Parameter.surface" @change="generateOutput">
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
+                        </el-radio-group>
                         </el-form-item>
-                        <el-form-item label="是否在水中" class="labeldiv workspace">
-                            <el-radio-group v-model="isBdInSea">
-                                <el-radio-button label="是" />
-                                <el-radio-button label="否" />
-                            </el-radio-group>
+                        <el-form-item label="是否只能放在液体中" class="labeldiv workspace">
+                          <el-radio-group v-model="WSITEM_Parameter.BdInSea" @change="generateOutput">
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
+                        </el-radio-group>
                         </el-form-item>
                     </el-form>
                 </div>
+                
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
@@ -137,9 +204,10 @@
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <div style="width: 100%; "></div>
-                    <el-form-item label="材料1" class="labeldiv workspace">
+                    <template v-for="(ai,i) in [1,0,0,0]">
+                      <el-form-item :label="'材料'+(i+1)" class="labeldiv workspace">
                         <client-only>
-                            <el-select v-model="CM_Parameter.mat1" clearable placeholder="mat1" filterable remote
+                            <el-select v-model="CM_Parameter['mat'+(i+1)]" clearable :placeholder="'mat'+(i+1)" filterable remote
                                 allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
                                 @change="generateOutput">
                                 <el-option v-for="item in options" :key="item.id"
@@ -152,76 +220,14 @@
                                 </el-option>
                             </el-select>
                         </client-only>
-                    </el-form-item>
-                    <el-form-item class="labeldiv el-from-item">
-                        <el-label for="from">材料1数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat1num" placeholder="mat1num"
-                            :min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                      </el-form-item>
+                      <el-form-item class="labeldiv el-from-item">
+                        <el-label for="from">材料{{i+1}}数量</el-label>
+                        <el-input-number class="input-1" v-model.number="CM_Parameter['mat'+(i+1)+'num']" :placeholder="'mat'+(i+1)+'num'"
+                            :min="ai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                             clearable maxlength="10" type="text" show-word-limit />
-                    </el-form-item>
-
-                    <el-form-item label="材料2" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat2" filterable remote
-                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
-                                @change="generateOutput">
-                                <el-option v-for="item in options" :key="item.id"
-                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span>
-                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
-                                        v-if="item.src" />
-                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
-                                        item.id }}</span>
-                                </el-option>
-                            </el-select></client-only>
-                    </el-form-item>
-                    <el-form-item class="labeldiv">
-                        <el-label for="from">材料2数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat2num" placeholder="mat2num"
-                            :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                            clearable maxlength="10" type="text" show-word-limit />
-                    </el-form-item>
-
-                    <el-form-item label="材料3" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat3" clearable placeholder="mat3" filterable remote
-                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
-                                @change="generateOutput" style="width: 100%">
-                                <el-option v-for="item in options" :key="item.id"
-                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span>
-                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
-                                        v-if="item.src" />
-                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
-                                        item.id }}</span>
-                                </el-option>
-                            </el-select></client-only>
-                    </el-form-item>
-                    <el-form-item class="labeldiv">
-                        <el-label for="from">材料3数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat3num" placeholder="mat3num"
-                            :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                            clearable maxlength="10" type="text" show-word-limit />
-                    </el-form-item>
-
-                    <el-form-item label="材料4" class="labeldiv workspace">
-                        <client-only><el-select v-model="CM_Parameter.mat2" clearable placeholder="mat4" filterable remote
-                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
-                                @change="generateOutput">
-                                <el-option v-for="item in options" :key="item.id"
-                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span>
-                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
-                                        v-if="item.src" />
-                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
-                                        item.id }}</span>
-                                </el-option>
-                            </el-select></client-only>
-                    </el-form-item>
-                    <el-form-item class="labeldiv">
-                        <el-label for="from">材料4数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter.mat4num" placeholder="mat4num"
-                            :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                            clearable maxlength="10" type="text" show-word-limit />
-                    </el-form-item>
+                      </el-form-item>
+                    </template>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.result" clearable placeholder="result" filterable
@@ -263,7 +269,7 @@
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
                         <el-label for="from">弹幕ID</el-label>
-                        <el-input class="input-1" v-model.number="WSAMMO_Parameter['ID']"
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.ID"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
@@ -288,6 +294,44 @@ import requests from './requests';
 
 const loading = ref(false)
 const options = ref([])
+
+function similar(s, t, f=3) {
+    if (!s || !t) {
+        return 0
+    }
+    var l = s.length > t.length ? s.length : t.length
+    var n = s.length
+    var m = t.length
+    var d = []
+    var min = function(a, b, c) {
+        return a < b ? (a < c ? a : c) : (b < c ? b : c)
+    }
+    var i, j, si, tj, cost
+    if (n === 0) return m
+    if (m === 0) return n
+    for (i = 0; i <= n; i++) {
+        d[i] = []
+        d[i][0] = i
+    }
+    for (j = 0; j <= m; j++) {
+        d[0][j] = j
+    }
+    for (i = 1; i <= n; i++) {
+        si = s.charAt(i - 1)
+        for (j = 1; j <= m; j++) {
+            tj = t.charAt(j - 1)
+            if (si === tj) {
+                cost = 0
+            } else {
+                cost = 1
+            }
+            d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+        }
+    }
+    let res = (1 - d[n][m] / l)
+    return res.toFixed(f)
+}
+
 const remoteMethod = async (query) => {
     //console.log(query)
     if (query) {
@@ -303,18 +347,22 @@ const remoteMethod = async (query) => {
                 format: 'json'
             }
         }).then((r) => {
-            console.log(r.data)
+            //console.log(r.data)
             loading.value = false
             options.value = []
             if (!r.data || !r.data.query.results) return;
             r = r.data.query.results
             let res = []
-            Object.keys(r).forEach(i => {
-                let v = r[i].printouts
+            if (WSITEM_Parameter.ID) res.push({ id: WSITEM_Parameter.ID, name: WSITEM_Parameter.nameCn });
+            //console.log(Object.values(r))
+            r = Object.values(r)
+            r.sort((a, b) => {return similar(b.printouts['名称'][0], query) - similar(a.printouts['名称'][0], query)})
+            r.forEach(i => {
+                let v = i.printouts
                 let src = v['图片'][0]
-                if (src.indexOf('.') === -1) src = src + '.png'
-                src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src
-                res.push({ id: v.Id[0], name: v['名称'][0], src: src })
+                if (src.indexOf('.') === -1) src = src + '.png';
+                src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src;
+                res.push({ id: v.Id[0], name: v['名称'][0], src: src });
             })
             options.value = res
         })
@@ -325,7 +373,7 @@ const remoteMethod = async (query) => {
 
 const activeName = ref('WSITEM')
 //工作站选择
-const places = ref([
+const places = [
     { key: '工作台', value: 0 },
     { key: '熔炉', value: 1 },
     { key: '随手制造', value: 2 },
@@ -376,7 +424,7 @@ const places = ref([
     { key: '法法商店', value: 47 },
     { key: '魔石熔炉', value: 48 },
     { key: '核子熔炉', value: 49 },
-])
+]
 
 const WSITEM_Parameter = reactive({
     ID: 10001,
@@ -384,36 +432,48 @@ const WSITEM_Parameter = reactive({
     nameCn: '',
     nameEn: '',
     description: '',
+    iconPath: '',
     atk: '',
-
+    quality: 1,
+    maxNum: 64,
+    price: '',
+    Size: '',
+    FposX: '',
+    FposY: '',
+    itemType: '',
+    isOHand: false,
+    weaponType: '',
+    demageType: '',
+    STRRate: '',
+    INTRate: '',
+    TECRate: '',
+    CloseATK: false,
+    RDAngle: false,
+    miniATK: '',
+    AmmoID: '',
+    AmmoNum: '',
+    atkSpeed: '',
+    MPCost: '',
+    HPCost: '',
+    EPCost: '',
+    GCost: '',
+    OLCost: '',
+    DAngle: '',
+    PPower: '',
+    UseAType: '',
+    BDType: '',
+    BuildingType: '',
+    LightColor: '',
+    LightRange: '',
+    LightIntensity: '',
+    BuildHP: '',
+    collider: false,
+    surface: false,
+    BdInSea: false,
 })
-const WSITEM_ph = reactive([
-    ['物品中文名', 'nameCn'],
-    ['物品英文名', 'nameEn'],
-    ['物品描述', 'description'],
-    ['攻击力', 'atk'],
-    ['图片路径', 'iconPath'],
-    ['最大堆叠数量', 'maxNum'],
-    ['物品价格', 'price'],
-])
 
-const WSITEM_build = reactive([
-    ['建筑生命值', 'BuildHP'],
-])
-//是否近战攻击
-const isCloseATK = ref('否')
-//是否随机攻击角度
-const isRDAngle = ref('否')
-//是否有碰撞器
-const iscollider = ref('否')
-//是否在表面
-const issurface = ref('否')
-//是否在水中
-const isBdInSea = ref('否')
-//是否可放于副手
-const isOHand = ref('否')
 //物品分类
-const itemTypeGroup = ref([
+const itemTypeGroup = [
     { 'key': '未知(礼物)', 'value': 1 },
     { 'key': '工具', 'value': 2 },
     { 'key': '武器', 'value': 3 },
@@ -454,8 +514,8 @@ const itemTypeGroup = ref([
     { 'key': '盲盒', 'value': 38 },
     { 'key': '鱼饵', 'value': 39 },
     { 'key': '肥料', 'value': 40 },
-    { 'key': '未知(?)', 'value': 41 },
-    { 'key': '未知(?)', 'value': 42 },
+    { 'key': '未知(导线)', 'value': 41 },
+    { 'key': '未知(剪线器)', 'value': 42 },
     { 'key': '陨石', 'value': 43 },
     { 'key': '未知(藏宝图)', 'value': 44 },
     { 'key': '土壤肥料', 'value': 45 },
@@ -481,9 +541,9 @@ const itemTypeGroup = ref([
     { 'key': '动物', 'value': 65 },
     { 'key': '辅助机', 'value': 66 },
     { 'key': '物质线', 'value': 67 }
-])
+]
 //武器小分类
-const weaponTypeGroup = ref([
+const weaponTypeGroup = [
     { 'key': '特殊', 'value': 1 },
     { 'key': '剑', 'value': 2 },
     { 'key': '短剑', 'value': 3 },
@@ -510,9 +570,9 @@ const weaponTypeGroup = ref([
     { 'key': '回旋镖', 'value': 24 },
     { 'key': '元素爆破', 'value': 25 },
     { 'key': '枪剑', 'value': 26 }
-])
+]
 //伤害类型
-const damageTypeGroup = ref([
+const damageTypeGroup = [
     { 'key': '未知', 'value': -1 },
     { 'key': '魔法', 'value': 1 },
     { 'key': '魔物', 'value': 2 },
@@ -524,9 +584,10 @@ const damageTypeGroup = ref([
     { 'key': '暗伤害', 'value': 8 },
     { 'key': '元素', 'value': 9 },
     { 'key': '未知', 'value': 10 }
-])
-//力量补正
-const STRRateGroup = ref([
+]
+    
+//补正
+const RateGroup = [
     { 'key' : '无', 'value' : 0 },
     { 'key' : 'E', 'value' : 1 },
     { 'key' : 'D', 'value' : 2 },
@@ -539,37 +600,8 @@ const STRRateGroup = ref([
     { 'key' : 'MX', 'value' : 9 },
     { 'key' : 'EX', 'value' : 10 },
     { 'key' : 'GX', 'value' : 11 }
-])
-//智力补正
-const INTRateGroup = ref([
-    { 'key' : '无', 'value' : 0 },
-    { 'key' : 'E', 'value' : 1 },
-    { 'key' : 'D', 'value' : 2 },
-    { 'key' : 'C', 'value' : 3 },
-    { 'key' : 'B', 'value' : 4 },
-    { 'key' : 'A', 'value' : 5 },
-    { 'key' : 'S', 'value' : 6 },
-    { 'key' : 'SS', 'value' : 7 },
-    { 'key' : 'SSS', 'value' : 8 },
-    { 'key' : 'MX', 'value' : 9 },
-    { 'key' : 'EX', 'value' : 10 },
-    { 'key' : 'GX', 'value' : 11 }
-])
-//技巧补正
-const TECRateGroup = ref([
-    { 'key' : '无', 'value' : 0 },
-    { 'key' : 'E', 'value' : 1 },
-    { 'key' : 'D', 'value' : 2 },
-    { 'key' : 'C', 'value' : 3 },
-    { 'key' : 'B', 'value' : 4 },
-    { 'key' : 'A', 'value' : 5 },
-    { 'key' : 'S', 'value' : 6 },
-    { 'key' : 'SS', 'value' : 7 },
-    { 'key' : 'SSS', 'value' : 8 },
-    { 'key' : 'MX', 'value' : 9 },
-    { 'key' : 'EX', 'value' : 10 },
-    { 'key' : 'GX', 'value' : 11 }
-])
+]
+
 const CM_Parameter = reactive({
     ID: 10001,
     mat1: '',
@@ -611,6 +643,36 @@ const generateOutput = () => {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
+                if (WSITEM_Parameter.itemType != 3 && 
+                    (k === 'weaponType' || 
+                     k === 'demageType' || 
+                     k === 'STRRate' || 
+                     k === 'INTRate' || 
+                     k === 'TECRate' || 
+                     k === 'CloseATK' || 
+                     k === 'RDAngle' ||
+                     k === 'miniATK' ||
+                     k === 'AmmoID' ||
+                     k === 'AmmoNum' ||
+                     k === 'atkSpeed' || 
+                     k === 'MPCost' ||
+                     k === 'HPCost' ||
+                     k === 'EPCost' ||
+                     k === 'GCost' ||
+                     k === 'OLCost' ||
+                     k === 'DAngle' ||
+                     k === 'PPower' ||
+                     k === 'UseAType')) return;
+                if (WSITEM_Parameter.itemType != 7 && 
+                    (k === 'BDType' || 
+                     k === 'BuildingType' || 
+                     k === 'LightColor' ||
+                     k === 'LightRange' ||
+                     k === 'LightIntensity' ||
+                     k === 'BuildHP' || 
+                     k === 'collider' || 
+                     k === 'surface' || 
+                     k === 'BdInSea' )) return;
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
@@ -626,12 +688,14 @@ const generateOutput = () => {
             break
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
-                if (v === "") {
-                    if (k === 'mat1' || k === 'result') return '必填';
-                    if (k === 'mat1num' || k === 'resultnum') return 1;
+                if (v === "" || v === 0) {
                     if (k === 'mat2num' && CM_Parameter.mat2 != '') return 1;
                     if (k === 'mat3num' && CM_Parameter.mat3 != '') return 1;
                     if (k === 'mat4num' && CM_Parameter.mat4 != '') return 1;
+                }
+                if (v === "") {
+                    if (k === 'mat1' || k === 'result') return '必填';
+                    if (k === 'mat1num' || k === 'resultnum') return 1;
                     return;
                 }
                 if (typeof v === 'string') {
@@ -642,7 +706,9 @@ const generateOutput = () => {
                     }
                 }
                 if (typeof v === 'number') {
-                    if ((k === 'mat2num' && CM_Parameter.mat2 === '') || (k === 'mat3num' && CM_Parameter.mat2 === '') || (k === 'mat4num' && CM_Parameter.mat2 === '')) return;
+                    if ((k === 'mat2num' && CM_Parameter.mat2 === '') || 
+                        (k === 'mat3num' && CM_Parameter.mat3 === '') || 
+                        (k === 'mat4num' && CM_Parameter.mat4 === '')) return;
                 }
                 //console.log(k, CM_Parameter)
 
