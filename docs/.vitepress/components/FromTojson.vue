@@ -23,17 +23,12 @@
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
-                    <el-form-item class="labeldiv" v-for="i in WSITEM_ph">
+                    <el-form-item class="labeldiv" v-for="i in [['物品中文名', 'nameCn'],['物品英文名', 'nameEn'],['物品描述', 'description'],['图片路径', 'iconPath'],]">
                         <el-label for="from">{{ i[0] }}</el-label>
                         <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" />
                     </el-form-item>
-                    <el-form-item class="labeldiv" v-for="i in [
-                      ['贴图大小', 'Size'],
-                      ['贴图位置X', 'FposX'],
-                      ['贴图位置Y', 'FposY'],
-                      ['最大堆叠数量', 'maxNum'],
-                      ['物品价格', 'price']]">)
+                    <el-form-item class="labeldiv" v-for="i in [['攻击力(饱食度)','atk'],['贴图大小', 'Size'],['贴图位置X', 'FposX'],['贴图位置Y', 'FposY'],['最大堆叠数量', 'maxNum'],['物品价格', 'price']]">)
                         <el-label for="from">{{ i[0] }}</el-label>
                         <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
@@ -123,7 +118,7 @@
                         </el-form-item>
                         <el-form-item class="labeldiv">
                           <el-label for="from">使用弹药类型</el-label>
-                          <el-input class="input-1" v-model="WSITEM_Parameter.UseAType" :placeholder="UseAType"
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" :placeholder="UseAType"
                             @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                     </el-form>
@@ -320,12 +315,13 @@ const remoteMethod = async (query) => {
             if (!r.data || !r.data.query.results) return;
             r = r.data.query.results
             let res = []
+            if (WSITEM_Parameter.ID) res.push({ id: WSITEM_Parameter.ID, name: WSITEM_Parameter.nameCn });
             Object.keys(r).forEach(i => {
                 let v = r[i].printouts
                 let src = v['图片'][0]
-                if (src.indexOf('.') === -1) src = src + '.png'
-                src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src
-                res.push({ id: v.Id[0], name: v['名称'][0], src: src })
+                if (src.indexOf('.') === -1) src = src + '.png';
+                src = 'https://hgadventure.huijiwiki.com/wiki/Special:FilePath/' + src;
+                res.push({ id: v.Id[0], name: v['名称'][0], src: src });
             })
             options.value = res
         })
@@ -413,13 +409,6 @@ const WSITEM_Parameter = reactive({
     FposX: '',
     FposY: '',
 })
-const WSITEM_ph = [
-    ['物品中文名', 'nameCn'],
-    ['物品英文名', 'nameEn'],
-    ['物品描述', 'description'],
-    ['攻击力（饱食度）', 'atk'],
-    ['图片路径', 'iconPath'],
-]
 
 //物品分类
 const itemTypeGroup = [
