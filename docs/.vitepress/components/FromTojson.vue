@@ -41,8 +41,8 @@
                             </el-select>
                         </client-only>
                     </el-form-item>
-                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="isOHand" >
-                        <el-radio-group v-model="WSITEM_Parameter.isOHand" @change="generateOutput">
+                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="OHand" >
+                        <el-radio-group v-model="WSITEM_Parameter.OHand" @change="generateOutput">
                           <el-radio-button :label="true">是</el-radio-button>
                           <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
@@ -75,7 +75,22 @@
                           <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                         </el-form-item>
-                        
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">攻击角度</el-label>
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" :placeholder="DAngle"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                        </el-form-item>
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">使用弹药类型</el-label>
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" :placeholder="UseAType"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                        </el-form-item>
+                        <div style="width: 100%;"></div>
+                        <el-form-item class="labeldiv">
+                          <el-label for="from">反作用力</el-label>
+                          <el-input-number class="input-1" v-model="WSITEM_Parameter.PPower" placeholder="PPower"
+                            @input="generateOutput" clearable :min="0" />
+                        </el-form-item>
                         <el-form-item class="labeldiv">
                           <el-label for="from">弹幕数量</el-label>
                           <el-input-number class="input-1" v-model="WSITEM_Parameter.AmmoNum" placeholder="AmmoNum"
@@ -98,28 +113,11 @@
                           <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                         </el-form-item>
-                        
-                        <el-form-item class="labeldiv">
-                          <el-label for="from">攻击角度</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" :placeholder="DAngle"
-                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
-                        </el-form-item>
                         <el-form-item label="是否随机攻击角度" class="labeldiv workspace">
                           <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
                             <el-radio-button :label="true">是</el-radio-button>
                             <el-radio-button :label="false">否</el-radio-button>
                           </el-radio-group>
-                        </el-form-item>
-                        
-                        <el-form-item class="labeldiv">
-                          <el-label for="from">反作用力</el-label>
-                          <el-input-number class="input-1" v-model="WSITEM_Parameter.PPower" placeholder="PPower"
-                            @input="generateOutput" clearable :min="0" />
-                        </el-form-item>
-                        <el-form-item class="labeldiv">
-                          <el-label for="from">使用弹药类型</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" :placeholder="UseAType"
-                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                     </el-form>
                 </div>
@@ -435,13 +433,13 @@ const WSITEM_Parameter = reactive({
     iconPath: '',
     atk: '',
     quality: 1,
-    maxNum: 64,
+    maxNum: 1,
     price: '',
     Size: '',
     FposX: '',
     FposY: '',
     itemType: '',
-    isOHand: false,
+    OHand: false,
     weaponType: '',
     demageType: '',
     STRRate: '',
