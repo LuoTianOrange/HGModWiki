@@ -194,7 +194,7 @@
                           <el-form-item class="labeldiv">
                             <el-label for="from">Buff ID</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.buffs[index]" placeholder="buff ID"
-                                :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
                           </el-form-item>
                         </el-col>
@@ -202,11 +202,11 @@
                           <el-form-item class="labeldiv">
                             <el-label for="from">Buff等级</el-label>
                             <el-input-number class="input-1" v-model="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
-                                :min="0" @input="generateOutput"
+                                :min="1" @input="generateOutput"
                                 clearable maxlength="10" />
                           </el-form-item>
                         </el-col>
-                        <el-col :span="4">
+                        <el-col :span="4" style="flex-direction: column;justify-content: center;align-items: center;">
                           <el-button type="primary" :icon="Plus" circle v-if="index == 0" @click="addBuff"/>
                           <el-button type="danger" :icon="Minus" circle v-if="index != 0" @click="delBuff(index)"/>
                         </el-col>
