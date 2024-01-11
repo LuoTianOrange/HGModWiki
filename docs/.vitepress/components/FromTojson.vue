@@ -210,6 +210,7 @@
                           <el-button type="primary" :icon="Plus" circle v-if="index == 0" @click="addBuff"/>
                           <el-button type="danger" :icon="Minus" circle v-if="index != 0" @click="delBuff(index)"/>
                         </el-col>
+                      </el-row>
                     </el-form>
                 </div>
                 
