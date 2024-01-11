@@ -728,7 +728,8 @@ const generateOutput = () => {
                     return toUnicode(v);
                 }
                 if (k === 'buffs' || k === 'buffsLV') {
-                  return v.filter((x) => {x != ''});
+                  console.log(v);
+                  return v.filter((x) => {return x != ''});
                 }
                 return v;
             }, 4).replace('\\\\u', '\\u')
