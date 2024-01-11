@@ -190,7 +190,7 @@
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
                       <el-row v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
-                        <el-col :span="3" style="margin: 2px">
+                        <el-col :span="10" style="margin: 2px">
                           <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">Buff ID</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.buffs[index]" placeholder="buff ID"
@@ -198,7 +198,7 @@
                                 clearable maxlength="10" type="text" show-word-limit />
                           </el-form-item>
                         </el-col>
-                        <el-col :span="3" style="margin: 2px">
+                        <el-col :span="10" style="margin: 2px">
                           <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">Buff等级</el-label>
                             <el-input-number class="input-1" v-model.number="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
@@ -206,7 +206,7 @@
                                 clearable maxlength="10" type="text" show-word-limit />
                           </el-form-item>
                         </el-col>
-                        <el-col :span="3" style="margin: 2px">
+                        <el-col :span="4" style="margin: 2px">
                           <el-button type="primary" :icon="Plus" circle v-if="index == 0" @click="addBuff"/>
                           <el-button type="danger" :icon="Minus" circle v-if="index != 0" @click="delBuff(index)"/>
                         </el-col>
