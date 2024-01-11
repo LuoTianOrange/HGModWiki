@@ -206,7 +206,7 @@
                                 clearable maxlength="10" />
                           </el-form-item>
                         </el-col>
-                        <el-col :span="4" style="flex-direction: column;justify-content: center;align-items: center;">
+                        <el-col :span="4" style="display: flex;justify-content: center;align-items: center;">
                           <el-button type="primary" :icon="Plus" circle v-if="index == 0" @click="addBuff"/>
                           <el-button type="danger" :icon="Minus" circle v-if="index != 0" @click="delBuff(index)"/>
                         </el-col>
