@@ -207,8 +207,8 @@
                           </el-form-item>
                         </el-col>
                         <el-col :span="4" style="display: flex;justify-content: center;align-items: center;">
-                          <el-button type="primary" :icon="Plus" circle v-if="index == 0" @click="addBuff"/>
-                          <el-button type="danger" :icon="Minus" circle v-if="index != 0" @click="delBuff(index)"/>
+                          <el-button :icon="Plus" size="small" circle v-if="index == 0" @click="addBuff"/>
+                          <el-button :icon="Minus" size="small" circle v-if="index != 0" @click="delBuff(index)"/>
                         </el-col>
                       </el-row>
                     </el-form>
