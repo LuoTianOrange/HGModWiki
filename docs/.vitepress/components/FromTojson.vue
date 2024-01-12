@@ -191,7 +191,7 @@
                         </el-form-item>
                         
                         <client-only>
-                          <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%" border="false">
+                          <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%" :border="false" :stripe="false">
                             <el-table-column label="掉落物" width="200">
                               <template #default="item">
                                 <client-only><el-select v-model="WSITEM_Parameter.fallDItems[item.$index]" clearable placeholder="fallDItems" filterable
@@ -235,7 +235,7 @@
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
                       <client-only>
-                        <el-table :data="WSITEM_Parameter.buffs" style="width:100%" border="false">
+                        <el-table :data="WSITEM_Parameter.buffs" style="width:100%" :border="false" :stripe="false">
                           <el-table-column label="Buff ID" width="200">
                             <template #default="item">
                               <el-input v-model.number="WSITEM_Parameter.buffs[item.$index]" placeholder="buff ID"
