@@ -193,7 +193,7 @@
                         <el-card style="width:100%;" :body-style="{ padding: '10px' }">
                           <template #header>掉落物</template>
                           <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%">
-                            <el-table-column label="掉落物">
+                            <el-table-column label="掉落物" width="100">
                               <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable placeholder="fallDItems" filterable
                                   remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
                                   @change="generateOutput">
@@ -207,16 +207,20 @@
                                 </el-option>
                               </el-select></client-only>
                             </el-table-column>
-                            <el-table-column label="掉落数量">
-                              <el-input-number class="input-1" v-model="WSITEM_Parameter.fallDItemsNum[index]" placeholder="fallDItemsNum"
+                            <el-table-column label="掉落数量" width="100">
+                              <template #default="item">
+                                <el-input-number class="input-1" v-model="WSITEM_Parameter.fallDItemsNum[item.$index]" placeholder="fallDItemsNum"
                                   :min="1" @input="generateOutput"
                                   clearable maxlength="10" />
+                              </template>
                             </el-table-column>
-                            <el-table-column label="掉落概率">
-                              <el-slider class="input-1" v-model="WSITEM_Parameter.fallDItemsRate[index]" placeholder="fallDItemsRate"
+                            <el-table-column label="掉落概率" width="150">
+                              <template #default="item">
+                                <el-slider class="input-1" v-model="WSITEM_Parameter.fallDItemsRate[item.$index]" placeholder="fallDItemsRate"
                                   :min="0" :max="100" @input="generateOutput" />
+                              </template>
                             </el-table-column>
-                            <el-table-column>
+                            <el-table-column width="50">
                               <el-button type="danger" :icon="Delete" @click="delFallDItems(index)"/>
                             </el-table-column>
                           </el-table>
@@ -231,17 +235,21 @@
                       <el-card style="width:100%;" :body-style="{ padding: '10px' }">
                         <template #header>Buff</template>
                         <el-table :data="WSITEM_Parameter.buffs">
-                          <el-table-column label="Buff ID">
-                            <el-input class="input-1" v-model.number="WSITEM_Parameter.buffs[index]" placeholder="buff ID"
+                          <el-table-column label="Buff ID" width="100">
+                            <template #default="item">
+                              <el-input class="input-1" v-model.number="WSITEM_Parameter.buffs[item.$index]" placeholder="buff ID"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
+                            </template>
                           </el-table-column>
-                          <el-table-column label="Buff等级">
-                              <el-input-number class="input-1" v-model="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
+                          <el-table-column label="Buff等级" width="100">
+                            <template #default="item">
+                              <el-input-number class="input-1" v-model="WSITEM_Parameter.buffsLV[item.$index]" placeholder="buff LV"
                                 :min="1" @input="generateOutput"
                                 clearable maxlength="10" />
+                            </template>
                           </el-table-column>
-                          <el-table-column>
+                          <el-table-column width="50">
                             <el-button type="danger" :icon="Delete" @click="delBuff(index)"/>
                           </el-table-column>
                         </el-table>
