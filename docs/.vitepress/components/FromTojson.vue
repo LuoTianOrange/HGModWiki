@@ -826,7 +826,7 @@ const generateOutput = () => {
                   return v.filter((x) => {return x !== '' && x !== null});
                 }
                 if (k === 'atkSpeed' || k === 'MPCost' || k === 'HPCost' || k === 'EPCost' || k === 'GCost' || k === 'OLCost') {
-                  return v * 100;
+                  return parseInt(v * 100);
                 }
                 return v;
             }, 4).replaceAll('\\\\u', '\\u').replaceAll(/(?<="(fallDItems|fallDItemsNum|fallDItemsRate|buffs|buffsLV)":\s\[(\s*\d*,?)*)\n\s*(\d*,?|\])/g, ' $3');
