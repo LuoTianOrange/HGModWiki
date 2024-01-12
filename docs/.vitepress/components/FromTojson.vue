@@ -758,7 +758,7 @@ const addAnime = () => {
   generateOutput();
 }
 
-const addAnime = (index) => {
+const delAnime = (index) => {
   WSITEM_Parameter.anime.splice(index, 1);
   generateOutput();
 }
