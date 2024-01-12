@@ -170,18 +170,18 @@
                                 clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         
-                        <div style="width: 100%;"></div>
+                        <div style="width:100%"></div>
                         <el-form-item label="是否有碰撞器" class="labeldiv workspace">
-                            <el-radio-group v-model="WSITEM_Parameter.collider" @change="generateOutput">
-                          <el-radio-button :label="true">是</el-radio-button>
-                          <el-radio-button :label="false">否</el-radio-button>
-                        </el-radio-group>
+                          <el-radio-group v-model="WSITEM_Parameter.collider" @change="generateOutput">
+                            <el-radio-button :label="true">是</el-radio-button>
+                            <el-radio-button :label="false">否</el-radio-button>
+                          </el-radio-group>
                         </el-form-item>
                         <el-form-item label="排序图层是否显示于最底层" class="labeldiv workspace">
-                            <el-radio-group v-model="WSITEM_Parameter.surface" @change="generateOutput">
-                          <el-radio-button :label="true">是</el-radio-button>
-                          <el-radio-button :label="false">否</el-radio-button>
-                        </el-radio-group>
+                          <el-radio-group v-model="WSITEM_Parameter.surface" @change="generateOutput">
+                            <el-radio-button :label="true">是</el-radio-button>
+                            <el-radio-button :label="false">否</el-radio-button>
+                          </el-radio-group>
                         </el-form-item>
                         <el-form-item label="是否只能放在液体中" class="labeldiv workspace">
                           <el-radio-group v-model="WSITEM_Parameter.BdInSea" @change="generateOutput">
@@ -190,7 +190,7 @@
                           </el-radio-group>
                         </el-form-item>
                         
-                        <el-form-item class="labeldiv" style="border: 2px solid var(--el-border-color);">
+                        <div style="width:100%;border: 2px solid var(--el-border-color);">
                           <el-label for="from">掉落物</el-label>
                           <el-row :gutter="5" v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
                             <el-col :span="6">
@@ -230,14 +230,14 @@
                             </el-col>
                           </el-row>
                           <el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button>
-                        </el-form-item>
+                        </div>
                     </el-form>
                 </div>
                 
                 <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)">
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
-                      <el-form-item class="labeldiv" style="border: 2px solid var(--el-border-color);">
+                      <div style="width:100%;border: 2px solid var(--el-border-color);">
                         <el-label for="from">Buff</el-label>
                         <el-row :gutter="5" v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
                           <el-col :span="10">
@@ -261,7 +261,7 @@
                           </el-col>
                         </el-row>
                         <el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button>
-                      </el-form-item>
+                      </div>
                     </el-form>
                 </div>
                 
