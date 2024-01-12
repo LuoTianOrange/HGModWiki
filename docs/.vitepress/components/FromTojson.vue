@@ -191,20 +191,22 @@
                         </el-form-item>
                         
                         
-                        <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%">
+                        <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%" border="false">
                             <el-table-column label="掉落物" width="200">
-                              <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable placeholder="fallDItems" filterable
+                              <template #default="item">
+                                <client-only><el-select v-model="WSITEM_Parameter.fallDItems[item.$index]" clearable placeholder="fallDItems" filterable
                                   remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
                                   @change="generateOutput">
-                                <el-option v-for="item in options" :key="item.id"
-                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                  <span style="vertical-align: top;">{{ item.name }}</span>
-                                  <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
-                                    v-if="item.src" />
-                                  <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
-                                    item.id }}</span>
-                                </el-option>
-                              </el-select></client-only>
+                                  <el-option v-for="item in options" :key="item.id"
+                                      :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                    <span style="vertical-align: top;">{{ item.name }}</span>
+                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                      v-if="item.src" />
+                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                      item.id }}</span>
+                                  </el-option>
+                                </el-select></client-only>
+                              </template>
                             </el-table-column>
                             <el-table-column label="掉落数量" width="100">
                               <template #default="item">
@@ -232,7 +234,7 @@
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
                       
-                      <el-table :data="WSITEM_Parameter.buffs" style="width:100%">
+                      <el-table :data="WSITEM_Parameter.buffs" style="width:100%" border="false">
                           <el-table-column label="Buff ID" width="200">
                             <template #default="item">
                               <el-input v-model.number="WSITEM_Parameter.buffs[item.$index]" placeholder="buff ID"
