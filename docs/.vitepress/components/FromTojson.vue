@@ -191,11 +191,11 @@
                         </el-form-item>
                         
                         <client-only>
-                          <table class="table" style="width:100%">
+                          <div style="width:100%;overflow-x:auto;"><table class="table" style="width:500px">
                             <tr><th width="200">掉落物</th><th width="200">数量</th><th width="200">概率</th><th width="50"></th></tr>
                             <tr v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
                               <td>
-                                <client-only><el-select v-model="WSITEM_Parameter.fallDItems[item.$index]" clearable placeholder="fallDItems" filterable
+                                <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable placeholder="fallDItems" filterable
                                   remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
                                   @change="generateOutput">
                                   <el-option v-for="item in options" :key="item.id"
@@ -209,19 +209,19 @@
                                 </el-select></client-only>
                               </td>
                               <td>
-                                <el-input-number v-model="WSITEM_Parameter.fallDItemsNum[item.$index]" placeholder="fallDItemsNum"
+                                <el-input-number v-model="WSITEM_Parameter.fallDItemsNum[index]" placeholder="fallDItemsNum"
                                   :min="1" @input="generateOutput"
                                   clearable maxlength="10" />
                               </td>
                               <td>
-                                <el-slider class="input-1" v-model="WSITEM_Parameter.fallDItemsRate[item.$index]" placeholder="fallDItemsRate"
+                                <el-slider class="input-1" v-model="WSITEM_Parameter.fallDItemsRate[index]" placeholder="fallDItemsRate"
                                   :min="0" :max="100" @input="generateOutput" />
                               </td>
                               <td>
                                 <el-button type="danger" :icon="Delete" @click="delFallDItems(index)"/>
                               </td>
                             </tr>
-                        </table>
+                        </table></div>
                       </client-only>
                       <div><el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button></div>
                       
@@ -232,7 +232,7 @@
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
                       <client-only>
-                        <table class="table" style="width:100%">
+                        <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
                           <tr><th width="200">Buff ID</th><th width="150">Buff等级</th><th width="50"></th></tr>
                           <tr v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
                             <td>
@@ -249,7 +249,7 @@
                               <el-button type="danger" :icon="Delete" @click="delBuff(index)"/>
                             </td>
                           </tr>
-                        </table>
+                        </table></div>
                       </client-only>
                       <div><el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button></div>
                       
@@ -924,8 +924,13 @@ onMounted(() => {
 }
 
 .table {
+  background-color: transparent;
   border: 1px solid var(--el-border-color);
-  th,td {
+  tr, th, td {
+    background-color: transparent;
+    border: none;
+  }
+  th, td {
     border-bottom: 1px solid var(--el-border-color);
   }
 }
