@@ -36,7 +36,7 @@
                     <el-form-item label="物品类型" class="labeldiv workspace">
                         <client-only>
                             <el-select v-model="WSITEM_Parameter.itemType" clearable placeholder="itemType" filterable @change="generateOutput">
-                                <el-option v-for="i in itemTypeGroup" :key="i.value" :label="item.key+' ('+item.value+')'"
+                                <el-option v-for="i in itemTypeGroup" :key="i.index" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
                         </client-only>
@@ -54,19 +54,19 @@
                     <el-form class="labelbox">
                         <el-form-item label="武器类型" class="labeldiv workspace">
                             <el-select v-model="WSITEM_Parameter.weaponType" clearable placeholder="weaponType" filterable @change="generateOutput">
-                                <el-option v-for="i in weaponTypeGroup" :key="i.value" :label="item.key+' ('+item.value+')'"
+                                <el-option v-for="i in weaponTypeGroup" :key="i.value" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="伤害类型" class="labeldiv workspace">
                             <el-select v-model="WSITEM_Parameter.demageType" clearable placeholder="demageType" filterable @change="generateOutput">
-                                <el-option v-for="i in damageTypeGroup" :key="i.value" :label="item.key+' ('+item.value+')'"
+                                <el-option v-for="i in damageTypeGroup" :key="i.value" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item :label="k[0]" class="labeldiv workspace" v-for="k in [['力量补正','STRRate'],['智力补正','INTRate'],['技巧补正','TECRate']]">
                             <el-select v-model="WSITEM_Parameter[k[1]]" clearable :placeholder="k[1]" filterable @change="generateOutput">
-                                <el-option v-for="i in RateGroup" :key="i.value" :label="item.key+' ('+item.value+')'"
+                                <el-option v-for="i in RateGroup" :key="i.value" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
