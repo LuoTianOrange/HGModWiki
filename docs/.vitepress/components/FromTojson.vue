@@ -790,7 +790,7 @@ const generateOutput = () => {
                     return toUnicode(v);
                 }
                 if (k === 'buffs' || k === 'buffsLV' || k === 'fallDItems') {
-                  return v.filter((x) => {return x != '' && x != null});
+                  return v.filter((x) => {return x !== '' && x !== null});
                 }
                 if (k === 'MPCost' || k === 'HPCost' || k === 'EPCost' || k === 'OLCost') {
                   return v * 100;
