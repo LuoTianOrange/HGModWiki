@@ -97,14 +97,14 @@
                             @input="generateOutput" clearable :min="1" />
                         </el-form-item>
                         <el-form-item class="labeldiv">
-                          <el-label for="from">攻击速度（实际值=该值除100）</el-label>
+                          <el-label for="from">攻击速度</el-label>
                           <el-input-number class="input-1" v-model="WSITEM_Parameter.atkSpeed" placeholder="atkSpeed"
-                            @input="generateOutput" clearable :min="0" :max="2000" />
+                            @input="generateOutput" clearable :min="0" :max="20" :precision="2" :step="0.01" />
                         </el-form-item>
-                        <el-form-item class="labeldiv" v-for="i in [['魔力消耗', 'MPCost'], ['生命消耗', 'HPCost'], ['耐力消耗', 'EPCost'], ['G值消耗', 'GCost', '1', '0.1'], ['过载消耗', 'OLCost', '1', '0.1']]">
+                        <el-form-item class="labeldiv" v-for="i in [['魔力消耗', 'MPCost'], ['生命消耗', 'HPCost'], ['耐力消耗', 'EPCost'], ['G值消耗', 'GCost'], ['过载消耗', 'OLCost']]">
                           <el-label for="from">{{i[0]}}</el-label>
                           <el-input-number class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
-                            @input="generateOutput" clearable :min="0" :precision="i[2] || 2" :step="i[2] || 0.01" />
+                            @input="generateOutput" clearable :min="0" :precision="2" :step="0.01" />
                         </el-form-item>
                         
                         <el-form-item label="是否近战攻击" class="labeldiv workspace">
@@ -191,11 +191,11 @@
                         </el-form-item>
                         
                         <client-only>
-                          <div style="width:100%;overflow-x:auto;"><table class="table" style="width:500px">
+                          <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
                             <tr><th width="200">掉落物</th><th width="200">数量</th><th width="200">概率</th><th width="50"></th></tr>
                             <tr v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
                               <td>
-                                <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable :placeholder="'fallDItem'+(index+1)" filterable
+                                <client-only><el-select v-model.number="WSITEM_Parameter.fallDItems[index]" clearable :placeholder="'fallDItem'+(index+1)" filterable
                                   remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
                                   @change="generateOutput">
                                   <el-option v-for="item in options" :key="item.id"
@@ -254,6 +254,28 @@
                       <div><el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button></div>
                       
                     </el-form>
+                </div>
+                
+                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 18">
+                  <el-label style="font-size: 1.3rem;">帽子/衣服专用参数</el-label>
+                  <el-form class="labelbox">
+                     <client-only>
+                        <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
+                          <tr><th width="400">动画帧图片文件名</th><th width="50"></th></tr>
+                          <tr v-for="(item, index) in WSITEM_Parameter.anime" :key="index">
+                            <td>
+                              <el-input v-model="WSITEM_Parameter.anime[index]" placeholder="anime/x1.png"
+                                @input="generateOutput" clearable type="text" />
+                            </td>
+                            <td>
+                              <el-button type="danger" :icon="Delete" @click="delAnime(index)"/>
+                            </td>
+                          </tr>
+                        </table></div>
+                      </client-only>
+                      <div><el-button type="primary" :icon="Plus" @click="addAnime">添加动画帧</el-button></div>
+                      
+                  </el-form>
                 </div>
                 
                 <div style="margin-top: 20px;">
@@ -544,6 +566,7 @@ const WSITEM_Parameter = reactive({
     fallDItemsRate: [],
     buffs: [],
     buffsLV: [],
+    anime: []
 })
 
 //物品分类
@@ -730,6 +753,16 @@ const delFallDItems = (index) => {
   generateOutput();
 }
 
+const addAnime = () => {
+  WSITEM_Parameter.anime.push('');
+  generateOutput();
+}
+
+const delAnime = (index) => {
+  WSITEM_Parameter.anime.splice(index, 1);
+  generateOutput();
+}
+
 const toUnicode = function (s) {
     return s.replace(/[^\x00-\x7F]/g, x => "\\u" + ("000" + x.codePointAt(0).toString(16)).slice(-4));
 }
@@ -792,14 +825,11 @@ const generateOutput = () => {
                 if (k === 'buffs' || k === 'buffsLV' || k === 'fallDItems') {
                   return v.filter((x) => {return x !== '' && x !== null});
                 }
-                if (k === 'MPCost' || k === 'HPCost' || k === 'EPCost' || k === 'OLCost') {
-                  return v * 100;
-                }
-                if (k === 'GCost') {
-                  return v * 10;
+                if (k === 'atkSpeed' || k === 'MPCost' || k === 'HPCost' || k === 'EPCost' || k === 'GCost' || k === 'OLCost') {
+                  return parseInt(v * 100);
                 }
                 return v;
-            }, 4).replaceAll('\\\\u', '\\u').replaceAll(/(?<=\[(\s*\d*,?)*)\n\s*(\d*,?|\])/g, ' $2');
+            }, 4).replaceAll('\\\\u', '\\u').replaceAll(/(?<="(fallDItems|fallDItemsNum|fallDItemsRate|buffs|buffsLV)":\s\[(\s*\d*,?)*)\n\s*(\d*,?|\])/g, ' $3');
             break
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
