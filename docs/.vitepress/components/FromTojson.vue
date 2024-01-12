@@ -190,8 +190,8 @@
                           </el-radio-group>
                         </el-form-item>
                         
-                        <div style="width:100%;border: 2px solid var(--el-border-color);">
-                          <el-label for="from">掉落物</el-label>
+                        <el-card style="width:100%;">
+                          <template #header>掉落物</template>
                           <el-row :gutter="5" v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
                             <el-col :span="6">
                               <el-form-item class="labeldiv workspace">
@@ -229,16 +229,16 @@
                               <el-button type="danger" :icon="Delete" @click="delFallDItems(index)"/>
                             </el-col>
                           </el-row>
-                          <el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button>
-                        </div>
+                          <div><el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button></div>
+                        </el-card>
                     </el-form>
                 </div>
                 
                 <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)">
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
-                      <div style="width:100%;border: 2px solid var(--el-border-color);">
-                        <el-label for="from">Buff</el-label>
+                      <el-card style="width:100%;">
+                        <template #header>Buff</template>
                         <el-row :gutter="5" v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
                           <el-col :span="10">
                             <el-form-item class="labeldiv">
@@ -260,8 +260,8 @@
                             <el-button type="danger" :icon="Delete" @click="delBuff(index)"/>
                           </el-col>
                         </el-row>
-                        <el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button>
-                      </div>
+                        <div><el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button></div>
+                      </el-card>
                     </el-form>
                 </div>
                 
