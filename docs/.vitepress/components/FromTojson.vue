@@ -35,7 +35,7 @@
                     </el-form-item>
                     <el-form-item label="物品类型" class="labeldiv workspace">
                         <client-only>
-                            <el-select v-model="WSITEM_Parameter.itemType" clearable placeholder="itemType" filterable @change="generateOutput">
+                            <el-select v-model="WSITEM_Parameter.itemType" placeholder="itemType" filterable @change="generateOutput">
                                 <el-option v-for="i in itemTypeGroup" :key="i.index" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
@@ -195,7 +195,7 @@
                             <tr><th width="200">掉落物</th><th width="200">数量</th><th width="200">概率</th><th width="50"></th></tr>
                             <tr v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
                               <td>
-                                <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable placeholder="fallDItems" filterable
+                                <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable :placeholder="'fallDItem'+(index+1)" filterable
                                   remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
                                   @change="generateOutput">
                                   <el-option v-for="item in options" :key="item.id"
@@ -209,12 +209,12 @@
                                 </el-select></client-only>
                               </td>
                               <td>
-                                <el-input-number v-model="WSITEM_Parameter.fallDItemsNum[index]" placeholder="fallDItemsNum"
+                                <el-input-number v-model="WSITEM_Parameter.fallDItemsNum[index]"
                                   :min="1" @input="generateOutput"
                                   clearable maxlength="10" />
                               </td>
                               <td>
-                                <el-slider class="input-1" v-model="WSITEM_Parameter.fallDItemsRate[index]" placeholder="fallDItemsRate"
+                                <el-slider v-model="WSITEM_Parameter.fallDItemsRate[index]"
                                   :min="0" :max="100" @input="generateOutput" />
                               </td>
                               <td>
@@ -236,12 +236,12 @@
                           <tr><th width="200">Buff ID</th><th width="150">Buff等级</th><th width="50"></th></tr>
                           <tr v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
                             <td>
-                              <el-input v-model.number="WSITEM_Parameter.buffs[index]" placeholder="buff ID"
+                              <el-input v-model.number="WSITEM_Parameter.buffs[index]" :placeholder="'buff'+(index+1)"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
                             </td>
                             <td>
-                              <el-input-number v-model="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
+                              <el-input-number v-model="WSITEM_Parameter.buffsLV[index]"
                                 :min="1" @input="generateOutput"
                                 clearable maxlength="10" />
                             </td>
@@ -717,7 +717,7 @@ const delBuff = (index) => {
 }
 
 const addFallDItems = () => {
-  WSITEM_Parameter.fallDItems.push('');
+  WSITEM_Parameter.fallDItems.push(0);
   WSITEM_Parameter.fallDItemsNum.push(1);
   WSITEM_Parameter.fallDItemsRate.push(0);
   generateOutput();
@@ -789,8 +789,8 @@ const generateOutput = () => {
                     }
                     return toUnicode(v);
                 }
-                if (k === 'buffs' || k === 'buffsLV') {
-                  return v.filter((x) => {return x != ''});
+                if (k === 'buffs' || k === 'buffsLV' || k === 'fallDItems') {
+                  return v.filter((x) => {return x != '' && x != null});
                 }
                 if (k === 'MPCost' || k === 'HPCost' || k === 'EPCost' || k === 'OLCost') {
                   return v * 100;
@@ -826,8 +826,6 @@ const generateOutput = () => {
                         (k === 'mat4num' && CM_Parameter.mat4 === '')) return;
                     if (v > 2147483647) return '值不能大于 2147483647';
                 }
-                //console.log(k, CM_Parameter)
-
                 return v;
             }, 4)
             break
