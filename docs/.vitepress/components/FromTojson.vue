@@ -190,8 +190,8 @@
                           </el-radio-group>
                         </el-form-item>
                         
-                        
-                        <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%" border="false">
+                        <client-only>
+                          <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%" border="false">
                             <el-table-column label="掉落物" width="200">
                               <template #default="item">
                                 <client-only><el-select v-model="WSITEM_Parameter.fallDItems[item.$index]" clearable placeholder="fallDItems" filterable
@@ -225,16 +225,17 @@
                               <el-button type="danger" :icon="Delete" @click="delFallDItems(index)"/>
                             </el-table-column>
                         </el-table>
-                        <div><el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button></div>
-                        
+                      </client-only>
+                      <div><el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button></div>
+                      
                     </el-form>
                 </div>
                 
                 <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)">
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
-                      
-                      <el-table :data="WSITEM_Parameter.buffs" style="width:100%" border="false">
+                      <client-only>
+                        <el-table :data="WSITEM_Parameter.buffs" style="width:100%" border="false">
                           <el-table-column label="Buff ID" width="200">
                             <template #default="item">
                               <el-input v-model.number="WSITEM_Parameter.buffs[item.$index]" placeholder="buff ID"
@@ -252,7 +253,8 @@
                           <el-table-column width="50">
                             <el-button type="danger" :icon="Delete" @click="delBuff(index)"/>
                           </el-table-column>
-                      </el-table>
+                        </el-table>
+                      </client-only>
                       <div><el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button></div>
                       
                     </el-form>
