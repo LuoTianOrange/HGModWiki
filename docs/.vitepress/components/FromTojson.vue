@@ -190,45 +190,36 @@
                           </el-radio-group>
                         </el-form-item>
                         
-                        <el-card style="width:100%;">
+                        <el-card style="width:100%;" :body-style="{ padding: '10px' }">
                           <template #header>掉落物</template>
-                          <el-row :gutter="5" v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
-                            <el-col :span="6">
-                              <el-form-item class="labeldiv workspace">
-                                <el-label for="from">掉落物 ID</el-label>
-                                <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable placeholder="fallDItems" filterable
-                                    remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
-                                    @change="generateOutput">
-                                  <el-option v-for="item in options" :key="item.id"
-                                      :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                      <span style="vertical-align: top;">{{ item.name }}</span>
-                                      <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
-                                          v-if="item.src" />
-                                      <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
-                                        item.id }}</span>
-                                  </el-option>
+                          <el-table :data="WSITEM_Parameter.fallDItems" style="width:100%">
+                            <el-table-column label="掉落物">
+                              <client-only><el-select v-model="WSITEM_Parameter.fallDItems[index]" clearable placeholder="fallDItems" filterable
+                                  remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
+                                  @change="generateOutput">
+                                <el-option v-for="item in options" :key="item.id"
+                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                  <span style="vertical-align: top;">{{ item.name }}</span>
+                                  <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                    v-if="item.src" />
+                                  <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                    item.id }}</span>
+                                </el-option>
                               </el-select></client-only>
-                              </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                              <el-form-item class="labeldiv">
-                                <el-label for="from">掉落数量</el-label>
-                                <el-input-number class="input-1" v-model="WSITEM_Parameter.fallDItemsNum[index]" placeholder="fallDItemsNum"
+                            </el-table-column>
+                            <el-table-column label="掉落数量">
+                              <el-input-number class="input-1" v-model="WSITEM_Parameter.fallDItemsNum[index]" placeholder="fallDItemsNum"
                                   :min="1" @input="generateOutput"
                                   clearable maxlength="10" />
-                              </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                              <el-form-item class="labeldiv">
-                                <el-label for="from">掉落概率</el-label>
-                                <el-slider class="input-1" v-model="WSITEM_Parameter.fallDItemsRate[index]" placeholder="fallDItemsRate"
+                            </el-table-column>
+                            <el-table-column label="掉落概率">
+                              <el-slider class="input-1" v-model="WSITEM_Parameter.fallDItemsRate[index]" placeholder="fallDItemsRate"
                                   :min="0" :max="100" @input="generateOutput" />
-                              </el-form-item>
-                            </el-col>
-                            <el-col :span="4" style="display: flex;justify-content: center;align-items: center;">
+                            </el-table-column>
+                            <el-table-column>
                               <el-button type="danger" :icon="Delete" @click="delFallDItems(index)"/>
-                            </el-col>
-                          </el-row>
+                            </el-table-column>
+                          </el-table>
                           <div><el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button></div>
                         </el-card>
                     </el-form>
@@ -237,29 +228,23 @@
                 <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)">
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
-                      <el-card style="width:100%;">
+                      <el-card style="width:100%;" :body-style="{ padding: '10px' }">
                         <template #header>Buff</template>
-                        <el-row :gutter="5" v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
-                          <el-col :span="10">
-                            <el-form-item class="labeldiv">
-                              <el-label for="from">Buff ID</el-label>
-                              <el-input class="input-1" v-model.number="WSITEM_Parameter.buffs[index]" placeholder="buff ID"
+                        <el-table :data="WSITEM_Parameter.buffs">
+                          <el-table-column label="Buff ID">
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.buffs[index]" placeholder="buff ID"
                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="10">
-                            <el-form-item class="labeldiv">
-                              <el-label for="from">Buff等级</el-label>
+                          </el-table-column>
+                          <el-table-column label="Buff等级">
                               <el-input-number class="input-1" v-model="WSITEM_Parameter.buffsLV[index]" placeholder="buff LV"
                                 :min="1" @input="generateOutput"
                                 clearable maxlength="10" />
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="4" style="display: flex;justify-content: center;align-items: center;">
+                          </el-table-column>
+                          <el-table-column>
                             <el-button type="danger" :icon="Delete" @click="delBuff(index)"/>
-                          </el-col>
-                        </el-row>
+                          </el-table-column>
+                        </el-table>
                         <div><el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button></div>
                       </el-card>
                     </el-form>
