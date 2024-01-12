@@ -829,7 +829,7 @@ const generateOutput = () => {
                   return v * 100;
                 }
                 return v;
-            }, 4).replaceAll('\\\\u', '\\u').replaceAll(/(?<=\[(\s*\d*,?)*)\n\s*(\d*,?|\])/g, ' $2');
+            }, 4).replaceAll('\\\\u', '\\u').replaceAll(/(?<="(fallDItems|fallDItemsNum|fallDItemsRate|buffs|buffsLV)":\s\[(\s*\d*,?)*)\n\s*(\d*,?|\])/g, ' $2');
             break
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
