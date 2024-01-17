@@ -236,7 +236,7 @@
                     </el-form>
                 </div>
                 
-                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)">
+                <div style="margin-top: 20px;" v-if="[12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) !== -1">
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
                       <client-only>
@@ -264,7 +264,7 @@
                     </el-form>
                 </div>
                 
-                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 18">
+                <div style="margin-top: 20px;" v-if="[17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) !== -1">
                   <el-label style="font-size: 1.3rem;">帽子/衣服专用参数</el-label>
                   <el-form class="labelbox">
                      <client-only>
@@ -533,7 +533,7 @@ const WSITEM_Parameter = reactive({
     description: '',
     iconPath: '',
     atk: '',
-    quality: 1,
+    quality: 0,
     maxNum: 1,
     price: '',
     Size: '',
@@ -832,8 +832,11 @@ const generateOutput = () => {
                      k === 'collider' || 
                      k === 'surface' || 
                      k === 'BdInSea' )) return;
-                if (!(WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)) &&
+                if (([12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) === -1) &&
                      (k === 'buffs' || k === 'buffsLV')) return;
+                if (([17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) === -1) &&
+                     (k === 'anime')) return;
+                
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
