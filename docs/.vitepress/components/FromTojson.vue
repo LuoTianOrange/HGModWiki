@@ -36,8 +36,16 @@
                     <el-form-item label="物品类型" class="labeldiv workspace">
                         <client-only>
                             <el-select v-model="WSITEM_Parameter.itemType" placeholder="itemType" filterable @change="generateOutput">
-                                <el-option v-for="i in itemTypeGroup" :key="i.index" :label="`${i.key} (${i.value})`"
+                                <el-option v-for="i in itemTypeGroup" :key="i.key" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
+                            </el-select>
+                        </client-only>
+                    </el-form-item>
+                    <el-form-item label="物品品质" class="labeldiv workspace">
+                        <client-only>
+                            <el-select v-model="WSITEM_Parameter.quality" placeholder="quality" filterable @change="generateOutput">
+                                <el-option v-for="i in quality" :key="i.id" :label="`${i.name} (${i.id})`"
+                                    :value="i.id"></el-option>
                             </el-select>
                         </client-only>
                     </el-form-item>
@@ -49,7 +57,7 @@
                     </el-form-item>
                 </el-form>
                 
-                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 3">
+                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 3 || WSITEM_Parameter.itemType == 58">
                     <el-label style="font-size: 1.3rem;">武器专用参数</el-label>
                     <el-form class="labelbox">
                         <el-form-item label="武器类型" class="labeldiv workspace">
@@ -228,7 +236,7 @@
                     </el-form>
                 </div>
                 
-                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)">
+                <div style="margin-top: 20px;" v-if="[12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) !== -1">
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
                       <client-only>
@@ -256,7 +264,7 @@
                     </el-form>
                 </div>
                 
-                <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 18">
+                <div style="margin-top: 20px;" v-if="[17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) !== -1">
                   <el-label style="font-size: 1.3rem;">帽子/衣服专用参数</el-label>
                   <el-form class="labelbox">
                      <client-only>
@@ -525,7 +533,7 @@ const WSITEM_Parameter = reactive({
     description: '',
     iconPath: '',
     atk: '',
-    quality: 1,
+    quality: 0,
     maxNum: 1,
     price: '',
     Size: '',
@@ -639,6 +647,20 @@ const itemTypeGroup = [
     { 'key': '辅助机', 'value': 66 },
     { 'key': '物质线', 'value': 67 }
 ]
+
+//物品品质
+const quality = [
+  { id: -1, name: '垃圾' },
+  { id: 0, name: '常见' },
+  { id: 1, name: '普通' },
+  { id: 2, name: '不寻常' },
+  { id: 3, name: '稀有' },
+  { id: 4, name: '非常稀有' },
+  { id: 5, name: '超绝稀有' },
+  { id: 6, name: '传说' },
+  { id: 7, name: '神级' },
+]
+
 //武器小分类
 const weaponTypeGroup = [
     { 'key': '枪', 'value': 0 },
@@ -777,7 +799,7 @@ const generateOutput = () => {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
-                if (WSITEM_Parameter.itemType != 3 && 
+                if ((WSITEM_Parameter.itemType != 3 && WSITEM_Parameter.itemType != 58 ) && 
                     (k === 'weaponType' || 
                      k === 'demageType' || 
                      k === 'STRRate' || 
@@ -810,8 +832,11 @@ const generateOutput = () => {
                      k === 'collider' || 
                      k === 'surface' || 
                      k === 'BdInSea' )) return;
-                if (!(WSITEM_Parameter.itemType == 12 || (WSITEM_Parameter.itemType >= 17 && WSITEM_Parameter.itemType <= 20)) &&
+                if (([12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) === -1) &&
                      (k === 'buffs' || k === 'buffsLV')) return;
+                if (([17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) === -1) &&
+                     (k === 'anime')) return;
+                
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
