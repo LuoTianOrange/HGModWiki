@@ -28,7 +28,7 @@
                         <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" />
                     </el-form-item>
-                    <el-form-item class="labeldiv" v-for="i in [['攻击力(饱食度)','atk'],['贴图大小', 'Size'],['贴图位置X', 'FposX'],['贴图位置Y', 'FposY'],['最大堆叠数量', 'maxNum'],['物品价格', 'price']]">
+                    <el-form-item class="labeldiv" v-for="i in [['攻击力(饱食度)','atk'],['贴图大小', 'Size'],['武器弹幕贴图位置X', 'FposX'],['武器弹幕贴图位置Y', 'FposY'],['最大堆叠数量', 'maxNum'],['物品价格', 'price']]">
                         <el-label for="from">{{ i[0] }}</el-label>
                         <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
