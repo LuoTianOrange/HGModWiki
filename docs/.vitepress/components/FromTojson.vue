@@ -653,7 +653,7 @@ const quality = [
   { id: -1, name: '垃圾' },
   { id: 0, name: '常见' },
   { id: 1, name: '普通' },
-  { id: 2, name: '不寻常' }
+  { id: 2, name: '不寻常' },
   { id: 3, name: '稀有' },
   { id: 4, name: '非常稀有' },
   { id: 5, name: '超绝稀有' },
