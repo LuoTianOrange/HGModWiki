@@ -694,6 +694,7 @@ const weaponTypeGroup = [
 //伤害类型
 const damageTypeGroup = [
     { 'key': '未知', 'value': -1 },
+    { 'key': '物理', 'value': 0 },
     { 'key': '魔法', 'value': 1 },
     { 'key': '魔物', 'value': 2 },
     { 'key': '射手', 'value': 3 },
