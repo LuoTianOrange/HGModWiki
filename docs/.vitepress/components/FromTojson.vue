@@ -980,7 +980,7 @@ const generateOutput = () => {
                     }
                     return toUnicode(v);
                 }
-                if (k === 'buffs' || k === 'buffsLV' || k === 'fallDItems') {
+                if (k === 'buffs' || k === 'buffsLV' || k === 'fallDItems' || k === 'anime') {
                   return v.filter((x) => {return x !== '' && x !== null});
                 }
                 if (k === 'atkSpeed' || k === 'MPCost' || k === 'HPCost' || k === 'EPCost' || k === 'GCost' || k === 'OLCost') {
@@ -1030,6 +1030,9 @@ const generateOutput = () => {
                 }
                 if (typeof v === 'string') {
                     return toUnicode(v);
+                }
+                if (k === 'anime') {
+                  return v.filter((x) => {return x !== '' && x !== null});
                 }
                 return v;
             }, 4).replaceAll('\\\\u', '\\u')
