@@ -28,7 +28,7 @@
                         <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" />
                     </el-form-item>
-                    <el-form-item class="labeldiv" v-for="i in [['攻击力(饱食度)','atk'],['贴图大小', 'Size'],['武器弹幕贴图位置X', 'FposX'],['武器弹幕贴图位置Y', 'FposY'],['最大堆叠数量', 'maxNum'],['物品价格', 'price']]">
+                    <el-form-item class="labeldiv" v-for="i in [['攻击力(饱食度)','atk'],['贴图大小', 'Size'],['武器弹幕贴图位置X', 'FposX'],['武器弹幕贴图位置Y', 'FposY'],['最大堆叠数量', 'maxNum'],['物品价格', 'price'],['耐久度', 'itemHP']">
                         <el-label for="from">{{ i[0] }}</el-label>
                         <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
@@ -79,20 +79,22 @@
                             </el-select>
                         </el-form-item>
                         <el-form-item class="labeldiv">
+                          <el-label for="from">使用弹药类型</el-label>
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" placeholder="UseAType"
+                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                        </el-form-item>
+                        
+                        <el-form-item class="labeldiv">
                           <el-label for="from">弹幕ID</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.AmmoID" :placeholder="AmmoID"
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.AmmoID" placeholder="AmmoID"
                             @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                         </el-form-item>
                         <el-form-item class="labeldiv">
                           <el-label for="from">攻击角度</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" :placeholder="DAngle"
+                          <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" placeholder="DAngle"
                             @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
-                        <el-form-item class="labeldiv">
-                          <el-label for="from">使用弹药类型</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" :placeholder="UseAType"
-                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
-                        </el-form-item>
+                        
                         <div style="width: 100%;"></div>
                         <el-form-item class="labeldiv">
                           <el-label for="from">反作用力</el-label>
@@ -179,20 +181,13 @@
                         </el-form-item>
                         
                         <div style="width:100%"></div>
-                        <el-form-item label="是否有碰撞器" class="labeldiv workspace">
-                          <el-radio-group v-model="WSITEM_Parameter.collider" @change="generateOutput">
-                            <el-radio-button :label="true">是</el-radio-button>
-                            <el-radio-button :label="false">否</el-radio-button>
-                          </el-radio-group>
-                        </el-form-item>
-                        <el-form-item label="排序图层是否显示于最底层" class="labeldiv workspace">
-                          <el-radio-group v-model="WSITEM_Parameter.surface" @change="generateOutput">
-                            <el-radio-button :label="true">是</el-radio-button>
-                            <el-radio-button :label="false">否</el-radio-button>
-                          </el-radio-group>
-                        </el-form-item>
-                        <el-form-item label="是否只能放在液体中" class="labeldiv workspace">
-                          <el-radio-group v-model="WSITEM_Parameter.BdInSea" @change="generateOutput">
+                        <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
+                          ['collider', '是否有碰撞器'],
+                          ['surface', '是否显示于最底层'],
+                          ['BdInSea', '是否只能放在液体中'],
+                          ['fallDSelf', '是否掉落自身'],
+                        ]">
+                          <el-radio-group v-model="WSITEM_Parameter[i[0]]" @change="generateOutput">
                             <el-radio-button :label="true">是</el-radio-button>
                             <el-radio-button :label="false">否</el-radio-button>
                           </el-radio-group>
@@ -289,10 +284,11 @@
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
-                    <el-input type="textarea" :rows="12" v-model="WSITEM_Output" style="margin-top: 20px;"
+                    <el-input type="textarea" :rows="30" v-model="WSITEM_Output" style="margin-top: 20px;"
                         class="el-place" />
                 </div>
             </el-tab-pane>
+
 
             <el-tab-pane label="CM" name="CM">
                 <el-form class="labelbox">
@@ -364,14 +360,115 @@
                 </div>
             </el-tab-pane>
 
+
             <el-tab-pane label="WSAMMO" name="WSAMMO">
                 <el-form class="labelbox">
                     <el-form-item class="labeldiv">
                         <el-label for="from">弹幕ID</el-label>
-                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.ID"
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.AID"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
+                    
+                    <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
+                      ['wakeType', '拖尾类型', [[0, '']]],
+                      ['MPType', '运动类型', [[0, '']]],
+                    ]">
+                        <client-only>
+                            <el-select v-model="WSAMMO_Parameter[i[0]]" :placeholder="i[0]" filterable allow-create @change="generateOutput">
+                                <el-option v-for="j in i[2]" :key="j[0]" :label="`${j[1]} (${j[0]})`" :value="j[0]"></el-option>
+                            </el-select>
+                        </client-only>
+                    </el-form-item>
+                    
+                    <el-form-item :label="i[1]" class="labeldiv" v-for="i in [
+                      ['AHP', '弹幕生命值'],
+                      ['Speed', '飞行速度'],
+                      ['SFloating', '速度浮动'],
+                      ['PassCount', '通过计数'],
+                      ['rotateSpeed', '旋转速度'],
+                      ['DTime', '持续时间'],
+                      ['ATKSpeed', '攻击速度'],
+                      ['sortLayer', '排序层级'],
+                      ['SpeedSlowDown', '速度减缓'],
+                      ['SpeedSlowDelay', '速度减缓延迟'],
+                      ['TipsAID', '初始化弹幕ID'],
+                    ]">
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter[i[0]]" :placeholder="i[0]"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                            maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                    
+                    <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
+                      ['HitTrigger', '命中触发'],
+                      ['BreakTrigger', '销毁触发'],
+                      ['TimeOutTrigger', '超时触发'],
+                    ]">
+                        <el-radio-group v-model="WSAMMO_Parameter[i[0]]" @change="generateOutput">
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
+                        </el-radio-group>
+                    </el-form-item>
+                    
+                    <el-form-item label="命中释放弹幕ID" class="labeldiv">
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.HitAID" placeholder="HitAID"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                            maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                    <el-form-item :label="i[1]" class="labeldiv" v-for="i in [
+                      ['HitANum', '命中释放弹幕数量'],
+                      ['FollowLV', '追踪等级'],
+                      ['FollowInterval', '追踪间隔'],
+                    ]">
+                        <el-input-number class="input-1" v-model.number="WSAMMO_Parameter[i[0]]" @input="generateOutput" />
+                    </el-form-item>
+                    
+                    <el-form-item class="labeldiv el-from-item">
+                        <el-label for="from">光照颜色</el-label>
+                        <el-input class="input-1" v-model="WSAMMO_Parameter.LightColor" placeholder="LightColor"
+                            @input="generateOutput"
+                            clearable maxlength="9" type="text" show-word-limit />
+                        <client-only><el-color-picker v-model="WSAMMO_Parameter.LightColor" show-alpha color-format="hex" :predefine="['#ff4b4b','#55f5ff', '#ffff00', '#ff7c81', '#fb6e92', '#7c9eff', '#81fe7c', '#ffaa4b', '#008000', '#006da0', '#7b92ff', '#eda4ff', '#fea500', '#ff7061', '#fffe84', '#916df6', '#93c0ff', '#93fdff', '#93ffc3', '#c3c3c3', '#FFFAFA']" @change="generateOutput" /></client-only>
+                    </el-form-item>
+                    <el-form-item class="labeldiv el-from-item">
+                        <el-label for="from">光照范围</el-label>
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.LightRange" placeholder="LightRange"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                    <el-form-item class="labeldiv el-from-item">
+                        <el-label for="from">光照强度</el-label>
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.LightIntensity" placeholder="LightIntensity"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
+                            clearable maxlength="10" type="text" show-word-limit />
+                    </el-form-item>
+                    
+                    <el-form-item label="是否有动画" class="labeldiv workspace">
+                        <el-radio-group v-model="WSAMMO_Parameter.haveAnime" @change="generateOutput">
+                          <el-radio-button :label="true">是</el-radio-button>
+                          <el-radio-button :label="false">否</el-radio-button>
+                        </el-radio-group>
+                    </el-form-item>
+                    <template v-if="WSAMMO_Parameter.haveAnime">
+                      <el-form-item label="动画速度" class="labeldiv">
+                          <el-input-number class="input-1" v-model.number="WSAMMO_Parameter.AnimeSpeed" :min="0" @input="generateOutput" />
+                      </el-form-item>
+                      <client-only>
+                          <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
+                            <tr><th width="400">动画帧图片文件名</th><th width="50"></th></tr>
+                            <tr v-for="(item, index) in WSAMMO_Parameter.anime" :key="index">
+                              <td>
+                                <el-input v-model="WSAMMO_Parameter.anime[index]" placeholder="anime/x1.png"
+                                  @input="generateOutput" clearable type="text" />
+                              </td>
+                              <td>
+                                <el-button type="danger" :icon="Delete" @click="delAnime_AMMO(index)"/>
+                              </td>
+                            </tr>
+                          </table></div>
+                        </client-only>
+                        <div><el-button type="primary" :icon="Plus" @click="addAnime_AMMO">添加动画帧</el-button></div>
+                      </template>
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
@@ -569,6 +666,7 @@ const WSITEM_Parameter = reactive({
     collider: false,
     surface: false,
     BdInSea: false,
+    fallDSelf: false,
     fallDItems: [],
     fallDItemsNum: [],
     fallDItemsRate: [],
@@ -726,19 +824,46 @@ const RateGroup = [
 const CM_Parameter = reactive({
     ID: 10001,
     mat1: '',
-    mat1num: 1,
+    mat1Num: 1,
     mat2: '',
-    mat2num: '',
+    mat2Num: '',
     mat3: '',
-    mat3num: '',
+    mat3Num: '',
     mat4: '',
-    mat4num: '',
+    mat4Num: '',
     result: '',
-    resultnum: 1,
+    resultNum: 1,
     place: 0
 })
+
 const WSAMMO_Parameter = reactive({
-    ID: 0,
+    AID: 0,
+    wakeType: 0,
+    MPType: 0,
+    AHP: '',
+    Speed: '',
+    SFloating: '',
+    PassCount: '',
+    rotateSpeed: '',
+    DTime: '',
+    ATKSpeed: '',
+    sortLayer: '',
+    SpeedSlowDown: '',
+    SpeedSlowDelay: '',
+    BreakTrigger: false,
+    HitTrigger: false,
+    TimeOutTrigger: false,
+    HitAID: '',
+    HitANum: '',
+    TipsAID: '',
+    FollowLV: 0,
+    FollowInterval: 0,
+    LightRange: 0,
+    LightIntensity: 0,
+    LightColor: '',
+    haveAnime: false,
+    anime: [],
+    AnimeSpeed: '',
 })
 
 const WSITEM_Output = ref('')
@@ -786,6 +911,16 @@ const delAnime = (index) => {
   generateOutput();
 }
 
+const addAnime_AMMO = () => {
+  WSAMMO_Parameter.anime.push('');
+  generateOutput();
+}
+
+const delAnime_AMMO = (index) => {
+  WSAMMO_Parameter.anime.splice(index, 1);
+  generateOutput();
+}
+
 const toUnicode = function (s) {
     return s.replace(/[^\x00-\x7F]/g, x => "\\u" + ("000" + x.codePointAt(0).toString(16)).slice(-4));
 }
@@ -819,6 +954,7 @@ const generateOutput = () => {
                      k === 'DAngle' ||
                      k === 'PPower' ||
                      k === 'UseAType')) return;
+                     
                 if (WSITEM_Parameter.itemType != 7 && 
                     (k === 'BDType' || 
                      k === 'BuildingType' || 
@@ -833,8 +969,10 @@ const generateOutput = () => {
                      k === 'collider' || 
                      k === 'surface' || 
                      k === 'BdInSea' )) return;
+                     
                 if (([12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) === -1) &&
                      (k === 'buffs' || k === 'buffsLV')) return;
+                     
                 if (([17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) === -1) &&
                      (k === 'anime')) return;
                 
@@ -857,6 +995,7 @@ const generateOutput = () => {
                 return v;
             }, 4).replaceAll('\\\\u', '\\u').replaceAll(/(?<="(fallDItems|fallDItemsNum|fallDItemsRate|buffs|buffsLV)":\s\[(\s*\d*,?)*)\n\s*(\d*,?|\])/g, ' $3');
             break
+            
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
                 if (v === "" || v === 0) {
@@ -885,13 +1024,21 @@ const generateOutput = () => {
                 return v;
             }, 4)
             break
+            
         case 'WSAMMO':
             WSAMMO_Output.value = JSON.stringify(WSAMMO_Parameter, (k, v) => {
                 if (v === "") {
                     return;
                 }
+                if (WSAMMO_Parameter.haveAnime === false &&
+                  (k === 'AnimeSpeed' || k === 'anime')) {
+                  return;
+                }
+                if (typeof v === 'string') {
+                    return toUnicode(v);
+                }
                 return v;
-            }, 4)
+            }, 4).replaceAll('\\\\u', '\\u')
             break
     }
 
