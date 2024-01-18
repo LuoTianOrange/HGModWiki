@@ -399,17 +399,6 @@
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     
-                    <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
-                      ['HitTrigger', '命中触发'],
-                      ['BreakTrigger', '销毁触发'],
-                      ['TimeOutTrigger', '超时触发'],
-                    ]">
-                        <el-radio-group v-model="WSAMMO_Parameter[i[0]]" @change="generateOutput">
-                          <el-radio-button :label="true">是</el-radio-button>
-                          <el-radio-button :label="false">否</el-radio-button>
-                        </el-radio-group>
-                    </el-form-item>
-                    
                     <el-form-item label="命中释放弹幕ID" class="labeldiv workspace">
                         <el-input class="input-1" v-model.number="WSAMMO_Parameter.HitAID" placeholder="HitAID"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
@@ -443,8 +432,13 @@
                             clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     
-                    <el-form-item label="是否有动画" class="labeldiv workspace">
-                        <el-radio-group v-model="WSAMMO_Parameter.haveAnime" @change="generateOutput">
+                    <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
+                      ['HitTrigger', '命中触发'],
+                      ['BreakTrigger', '销毁触发'],
+                      ['TimeOutTrigger', '超时触发'],
+                      ['haveAnime', '是否有动画'],
+                    ]">
+                        <el-radio-group v-model="WSAMMO_Parameter[i[0]]" @change="generateOutput">
                           <el-radio-button :label="true">是</el-radio-button>
                           <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
