@@ -381,7 +381,7 @@
                         </client-only>
                     </el-form-item>
                     
-                    <el-form-item :label="i[1]" class="labeldiv" v-for="i in [
+                    <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
                       ['AHP', '弹幕生命值'],
                       ['Speed', '飞行速度'],
                       ['SFloating', '速度浮动'],
@@ -410,12 +410,12 @@
                         </el-radio-group>
                     </el-form-item>
                     
-                    <el-form-item label="命中释放弹幕ID" class="labeldiv">
+                    <el-form-item label="命中释放弹幕ID" class="labeldiv workspace">
                         <el-input class="input-1" v-model.number="WSAMMO_Parameter.HitAID" placeholder="HitAID"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    <el-form-item :label="i[1]" class="labeldiv" v-for="i in [
+                    <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
                       ['HitANum', '命中释放弹幕数量'],
                       ['FollowLV', '追踪等级'],
                       ['FollowInterval', '追踪间隔'],
