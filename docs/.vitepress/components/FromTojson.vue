@@ -67,7 +67,7 @@
                             </el-select>
                         </el-form-item>
                         <el-form-item label="伤害类型" class="labeldiv workspace">
-                            <el-select v-model="WSITEM_Parameter.demageType" clearable placeholder="demageType" filterable @change="generateOutput">
+                            <el-select v-model="WSITEM_Parameter.damageType" clearable placeholder="damageType" filterable @change="generateOutput">
                                 <el-option v-for="i in damageTypeGroup" :key="i.value" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
@@ -542,7 +542,7 @@ const WSITEM_Parameter = reactive({
     itemType: '',
     OHand: false,
     weaponType: '',
-    demageType: '',
+    damageType: '',
     STRRate: '',
     INTRate: '',
     TECRate: '',
