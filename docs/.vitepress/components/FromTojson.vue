@@ -23,19 +23,23 @@
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
-                    <el-form-item class="labeldiv" v-for="i in [['物品中文名', 'nameCn'],['物品英文名', 'nameEn'],['物品描述', 'description'],['图片路径', 'iconPath']]">
+                    <el-form-item class="labeldiv"
+                        v-for="i in [['物品中文名', 'nameCn'], ['物品英文名', 'nameEn'], ['物品描述', 'description'], ['图片路径', 'iconPath']]">
                         <el-label for="from">{{ i[0] }}</el-label>
                         <el-input class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
                             @input="generateOutput" clearable type="text" />
                     </el-form-item>
-                    <el-form-item class="labeldiv" v-for="i in [['攻击力(饱食度)','atk'],['贴图大小', 'Size'],['武器弹幕贴图位置X', 'FposX'],['武器弹幕贴图位置Y', 'FposY'],['最大堆叠数量', 'maxNum'],['物品价格', 'price'],['耐久度', 'itemHP']]">
+                    <el-form-item class="labeldiv"
+                        v-for="i in [['攻击力(饱食度)', 'atk'], ['贴图大小', 'Size'], ['武器弹幕贴图位置X', 'FposX'], ['武器弹幕贴图位置Y', 'FposY'], ['最大堆叠数量', 'maxNum'], ['物品价格', 'price'], ['耐久度', 'itemHP']]">
                         <el-label for="from">{{ i[0] }}</el-label>
                         <el-input class="input-1" v-model.number="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
-                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                            @input="generateOutput" clearable type="text"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                     </el-form-item>
                     <el-form-item label="物品类型" class="labeldiv workspace">
                         <client-only>
-                            <el-select v-model="WSITEM_Parameter.itemType" placeholder="itemType" filterable @change="generateOutput">
+                            <el-select v-model="WSITEM_Parameter.itemType" placeholder="itemType" filterable
+                                @change="generateOutput">
                                 <el-option v-for="i in itemTypeGroup" :key="i.key" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
@@ -43,244 +47,302 @@
                     </el-form-item>
                     <el-form-item label="物品品质" class="labeldiv workspace">
                         <client-only>
-                            <el-select v-model="WSITEM_Parameter.quality" placeholder="quality" filterable @change="generateOutput">
+                            <el-select v-model="WSITEM_Parameter.quality" placeholder="quality" filterable
+                                @change="generateOutput">
                                 <el-option v-for="i in quality" :key="i.id" :label="`${i.name} (${i.id})`"
                                     :value="i.id"></el-option>
                             </el-select>
                         </client-only>
                     </el-form-item>
-                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="OHand" >
+                    <el-form-item label="是否可放于副手" class="labeldiv workspace" placeholder="OHand">
                         <el-radio-group v-model="WSITEM_Parameter.OHand" @change="generateOutput">
-                          <el-radio-button :label="true">是</el-radio-button>
-                          <el-radio-button :label="false">否</el-radio-button>
+                            <el-radio-button :label="true">是</el-radio-button>
+                            <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                     </el-form-item>
                 </el-form>
-                
+                <!--武器-->
                 <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 3 || WSITEM_Parameter.itemType == 58">
                     <el-label style="font-size: 1.3rem;">武器专用参数</el-label>
                     <el-form class="labelbox">
                         <el-form-item label="武器类型" class="labeldiv workspace">
-                            <el-select v-model="WSITEM_Parameter.weaponType" clearable placeholder="weaponType" filterable @change="generateOutput">
+                            <el-select v-model="WSITEM_Parameter.weaponType" clearable placeholder="weaponType" filterable
+                                @change="generateOutput">
                                 <el-option v-for="i in weaponTypeGroup" :key="i.value" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="伤害类型" class="labeldiv workspace">
-                            <el-select v-model="WSITEM_Parameter.damageType" clearable placeholder="damageType" filterable @change="generateOutput">
+                            <el-select v-model="WSITEM_Parameter.damageType" clearable placeholder="damageType" filterable
+                                @change="generateOutput">
                                 <el-option v-for="i in damageTypeGroup" :key="i.value" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item :label="k[0]" class="labeldiv workspace" v-for="k in [['力量补正','STRRate'],['智力补正','INTRate'],['技巧补正','TECRate']]">
-                            <el-select v-model="WSITEM_Parameter[k[1]]" clearable :placeholder="k[1]" filterable @change="generateOutput">
+                        <el-form-item :label="k[0]" class="labeldiv workspace"
+                            v-for="k in [['力量补正', 'STRRate'], ['智力补正', 'INTRate'], ['技巧补正', 'TECRate']]">
+                            <el-select v-model="WSITEM_Parameter[k[1]]" clearable :placeholder="k[1]" filterable
+                                @change="generateOutput">
                                 <el-option v-for="i in RateGroup" :key="i.value" :label="`${i.key} (${i.value})`"
                                     :value="i.value"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item class="labeldiv">
-                          <el-label for="from">使用弹药类型</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" placeholder="UseAType"
-                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                            <el-label for="from">使用弹药类型</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.UseAType" placeholder="UseAType"
+                                @input="generateOutput" clearable type="text"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
-                        
+
                         <el-form-item class="labeldiv">
-                          <el-label for="from">弹幕ID</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.AmmoID" placeholder="AmmoID"
-                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                            <el-label for="from">弹幕ID</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.AmmoID" placeholder="AmmoID"
+                                @input="generateOutput" clearable type="text"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                         <el-form-item class="labeldiv">
-                          <el-label for="from">攻击角度</el-label>
-                          <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" placeholder="DAngle"
-                            @input="generateOutput" clearable type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                            <el-label for="from">攻击角度</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.DAngle" placeholder="DAngle"
+                                @input="generateOutput" clearable type="text"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
-                        
+
                         <div style="width: 100%;"></div>
                         <el-form-item class="labeldiv">
-                          <el-label for="from">反作用力</el-label>
-                          <el-input-number class="input-1" v-model="WSITEM_Parameter.PPower" placeholder="PPower"
-                            @input="generateOutput" clearable :min="0" />
+                            <el-label for="from">反作用力</el-label>
+                            <el-input-number class="input-1" v-model="WSITEM_Parameter.PPower" placeholder="PPower"
+                                @input="generateOutput" clearable :min="0" />
                         </el-form-item>
                         <el-form-item class="labeldiv">
-                          <el-label for="from">弹幕数量</el-label>
-                          <el-input-number class="input-1" v-model="WSITEM_Parameter.AmmoNum" placeholder="AmmoNum"
-                            @input="generateOutput" clearable :min="1" />
+                            <el-label for="from">弹幕数量</el-label>
+                            <el-input-number class="input-1" v-model="WSITEM_Parameter.AmmoNum" placeholder="AmmoNum"
+                                @input="generateOutput" clearable :min="1" />
                         </el-form-item>
                         <el-form-item class="labeldiv">
-                          <el-label for="from">攻击速度</el-label>
-                          <el-input-number class="input-1" v-model="WSITEM_Parameter.atkSpeed" placeholder="atkSpeed"
-                            @input="generateOutput" clearable :min="0" :max="20" :precision="2" :step="0.01" />
+                            <el-label for="from">攻击速度</el-label>
+                            <el-input-number class="input-1" v-model="WSITEM_Parameter.atkSpeed" placeholder="atkSpeed"
+                                @input="generateOutput" clearable :min="0" :max="20" :precision="2" :step="0.01" />
                         </el-form-item>
-                        <el-form-item class="labeldiv" v-for="i in [['魔力消耗', 'MPCost'], ['生命消耗', 'HPCost'], ['耐力消耗', 'EPCost'], ['G值消耗', 'GCost'], ['过载消耗', 'OLCost']]">
-                          <el-label for="from">{{i[0]}}</el-label>
-                          <el-input-number class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
-                            @input="generateOutput" clearable :min="0" :precision="2" :step="0.01" />
+                        <el-form-item class="labeldiv"
+                            v-for="i in [['魔力消耗', 'MPCost'], ['生命消耗', 'HPCost'], ['耐力消耗', 'EPCost'], ['G值消耗', 'GCost'], ['过载消耗', 'OLCost']]">
+                            <el-label for="from">{{ i[0] }}</el-label>
+                            <el-input-number class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
+                                @input="generateOutput" clearable :min="0" :precision="2" :step="0.01" />
                         </el-form-item>
-                        
+                        <el-form-item class="labeldiv">
+                            <el-label for="from">攻击声音路径</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.ATKAudio" placeholder="ATKAudio"
+                                @input="generateOutput" clearable type="text"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                        </el-form-item>
+                        <client-only>
+                            <el-form-item label="攻击声音大小" class="labeldiv workspace">
+                                <el-slider v-model="WSITEM_Parameter.ATKAudioVolume" :min="0" :max="100"
+                                    @input="generateOutput" style="width:100%" />
+                            </el-form-item>
+                        </client-only>
+
                         <el-form-item label="是否近战攻击" class="labeldiv workspace">
                             <el-radio-group v-model="WSITEM_Parameter.CloseATK" @change="generateOutput">
-                          <el-radio-button :label="true">是</el-radio-button>
-                          <el-radio-button :label="false">否</el-radio-button>
-                        </el-radio-group>
+                                <el-radio-button :label="true">是</el-radio-button>
+                                <el-radio-button :label="false">否</el-radio-button>
+                            </el-radio-group>
                         </el-form-item>
                         <el-form-item label="是否随机攻击角度" class="labeldiv workspace">
-                          <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
-                            <el-radio-button :label="true">是</el-radio-button>
-                            <el-radio-button :label="false">否</el-radio-button>
-                          </el-radio-group>
+                            <el-radio-group v-model="WSITEM_Parameter.RDAngle" @change="generateOutput">
+                                <el-radio-button :label="true">是</el-radio-button>
+                                <el-radio-button :label="false">否</el-radio-button>
+                            </el-radio-group>
+                        </el-form-item>
+                        <el-form-item label="是否为蓄力武器" class="labeldiv workspace">
+                            <el-radio-group v-model="WSITEM_Parameter.SPATK" @change="generateOutput">
+                                <el-radio-button :label="true">是</el-radio-button>
+                                <el-radio-button :label="false">否</el-radio-button>
+                            </el-radio-group>
+                        </el-form-item>
+                        <el-form-item class="labeldiv" v-if="WSITEM_Parameter.SPATK === true">
+                            <el-label for="from">蓄力攻击声音路径</el-label>
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.SPATKAudio" placeholder="SPATKAudio"
+                                @input="generateOutput" clearable type="text"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                         </el-form-item>
                     </el-form>
                 </div>
-                
+                <!--建筑-->
                 <div style="margin-top: 20px;" v-if="WSITEM_Parameter.itemType == 7">
                     <el-label style="font-size: 1.3rem;">建筑专用参数</el-label>
                     <el-form class="labelbox">
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">大建筑类型</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.BDType" placeholder="BDType"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="text" show-word-limit />
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                                maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">建筑类型</el-label>
-                            <el-input class="input-1" v-model.number="WSITEM_Parameter.BuildingType" placeholder="BuildingType"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="text" show-word-limit />
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.BuildingType"
+                                placeholder="BuildingType" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">光照颜色</el-label>
                             <el-input class="input-1" v-model="WSITEM_Parameter.LightColor" placeholder="LightColor"
-                                @input="generateOutput"
-                                clearable maxlength="9" type="text" show-word-limit />
-                            <client-only><el-color-picker v-model="WSITEM_Parameter.LightColor" show-alpha color-format="hex" :predefine="['#ff4b4b','#55f5ff', '#ffff00', '#ff7c81', '#fb6e92', '#7c9eff', '#81fe7c', '#ffaa4b', '#008000', '#006da0', '#7b92ff', '#eda4ff', '#fea500', '#ff7061', '#fffe84', '#916df6', '#93c0ff', '#93fdff', '#93ffc3', '#c3c3c3', '#FFFAFA']" @change="generateOutput" /></client-only>
+                                @input="generateOutput" clearable maxlength="9" type="text" show-word-limit />
+                            <client-only><el-color-picker v-model="WSITEM_Parameter.LightColor" show-alpha
+                                    color-format="hex"
+                                    :predefine="['#ff4b4b', '#55f5ff', '#ffff00', '#ff7c81', '#fb6e92', '#7c9eff', '#81fe7c', '#ffaa4b', '#008000', '#006da0', '#7b92ff', '#eda4ff', '#fea500', '#ff7061', '#fffe84', '#916df6', '#93c0ff', '#93fdff', '#93ffc3', '#c3c3c3', '#FFFAFA']"
+                                    @change="generateOutput" /></client-only>
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">光照范围</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.LightRange" placeholder="LightRange"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="text" show-word-limit />
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                                maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">光照强度</el-label>
-                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightIntensity" placeholder="LightIntensity"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="text" show-word-limit />
+                            <el-input class="input-1" v-model.number="WSITEM_Parameter.LightIntensity"
+                                placeholder="LightIntensity" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">挖掘所需工具力</el-label>
                             <el-input class="input-1" v-model.number="WSITEM_Parameter.miniATK" placeholder="miniATK"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="2" type="text" show-word-limit />
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                                maxlength="2" type="text" show-word-limit />
                         </el-form-item>
-                        
+
                         <el-form-item class="labeldiv el-from-item">
                             <el-label for="from">建筑生命值</el-label>
                             <el-input-number class="input-1" v-model.number="WSITEM_Parameter.BuildHP" placeholder="BuildHP"
                                 :min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
                                 clearable maxlength="10" type="text" show-word-limit />
                         </el-form-item>
-                        
+
                         <div style="width:100%"></div>
                         <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
-                          ['collider', '是否有碰撞器'],
-                          ['surface', '是否显示于最底层'],
-                          ['BdInSea', '是否只能放在液体中'],
-                          ['fallDSelf', '是否掉落自身'],
+                            ['collider', '是否有碰撞器'],
+                            ['surface', '是否显示于最底层'],
+                            ['BdInSea', '是否只能放在液体中'],
+                            ['fallDSelf', '是否掉落自身'],
                         ]">
-                          <el-radio-group v-model="WSITEM_Parameter[i[0]]" @change="generateOutput">
-                            <el-radio-button :label="true">是</el-radio-button>
-                            <el-radio-button :label="false">否</el-radio-button>
-                          </el-radio-group>
+                            <el-radio-group v-model="WSITEM_Parameter[i[0]]" @change="generateOutput">
+                                <el-radio-button :label="true">是</el-radio-button>
+                                <el-radio-button :label="false">否</el-radio-button>
+                            </el-radio-group>
                         </el-form-item>
-                        
+
                         <client-only>
-                          <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
-                            <tr><th width="200">掉落物</th><th width="200">数量</th><th width="200">概率</th><th width="50"></th></tr>
-                            <tr v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
-                              <td>
-                                <client-only><el-select v-model.number="WSITEM_Parameter.fallDItems[index]" clearable :placeholder="'fallDItem'+(index+1)" filterable
-                                  remote allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
-                                  @change="generateOutput">
-                                  <el-option v-for="item in options" :key="item.id"
-                                      :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span>
-                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
-                                      v-if="item.src" />
-                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
-                                      item.id }}</span>
-                                  </el-option>
-                                </el-select></client-only>
-                              </td>
-                              <td>
-                                <el-input-number v-model="WSITEM_Parameter.fallDItemsNum[index]"
-                                  :min="1" @input="generateOutput"
-                                  clearable maxlength="10" />
-                              </td>
-                              <td>
-                                <el-slider v-model="WSITEM_Parameter.fallDItemsRate[index]"
-                                  :min="0" :max="100" @input="generateOutput" />
-                              </td>
-                              <td>
-                                <el-button type="danger" :icon="Delete" @click="delFallDItems(index)"/>
-                              </td>
-                            </tr>
-                        </table></div>
-                      </client-only>
-                      <div><el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button></div>
-                      
+                            <div style="width:100%;overflow-x:auto;">
+                                <table class="table" style="width:100%">
+                                    <tr>
+                                        <th width="200">掉落物</th>
+                                        <th width="200">数量</th>
+                                        <th width="200">概率</th>
+                                        <th width="50"></th>
+                                    </tr>
+                                    <tr v-for="(item, index) in WSITEM_Parameter.fallDItems" :key="index">
+                                        <td>
+                                            <client-only><el-select v-model.number="WSITEM_Parameter.fallDItems[index]"
+                                                    clearable :placeholder="'fallDItem' + (index + 1)" filterable remote
+                                                    allow-create default-first-option :remote-method="remoteMethod"
+                                                    :loading="loading" @change="generateOutput">
+                                                    <el-option v-for="item in options" :key="item.id"
+                                                        :label="item.id + (item.name ? ' (' + item.name + ')' : '')"
+                                                        :value="item.id">
+                                                        <span style="vertical-align: top;">{{ item.name }}</span>
+                                                        <img :src="item.src"
+                                                            style="width:30px;object-fit: contain;display:inline-block"
+                                                            v-if="item.src" />
+                                                        <span
+                                                            style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                                                item.id }}</span>
+                                                    </el-option>
+                                                </el-select></client-only>
+                                        </td>
+                                        <td>
+                                            <el-input-number v-model="WSITEM_Parameter.fallDItemsNum[index]" :min="1"
+                                                @input="generateOutput" clearable maxlength="10" />
+                                        </td>
+                                        <td>
+                                            <el-slider v-model="WSITEM_Parameter.fallDItemsRate[index]" :min="0" :max="100"
+                                                @input="generateOutput" />
+                                        </td>
+                                        <td>
+                                            <el-button type="danger" :icon="Delete" @click="delFallDItems(index)" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </client-only>
+                        <div><el-button type="primary" :icon="Plus" @click="addFallDItems">添加掉落物</el-button></div>
+
                     </el-form>
                 </div>
-                
-                <div style="margin-top: 20px;" v-if="[12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) !== -1">
+                <!--装备/食物-->
+                <div style="margin-top: 20px;"
+                    v-if="[12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) !== -1">
                     <el-label style="font-size: 1.3rem;">装备/食物专用参数</el-label>
                     <el-form class="labelbox">
-                      <client-only>
-                        <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
-                          <tr><th width="200">Buff ID</th><th width="150">Buff等级</th><th width="50"></th></tr>
-                          <tr v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
-                            <td>
-                              <el-input v-model.number="WSITEM_Parameter.buffs[index]" :placeholder="'buff'+(index+1)"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                                clearable maxlength="10" type="text" show-word-limit />
-                            </td>
-                            <td>
-                              <el-input-number v-model="WSITEM_Parameter.buffsLV[index]"
-                                :min="1" @input="generateOutput"
-                                clearable maxlength="10" />
-                            </td>
-                            <td>
-                              <el-button type="danger" :icon="Delete" @click="delBuff(index)"/>
-                            </td>
-                          </tr>
-                        </table></div>
-                      </client-only>
-                      <div><el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button></div>
-                      
+                        <client-only>
+                            <div style="width:100%;overflow-x:auto;">
+                                <table class="table" style="width:100%">
+                                    <tr>
+                                        <th width="200">Buff ID</th>
+                                        <th width="150">Buff等级</th>
+                                        <th width="50"></th>
+                                    </tr>
+                                    <tr v-for="(item, index) in WSITEM_Parameter.buffs" :key="index">
+                                        <td>
+                                            <el-input v-model.number="WSITEM_Parameter.buffs[index]"
+                                                :placeholder="'buff' + (index + 1)"
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                                @input="generateOutput" clearable maxlength="10" type="text"
+                                                show-word-limit />
+                                        </td>
+                                        <td>
+                                            <el-input-number v-model="WSITEM_Parameter.buffsLV[index]" :min="1"
+                                                @input="generateOutput" clearable maxlength="10" />
+                                        </td>
+                                        <td>
+                                            <el-button type="danger" :icon="Delete" @click="delBuff(index)" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </client-only>
+                        <div><el-button type="primary" :icon="Plus" @click="addBuff">添加Buff</el-button></div>
+
                     </el-form>
                 </div>
-                
+                <!--帽子/衣服-->
                 <div style="margin-top: 20px;" v-if="[17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) !== -1">
-                  <el-label style="font-size: 1.3rem;">帽子/衣服专用参数</el-label>
-                  <el-form class="labelbox">
-                     <client-only>
-                        <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
-                          <tr><th width="400">动画帧图片文件名</th><th width="50"></th></tr>
-                          <tr v-for="(item, index) in WSITEM_Parameter.anime" :key="index">
-                            <td>
-                              <el-input v-model="WSITEM_Parameter.anime[index]" placeholder="anime/x1.png"
-                                @input="generateOutput" clearable type="text" />
-                            </td>
-                            <td>
-                              <el-button type="danger" :icon="Delete" @click="delAnime(index)"/>
-                            </td>
-                          </tr>
-                        </table></div>
-                      </client-only>
-                      <div><el-button type="primary" :icon="Plus" @click="addAnime">添加动画帧</el-button></div>
-                      
-                  </el-form>
+                    <el-label style="font-size: 1.3rem;">帽子/衣服专用参数</el-label>
+                    <el-form class="labelbox">
+                        <client-only>
+                            <div style="width:100%;overflow-x:auto;">
+                                <table class="table" style="width:100%">
+                                    <tr>
+                                        <th width="400">动画帧图片文件名</th>
+                                        <th width="50"></th>
+                                    </tr>
+                                    <tr v-for="(item, index) in WSITEM_Parameter.anime" :key="index">
+                                        <td>
+                                            <el-input v-model="WSITEM_Parameter.anime[index]" placeholder="anime/x1.png"
+                                                @input="generateOutput" clearable type="text" />
+                                        </td>
+                                        <td>
+                                            <el-button type="danger" :icon="Delete" @click="delAnime(index)" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </client-only>
+                        <div><el-button type="primary" :icon="Plus" @click="addAnime">添加动画帧</el-button></div>
+
+                    </el-form>
                 </div>
-                
+
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
@@ -299,29 +361,30 @@
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <div style="width: 100%; "></div>
-                    <template v-for="(ai,i) in [1,0,0,0]">
-                      <el-form-item :label="'材料'+(i+1)" class="labeldiv workspace">
-                        <client-only>
-                            <el-select v-model="CM_Parameter['mat'+(i+1)]" clearable :placeholder="'mat'+(i+1)" filterable remote
-                                allow-create default-first-option :remote-method="remoteMethod" :loading="loading"
-                                @change="generateOutput">
-                                <el-option v-for="item in options" :key="item.id"
-                                    :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
-                                    <span style="vertical-align: top;">{{ item.name }}</span>
-                                    <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
-                                        v-if="item.src" />
-                                    <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
-                                        item.id }}</span>
-                                </el-option>
-                            </el-select>
-                        </client-only>
-                      </el-form-item>
-                      <el-form-item class="labeldiv el-from-item">
-                        <el-label for="from">材料{{i+1}}数量</el-label>
-                        <el-input-number class="input-1" v-model.number="CM_Parameter['mat'+(i+1)+'Num']" :placeholder="'mat'+(i+1)+'num'"
-                            :min="ai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                            clearable maxlength="10" type="text" show-word-limit />
-                      </el-form-item>
+                    <template v-for="(ai, i) in [1, 0, 0, 0]">
+                        <el-form-item :label="'材料' + (i + 1)" class="labeldiv workspace">
+                            <client-only>
+                                <el-select v-model="CM_Parameter['mat' + (i + 1)]" clearable :placeholder="'mat' + (i + 1)"
+                                    filterable remote allow-create default-first-option :remote-method="remoteMethod"
+                                    :loading="loading" @change="generateOutput">
+                                    <el-option v-for="item in options" :key="item.id"
+                                        :label="item.id + (item.name ? ' (' + item.name + ')' : '')" :value="item.id">
+                                        <span style="vertical-align: top;">{{ item.name }}</span>
+                                        <img :src="item.src" style="width:30px;object-fit: contain;display:inline-block"
+                                            v-if="item.src" />
+                                        <span style="float:right;color:var(--el-text-color-secondary);font-size: 13px;">{{
+                                            item.id }}</span>
+                                    </el-option>
+                                </el-select>
+                            </client-only>
+                        </el-form-item>
+                        <el-form-item class="labeldiv el-from-item">
+                            <el-label for="from">材料{{ i + 1 }}数量</el-label>
+                            <el-input-number class="input-1" v-model.number="CM_Parameter['mat' + (i + 1) + 'Num']"
+                                :placeholder="'mat' + (i + 1) + 'num'" :min="ai"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                                maxlength="10" type="text" show-word-limit />
+                        </el-form-item>
                     </template>
 
                     <el-form-item label="输出物品" class="labeldiv workspace">
@@ -348,7 +411,8 @@
                     <el-form-item label="工作站" class="labeldiv workspace">
                         <client-only><el-select v-model="CM_Parameter.place" filterable placeholder="请选择工作站"
                                 @change="generateOutput" style="width: 100%">
-                                <el-option v-for="item in places" :key="item.id" :label="`${item.id} (${item.name})`" :value="item.id">
+                                <el-option v-for="item in places" :key="item.id" :label="`${item.id} (${item.name})`"
+                                    :value="item.id">
                                 </el-option>
                             </el-select></client-only>
                     </el-form-item>
@@ -369,100 +433,109 @@
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    
+
                     <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
-                      ['wakeType', '拖尾类型', [[0, '']]],
-                      ['MPType', '运动类型', [[0, '']]],
+                        ['wakeType', '拖尾类型', [[0, '']]],
+                        ['MPType', '运动类型', [[0, '']]],
                     ]">
                         <client-only>
-                            <el-select v-model="WSAMMO_Parameter[i[0]]" :placeholder="i[0]" filterable allow-create @change="generateOutput">
-                                <el-option v-for="j in i[2]" :key="j[0]" :label="`${j[1]} (${j[0]})`" :value="j[0]"></el-option>
+                            <el-select v-model="WSAMMO_Parameter[i[0]]" :placeholder="i[0]" filterable allow-create
+                                @change="generateOutput">
+                                <el-option v-for="j in i[2]" :key="j[0]" :label="`${j[1]} (${j[0]})`"
+                                    :value="j[0]"></el-option>
                             </el-select>
                         </client-only>
                     </el-form-item>
-                    
+
                     <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
-                      ['AHP', '弹幕生命值'],
-                      ['Speed', '飞行速度'],
-                      ['SFloating', '速度浮动'],
-                      ['PassCount', '通过计数'],
-                      ['rotateSpeed', '旋转速度'],
-                      ['DTime', '持续时间'],
-                      ['ATKSpeed', '攻击速度'],
-                      ['sortLayer', '排序层级'],
-                      ['SpeedSlowDown', '速度减缓'],
-                      ['SpeedSlowDelay', '速度减缓延迟'],
-                      ['TipsAID', '初始化弹幕ID'],
+                        ['AHP', '弹幕生命值'],
+                        ['Speed', '飞行速度'],
+                        ['SFloating', '速度浮动'],
+                        ['PassCount', '通过计数'],
+                        ['rotateSpeed', '旋转速度'],
+                        ['DTime', '持续时间'],
+                        ['ATKSpeed', '攻击速度'],
+                        ['sortLayer', '排序层级'],
+                        ['SpeedSlowDown', '速度减缓'],
+                        ['SpeedSlowDelay', '速度减缓延迟'],
+                        ['TipsAID', '初始化弹幕ID'],
                     ]">
                         <el-input class="input-1" v-model.number="WSAMMO_Parameter[i[0]]" :placeholder="i[0]"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    
+
                     <el-form-item label="命中释放弹幕ID" class="labeldiv workspace">
                         <el-input class="input-1" v-model.number="WSAMMO_Parameter.HitAID" placeholder="HitAID"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
-                      ['HitANum', '命中释放弹幕数量'],
-                      ['FollowLV', '追踪等级'],
-                      ['FollowInterval', '追踪间隔'],
+                        ['HitANum', '命中释放弹幕数量'],
+                        ['FollowLV', '追踪等级'],
+                        ['FollowInterval', '追踪间隔'],
                     ]">
                         <el-input-number class="input-1" v-model.number="WSAMMO_Parameter[i[0]]" @input="generateOutput" />
                     </el-form-item>
-                    
+
                     <el-form-item class="labeldiv el-from-item">
                         <el-label for="from">光照颜色</el-label>
                         <el-input class="input-1" v-model="WSAMMO_Parameter.LightColor" placeholder="LightColor"
-                            @input="generateOutput"
-                            clearable maxlength="9" type="text" show-word-limit />
-                        <client-only><el-color-picker v-model="WSAMMO_Parameter.LightColor" show-alpha color-format="hex" :predefine="['#ff4b4b','#55f5ff', '#ffff00', '#ff7c81', '#fb6e92', '#7c9eff', '#81fe7c', '#ffaa4b', '#008000', '#006da0', '#7b92ff', '#eda4ff', '#fea500', '#ff7061', '#fffe84', '#916df6', '#93c0ff', '#93fdff', '#93ffc3', '#c3c3c3', '#FFFAFA']" @change="generateOutput" /></client-only>
+                            @input="generateOutput" clearable maxlength="9" type="text" show-word-limit />
+                        <client-only><el-color-picker v-model="WSAMMO_Parameter.LightColor" show-alpha color-format="hex"
+                                :predefine="['#ff4b4b', '#55f5ff', '#ffff00', '#ff7c81', '#fb6e92', '#7c9eff', '#81fe7c', '#ffaa4b', '#008000', '#006da0', '#7b92ff', '#eda4ff', '#fea500', '#ff7061', '#fffe84', '#916df6', '#93c0ff', '#93fdff', '#93ffc3', '#c3c3c3', '#FFFAFA']"
+                                @change="generateOutput" /></client-only>
                     </el-form-item>
                     <el-form-item class="labeldiv el-from-item">
                         <el-label for="from">光照范围</el-label>
                         <el-input class="input-1" v-model.number="WSAMMO_Parameter.LightRange" placeholder="LightRange"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                            clearable maxlength="10" type="text" show-word-limit />
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
+                            maxlength="10" type="text" show-word-limit />
                     </el-form-item>
                     <el-form-item class="labeldiv el-from-item">
                         <el-label for="from">光照强度</el-label>
-                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.LightIntensity" placeholder="LightIntensity"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput"
-                            clearable maxlength="10" type="text" show-word-limit />
+                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.LightIntensity"
+                            placeholder="LightIntensity" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                            @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-                    
+
                     <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
-                      ['HitTrigger', '命中触发'],
-                      ['BreakTrigger', '销毁触发'],
-                      ['TimeOutTrigger', '超时触发'],
-                      ['haveAnime', '是否有动画'],
+                        ['HitTrigger', '命中触发'],
+                        ['BreakTrigger', '销毁触发'],
+                        ['TimeOutTrigger', '超时触发'],
+                        ['haveAnime', '是否有动画'],
                     ]">
                         <el-radio-group v-model="WSAMMO_Parameter[i[0]]" @change="generateOutput">
-                          <el-radio-button :label="true">是</el-radio-button>
-                          <el-radio-button :label="false">否</el-radio-button>
+                            <el-radio-button :label="true">是</el-radio-button>
+                            <el-radio-button :label="false">否</el-radio-button>
                         </el-radio-group>
                     </el-form-item>
                     <template v-if="WSAMMO_Parameter.haveAnime">
-                      <el-form-item label="动画速度" class="labeldiv">
-                          <el-input-number class="input-1" v-model.number="WSAMMO_Parameter.AnimeSpeed" :min="0" @input="generateOutput" />
-                      </el-form-item>
-                      <client-only>
-                          <div style="width:100%;overflow-x:auto;"><table class="table" style="width:100%">
-                            <tr><th width="400">动画帧图片文件名</th><th width="50"></th></tr>
-                            <tr v-for="(item, index) in WSAMMO_Parameter.anime" :key="index">
-                              <td>
-                                <el-input v-model="WSAMMO_Parameter.anime[index]" placeholder="anime/x1.png"
-                                  @input="generateOutput" clearable type="text" />
-                              </td>
-                              <td>
-                                <el-button type="danger" :icon="Delete" @click="delAnime_AMMO(index)"/>
-                              </td>
-                            </tr>
-                          </table></div>
+                        <el-form-item label="动画速度" class="labeldiv">
+                            <el-input-number class="input-1" v-model.number="WSAMMO_Parameter.AnimeSpeed" :min="0"
+                                @input="generateOutput" />
+                        </el-form-item>
+                        <client-only>
+                            <div style="width:100%;overflow-x:auto;">
+                                <table class="table" style="width:100%">
+                                    <tr>
+                                        <th width="400">动画帧图片文件名</th>
+                                        <th width="50"></th>
+                                    </tr>
+                                    <tr v-for="(item, index) in WSAMMO_Parameter.anime" :key="index">
+                                        <td>
+                                            <el-input v-model="WSAMMO_Parameter.anime[index]" placeholder="anime/x1.png"
+                                                @input="generateOutput" clearable type="text" />
+                                        </td>
+                                        <td>
+                                            <el-button type="danger" :icon="Delete" @click="delAnime_AMMO(index)" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </client-only>
                         <div><el-button type="primary" :icon="Plus" @click="addAnime_AMMO">添加动画帧</el-button></div>
-                      </template>
+                    </template>
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
@@ -485,7 +558,7 @@ import requests from './requests';
 const loading = ref(false)
 const options = ref([])
 
-function similar(s, t, f=3) {
+function similar(s, t, f = 3) {
     if (!s || !t) {
         return 0
     }
@@ -493,7 +566,7 @@ function similar(s, t, f=3) {
     var n = s.length
     var m = t.length
     var d = []
-    var min = function(a, b, c) {
+    var min = function (a, b, c) {
         return a < b ? (a < c ? a : c) : (b < c ? b : c)
     }
     var i, j, si, tj, cost
@@ -546,7 +619,7 @@ const remoteMethod = async (query) => {
             if (WSITEM_Parameter.ID) res.push({ id: WSITEM_Parameter.ID, name: WSITEM_Parameter.nameCn });
             //console.log(Object.values(r))
             r = Object.values(r)
-            r.sort((a, b) => {return similar(b.printouts['名称'][0], query) - similar(a.printouts['名称'][0], query)})
+            r.sort((a, b) => { return similar(b.printouts['名称'][0], query) - similar(a.printouts['名称'][0], query) })
             r.forEach(i => {
                 let v = i.printouts
                 let src = v['图片'][0]
@@ -597,7 +670,7 @@ const places = [
     { id: 30, name: '中中商店' },
     { id: 31, name: '小际姬1349商店' },
     { id: 32, name: '小库商店' },
-    { id: 33, name: '皓际商店'  },
+    { id: 33, name: '皓际商店' },
     { id: 34, name: 'VV商店' },
     { id: 35, name: '月商店' },
     { id: 36, name: '柠宁商店' },
@@ -666,7 +739,11 @@ const WSITEM_Parameter = reactive({
     fallDItemsRate: [],
     buffs: [],
     buffsLV: [],
-    anime: []
+    anime: [],
+    SPATK: false,
+    ATKAudio: '',
+    SPATKAudio: '',
+    ATKAudioVolume: ''
 })
 
 //物品分类
@@ -742,15 +819,15 @@ const itemTypeGroup = [
 
 //物品品质
 const quality = [
-  { id: -1, name: '垃圾' },
-  { id: 0, name: '常见' },
-  { id: 1, name: '普通' },
-  { id: 2, name: '不寻常' },
-  { id: 3, name: '稀有' },
-  { id: 4, name: '非常稀有' },
-  { id: 5, name: '超绝稀有' },
-  { id: 6, name: '传说' },
-  { id: 7, name: '神级' },
+    { id: -1, name: '垃圾' },
+    { id: 0, name: '常见' },
+    { id: 1, name: '普通' },
+    { id: 2, name: '不寻常' },
+    { id: 3, name: '稀有' },
+    { id: 4, name: '非常稀有' },
+    { id: 5, name: '超绝稀有' },
+    { id: 6, name: '传说' },
+    { id: 7, name: '神级' },
 ]
 
 //武器小分类
@@ -798,21 +875,21 @@ const damageTypeGroup = [
     { 'key': '元素', 'value': 9 },
     { 'key': '未知', 'value': 10 }
 ]
-    
+
 //补正
 const RateGroup = [
-    { 'key' : '无', 'value' : 0 },
-    { 'key' : 'E', 'value' : 1 },
-    { 'key' : 'D', 'value' : 2 },
-    { 'key' : 'C', 'value' : 3 },
-    { 'key' : 'B', 'value' : 4 },
-    { 'key' : 'A', 'value' : 5 },
-    { 'key' : 'S', 'value' : 6 },
-    { 'key' : 'SS', 'value' : 7 },
-    { 'key' : 'SSS', 'value' : 8 },
-    { 'key' : 'MX', 'value' : 9 },
-    { 'key' : 'EX', 'value' : 10 },
-    { 'key' : 'GX', 'value' : 11 }
+    { 'key': '无', 'value': 0 },
+    { 'key': 'E', 'value': 1 },
+    { 'key': 'D', 'value': 2 },
+    { 'key': 'C', 'value': 3 },
+    { 'key': 'B', 'value': 4 },
+    { 'key': 'A', 'value': 5 },
+    { 'key': 'S', 'value': 6 },
+    { 'key': 'SS', 'value': 7 },
+    { 'key': 'SSS', 'value': 8 },
+    { 'key': 'MX', 'value': 9 },
+    { 'key': 'EX', 'value': 10 },
+    { 'key': 'GX', 'value': 11 }
 ]
 
 const CM_Parameter = reactive({
@@ -870,39 +947,49 @@ const handleClick = function (tab, e) {
 }
 
 const addBuff = () => {
-  WSITEM_Parameter.buffs.push('');
-  WSITEM_Parameter.buffsLV.push(1);
-  generateOutput();
+    WSITEM_Parameter.buffs.push('');
+    WSITEM_Parameter.buffsLV.push(1);
+    generateOutput();
 }
 
 const delBuff = (index) => {
-  WSITEM_Parameter.buffs.splice(index, 1);
-  WSITEM_Parameter.buffsLV.splice(index, 1);
-  generateOutput();
+    WSITEM_Parameter.buffs.splice(index, 1);
+    WSITEM_Parameter.buffsLV.splice(index, 1);
+    generateOutput();
 }
 
 const addFallDItems = () => {
-  WSITEM_Parameter.fallDItems.push(0);
-  WSITEM_Parameter.fallDItemsNum.push(1);
-  WSITEM_Parameter.fallDItemsRate.push(0);
-  generateOutput();
+    WSITEM_Parameter.fallDItems.push(0);
+    WSITEM_Parameter.fallDItemsNum.push(1);
+    WSITEM_Parameter.fallDItemsRate.push(0);
+    generateOutput();
 }
 
 const delFallDItems = (index) => {
-  WSITEM_Parameter.fallDItems.splice(index, 1);
-  WSITEM_Parameter.fallDItemsNum.splice(index, 1);
-  WSITEM_Parameter.fallDItemsRate.splice(index, 1);
-  generateOutput();
+    WSITEM_Parameter.fallDItems.splice(index, 1);
+    WSITEM_Parameter.fallDItemsNum.splice(index, 1);
+    WSITEM_Parameter.fallDItemsRate.splice(index, 1);
+    generateOutput();
 }
 
 const addAnime = () => {
-  WSITEM_Parameter.anime.push('');
-  generateOutput();
+    WSITEM_Parameter.anime.push('');
+    generateOutput();
 }
 
 const delAnime = (index) => {
-  WSITEM_Parameter.anime.splice(index, 1);
-  generateOutput();
+    WSITEM_Parameter.anime.splice(index, 1);
+    generateOutput();
+}
+
+const addAnime_AMMO = () => {
+    WSAMMO_Parameter.anime.push('');
+    generateOutput();
+}
+
+const delAnime_AMMO = (index) => {
+    WSAMMO_Parameter.anime.splice(index, 1);
+    generateOutput();
 }
 
 const addAnime_AMMO = () => {
@@ -929,47 +1016,47 @@ const generateOutput = () => {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
-                if ((WSITEM_Parameter.itemType != 3 && WSITEM_Parameter.itemType != 58 ) && 
-                    (k === 'weaponType' || 
-                     k === 'demageType' || 
-                     k === 'STRRate' || 
-                     k === 'INTRate' || 
-                     k === 'TECRate' || 
-                     k === 'CloseATK' || 
-                     k === 'RDAngle' ||
-                     k === 'AmmoID' ||
-                     k === 'AmmoNum' ||
-                     k === 'atkSpeed' || 
-                     k === 'MPCost' ||
-                     k === 'HPCost' ||
-                     k === 'EPCost' ||
-                     k === 'GCost' ||
-                     k === 'OLCost' ||
-                     k === 'DAngle' ||
-                     k === 'PPower' ||
-                     k === 'UseAType')) return;
-                     
-                if (WSITEM_Parameter.itemType != 7 && 
-                    (k === 'BDType' || 
-                     k === 'BuildingType' || 
-                     k === 'LightColor' ||
-                     k === 'LightRange' ||
-                     k === 'LightIntensity' ||
-                     k === 'miniATK' ||
-                     k === 'fallDItems' ||
-                     k === 'fallDItemsNum' ||
-                     k === 'fallDItemsRate' ||
-                     k === 'BuildHP' || 
-                     k === 'collider' || 
-                     k === 'surface' || 
-                     k === 'BdInSea' )) return;
-                     
+                if ((WSITEM_Parameter.itemType != 3 && WSITEM_Parameter.itemType != 58) &&
+                    (k === 'weaponType' ||
+                        k === 'demageType' ||
+                        k === 'STRRate' ||
+                        k === 'INTRate' ||
+                        k === 'TECRate' ||
+                        k === 'CloseATK' ||
+                        k === 'RDAngle' ||
+                        k === 'AmmoID' ||
+                        k === 'AmmoNum' ||
+                        k === 'atkSpeed' ||
+                        k === 'MPCost' ||
+                        k === 'HPCost' ||
+                        k === 'EPCost' ||
+                        k === 'GCost' ||
+                        k === 'OLCost' ||
+                        k === 'DAngle' ||
+                        k === 'PPower' ||
+                        k === 'UseAType')) return;
+
+                if (WSITEM_Parameter.itemType != 7 &&
+                    (k === 'BDType' ||
+                        k === 'BuildingType' ||
+                        k === 'LightColor' ||
+                        k === 'LightRange' ||
+                        k === 'LightIntensity' ||
+                        k === 'miniATK' ||
+                        k === 'fallDItems' ||
+                        k === 'fallDItemsNum' ||
+                        k === 'fallDItemsRate' ||
+                        k === 'BuildHP' ||
+                        k === 'collider' ||
+                        k === 'surface' ||
+                        k === 'BdInSea')) return;
+
                 if (([12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) === -1) &&
-                     (k === 'buffs' || k === 'buffsLV')) return;
-                     
+                    (k === 'buffs' || k === 'buffsLV')) return;
+
                 if (([17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) === -1) &&
-                     (k === 'anime')) return;
-                
+                    (k === 'anime')) return;
+
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
                         if (/^\d+$/.test(v)) {
@@ -981,15 +1068,15 @@ const generateOutput = () => {
                     return toUnicode(v);
                 }
                 if (k === 'buffs' || k === 'buffsLV' || k === 'fallDItems' || k === 'anime') {
-                  return v.filter((x) => {return x !== '' && x !== null});
+                    return v.filter((x) => { return x !== '' && x !== null });
                 }
                 if (k === 'atkSpeed' || k === 'MPCost' || k === 'HPCost' || k === 'EPCost' || k === 'GCost' || k === 'OLCost') {
-                  return parseInt(v * 100);
+                    return parseInt(v * 100);
                 }
                 return v;
             }, 4).replaceAll('\\\\u', '\\u').replaceAll(/(?<="(fallDItems|fallDItemsNum|fallDItemsRate|buffs|buffsLV)":\s\[(\s*\d*,?)*)\n\s*(\d*,?|\])/g, ' $3');
             break
-            
+
         case 'CM':
             CM_Output.value = JSON.stringify(CM_Parameter, (k, v) => {
                 if (v === "" || v === 0) {
@@ -1010,29 +1097,29 @@ const generateOutput = () => {
                     }
                 }
                 if (typeof v === 'number') {
-                    if ((k === 'mat2num' && CM_Parameter.mat2 === '') || 
-                        (k === 'mat3num' && CM_Parameter.mat3 === '') || 
+                    if ((k === 'mat2num' && CM_Parameter.mat2 === '') ||
+                        (k === 'mat3num' && CM_Parameter.mat3 === '') ||
                         (k === 'mat4num' && CM_Parameter.mat4 === '')) return;
                     if (v > 2147483647) return '值不能大于 2147483647';
                 }
                 return v;
             }, 4)
             break
-            
+
         case 'WSAMMO':
             WSAMMO_Output.value = JSON.stringify(WSAMMO_Parameter, (k, v) => {
                 if (v === "") {
                     return;
                 }
                 if (WSAMMO_Parameter.haveAnime === false &&
-                  (k === 'AnimeSpeed' || k === 'anime')) {
-                  return;
+                    (k === 'AnimeSpeed' || k === 'anime')) {
+                    return;
                 }
                 if (typeof v === 'string') {
                     return toUnicode(v);
                 }
                 if (k === 'anime') {
-                  return v.filter((x) => {return x !== '' && x !== null});
+                    return v.filter((x) => { return x !== '' && x !== null });
                 }
                 return v;
             }, 4).replaceAll('\\\\u', '\\u')
@@ -1122,23 +1209,29 @@ onMounted(() => {
 }
 
 .table {
-  background-color: transparent;
-  border: 1px solid var(--el-border-color);
-  tr, th, td {
     background-color: transparent;
-    border: none;
-  }
-  th, td {
-    border-bottom: 1px solid var(--el-border-color);
-  }
+    border: 1px solid var(--el-border-color);
+
+    tr,
+    th,
+    td {
+        background-color: transparent;
+        border: none;
+    }
+
+    th,
+    td {
+        border-bottom: 1px solid var(--el-border-color);
+    }
 }
+
 .el-input-number {
-  width: 100%;
+    width: 100%;
 }
 
 .el-form-item__content {
     flex-direction: column !important;
     align-items: flex-start !important;
+    width: 100%;
 }
-
 </style>

@@ -21,7 +21,10 @@ export default defineConfig({
       { text: '主页', link: '/' },
       { text: '开始', link: '/介绍/什么是MOD' },
       { text: '基础内容', link: '/基础内容/了解参数' },
-      { text: '小工具', link: '/小工具/JSON快速制作器' }
+      { text: '小工具', link: '/小工具/JSON快速制作器' },
+      { text: '1.0.0-rc.10', items:[
+        { text: '更新日志', link: '/更新日志' },
+      ] }
     ],
 
     sidebar: [
