@@ -459,10 +459,10 @@
                         ['SpeedSlowDown', '速度减缓'],
                         ['SpeedSlowDelay', '速度减缓延迟'],
                         ['TipsAID', '初始化弹幕ID'],
-                        ['HitAID', '命中释放弹幕ID'],
                         ['HitAudio', '命中声音文件路径'],
                         ['InitAudio', '初始化声音文件路径'],
                         ['TimeAudio', '持续声音文件路径'],
+                        ['HitAID', '命中释放弹幕ID'],
                     ]">
                         <el-input class="input-1" v-model.number="WSAMMO_Parameter[i[0]]" :placeholder="i[0]"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
@@ -471,14 +471,22 @@
 
                     <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
                         ['HitANum', '命中释放弹幕数量'],
-                        ['HitAV', '击中声音大小', 0, 100],
-                        ['TimeAV', '持续声音大小', 0, 100],
                         ['FollowLV', '追踪等级'],
                         ['FollowInterval', '追踪间隔'],
                     ]">
                         <el-input-number class="input-1" v-model.number="WSAMMO_Parameter[i[0]]"
-                          :min="i[2]" :max="i[3]" @input="generateOutput" />
+                          @input="generateOutput" />
                     </el-form-item>
+                    
+                    <client-only>
+                      <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
+                        ['HitAV', '命中声音大小'],
+                        ['TimeAV', '持续声音大小'],
+                      ]">
+                        <el-slider v-model="WSITEM_Parameter[i[0]]" :min="0" :max="100"
+                            @input="generateOutput" style="width:100%" />
+                      </el-form-item>
+                    </client-only>
 
                     <el-form-item class="labeldiv el-from-item">
                         <el-label for="from">光照颜色</el-label>
