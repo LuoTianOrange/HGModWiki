@@ -994,16 +994,6 @@ const delAnime_AMMO = (index) => {
     generateOutput();
 }
 
-const addAnime_AMMO = () => {
-  WSAMMO_Parameter.anime.push('');
-  generateOutput();
-}
-
-const delAnime_AMMO = (index) => {
-  WSAMMO_Parameter.anime.splice(index, 1);
-  generateOutput();
-}
-
 const toUnicode = function (s) {
     return s.replace(/[^\x00-\x7F]/g, x => "\\u" + ("000" + x.codePointAt(0).toString(16)).slice(-4));
 }
