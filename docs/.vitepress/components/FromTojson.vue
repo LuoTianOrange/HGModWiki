@@ -127,7 +127,7 @@
                             v-for="i in [['魔力消耗', 'MPCost'], ['生命消耗', 'HPCost'], ['耐力消耗', 'EPCost'], ['G值消耗', 'GCost'], ['过载消耗', 'OLCost']]">
                             <el-label for="from">{{ i[0] }}</el-label>
                             <el-input-number class="input-1" v-model="WSITEM_Parameter[i[1]]" :placeholder="i[1]"
-                                @input="generateOutput" clearable :min="0" :precision="2" :step="0.01" />
+                                @change="generateOutput" @input="generateOutput" clearable :min="0" :precision="2" :step="0.01" />
                         </el-form-item>
                         <el-form-item class="labeldiv">
                             <el-label for="from">攻击声音路径</el-label>
@@ -459,23 +459,25 @@
                         ['SpeedSlowDown', '速度减缓'],
                         ['SpeedSlowDelay', '速度减缓延迟'],
                         ['TipsAID', '初始化弹幕ID'],
+                        ['HitAID', '命中释放弹幕ID'],
+                        ['HitAudio', '命中声音文件路径'],
+                        ['InitAudio', '初始化声音文件路径'],
+                        ['TimeAudio', '持续声音文件路径'],
                     ]">
                         <el-input class="input-1" v-model.number="WSAMMO_Parameter[i[0]]" :placeholder="i[0]"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
                             maxlength="10" type="text" show-word-limit />
                     </el-form-item>
 
-                    <el-form-item label="命中释放弹幕ID" class="labeldiv workspace">
-                        <el-input class="input-1" v-model.number="WSAMMO_Parameter.HitAID" placeholder="HitAID"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" @input="generateOutput" clearable
-                            maxlength="10" type="text" show-word-limit />
-                    </el-form-item>
                     <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
                         ['HitANum', '命中释放弹幕数量'],
+                        ['HitAV', '击中声音大小', 0, 100],
+                        ['TimeAV', '持续声音大小', 0, 100],
                         ['FollowLV', '追踪等级'],
                         ['FollowInterval', '追踪间隔'],
                     ]">
-                        <el-input-number class="input-1" v-model.number="WSAMMO_Parameter[i[0]]" @input="generateOutput" />
+                        <el-input-number class="input-1" v-model.number="WSAMMO_Parameter[i[0]]"
+                          :min="i[2]" :max="i[3]" @input="generateOutput" />
                     </el-form-item>
 
                     <el-form-item class="labeldiv el-from-item">
@@ -498,7 +500,7 @@
                             placeholder="LightIntensity" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                             @input="generateOutput" clearable maxlength="10" type="text" show-word-limit />
                     </el-form-item>
-
+                    
                     <el-form-item :label="i[1]" class="labeldiv workspace" v-for="i in [
                         ['HitTrigger', '命中触发'],
                         ['BreakTrigger', '销毁触发'],
@@ -1016,46 +1018,29 @@ const generateOutput = () => {
                     if (k === 'GOBJID' || k === 'nameCn') return '必填';
                     return;
                 }
-                if ((WSITEM_Parameter.itemType != 3 && WSITEM_Parameter.itemType != 58) &&
-                    (k === 'weaponType' ||
-                        k === 'demageType' ||
-                        k === 'STRRate' ||
-                        k === 'INTRate' ||
-                        k === 'TECRate' ||
-                        k === 'CloseATK' ||
-                        k === 'RDAngle' ||
-                        k === 'AmmoID' ||
-                        k === 'AmmoNum' ||
-                        k === 'atkSpeed' ||
-                        k === 'MPCost' ||
-                        k === 'HPCost' ||
-                        k === 'EPCost' ||
-                        k === 'GCost' ||
-                        k === 'OLCost' ||
-                        k === 'DAngle' ||
-                        k === 'PPower' ||
-                        k === 'UseAType')) return;
-
-                if (WSITEM_Parameter.itemType != 7 &&
-                    (k === 'BDType' ||
-                        k === 'BuildingType' ||
-                        k === 'LightColor' ||
-                        k === 'LightRange' ||
-                        k === 'LightIntensity' ||
-                        k === 'miniATK' ||
-                        k === 'fallDItems' ||
-                        k === 'fallDItemsNum' ||
-                        k === 'fallDItemsRate' ||
-                        k === 'BuildHP' ||
-                        k === 'collider' ||
-                        k === 'surface' ||
-                        k === 'BdInSea')) return;
-
+                // 武器，魔剑专属参数
+                if ([3, 58].indexOf(WSITEM_Parameter.itemType) === -1 && 
+                    ['weaponType', 'demageType', 'STRRate', 'INTRate', 
+                     'TECRate', 'CloseATK', 'RDAngle', 'AmmoID', 'AmmoNum', 
+                     'atkSpeed', 'MPCost', 'HPCost', 'EPCost', 'GCost', 
+                     'OLCost', 'DAngle', 'PPower', 'UseAType', 
+                     'SPATK', 'ATKAudio', 'SPATKAudio', 'ATKAudioVolume'].indexOf(k) !== -1)
+                    return;
+                // 建筑专属参数
+                if (WSITEM_Parameter.itemType != 7 && 
+                    ['BDType', 'BuildingType', 'LightColor', 'LightRange',
+                     'LightIntensity', 'miniATK', 'fallDSelf', 'fallDItems', 
+                     'fallDItemsNum', 'fallDItemsRate', 'BuildHP', 'collider',
+                     'surface', 'BdInSea'].indexOf(k) !== -1) 
+                    return;
+                // 食物，帽子，衣服，鞋子，饰品，魔衣，魔冠，魔鞋专属参数
                 if (([12, 17, 18, 19, 20, 22, 31, 32].indexOf(WSITEM_Parameter.itemType) === -1) &&
-                    (k === 'buffs' || k === 'buffsLV')) return;
-
+                     (k === 'buffs' || k === 'buffsLV')) 
+                    return;
+                // 帽子，衣服，魔冠，魔鞋专属参数
                 if (([17, 18, 22, 31].indexOf(WSITEM_Parameter.itemType) === -1) &&
-                    (k === 'anime')) return;
+                     (k === 'anime')) 
+                    return;
 
                 if (typeof v === 'string') {
                     if (k === 'GOBJID') {
