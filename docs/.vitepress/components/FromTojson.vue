@@ -1013,7 +1013,7 @@ const generateOutput = () => {
         case 'WSITEM':
             WSITEM_Output.value = JSON.stringify(WSITEM_Parameter, (k, v) => {
                 if (v === "") {
-                    if (k === 'GOBJID' || k === 'nameCn') return '必填';
+                    if (k === 'nameCn') return '必填';
                     return;
                 }
                 // 武器，魔剑专属参数
