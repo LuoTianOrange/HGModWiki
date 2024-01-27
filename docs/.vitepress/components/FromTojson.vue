@@ -348,6 +348,7 @@
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
                     <el-input type="textarea" :rows="30" v-model="WSITEM_Output" style="margin-top: 20px;"
                         class="el-place" />
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                 </div>
             </el-tab-pane>
 
@@ -421,6 +422,7 @@
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
                     <el-input type="textarea" :rows="12" v-model="CM_Output" style="margin-top: 20px;" class="el-place" />
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                 </div>
             </el-tab-pane>
 
@@ -552,6 +554,7 @@
                     <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
                     <el-input type="textarea" :rows="20" v-model="WSAMMO_Output" style="margin-top: 20px;"
                         class="el-place" />
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -562,8 +565,9 @@
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-import { DocumentCopy, Plus, Delete } from '@element-plus/icons-vue'
+import { DocumentCopy, Plus, Delete, Download } from '@element-plus/icons-vue'
 import requests from './requests';
+import FileSaver from 'file-saver';
 
 const loading = ref(false)
 const options = ref([])
@@ -918,7 +922,7 @@ const CM_Parameter = reactive({
 })
 
 const WSAMMO_Parameter = reactive({
-    AID: 0,
+    AID: 10001,
     wakeType: 0,
     MPType: 0,
     AHP: '',
@@ -1137,7 +1141,25 @@ const copyToClipboard = async () => {
         })
     }
 }
-
+const download = () => {
+  var r = '', name = '';
+  switch (activeName.value) {
+    case 'WSITEM':
+      r = WSITEM_Output.value
+      name = WSITEM_Parameter['nameCn'] != '' ? WSITEM_Parameter['nameCn'] : WSITEM_Parameter['ID']
+      break
+    case 'CM':
+      r = CM_Output.value
+      name = CM_Parameter['ID']
+      break
+    case 'WSAMMO':
+      r = WSAMMO_Output.value
+      name = WSAMMO_Parameter['AID']
+      break
+  }
+  const blob = new Blob([r], {type: "application/json;charset=utf-8"});
+  FileSaver.saveAs(blob, name + ".json");
+}
 
 onMounted(() => {
     generateOutput()
