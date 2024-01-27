@@ -345,10 +345,10 @@
 
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
-                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button>
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                     <el-input type="textarea" :rows="30" v-model="WSITEM_Output" style="margin-top: 20px;"
                         class="el-place" />
-                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                 </div>
             </el-tab-pane>
 
@@ -420,9 +420,9 @@
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
-                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
-                    <el-input type="textarea" :rows="12" v-model="CM_Output" style="margin-top: 20px;" class="el-place" />
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button>
                     <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
+                    <el-input type="textarea" :rows="12" v-model="CM_Output" style="margin-top: 20px;" class="el-place" />
                 </div>
             </el-tab-pane>
 
@@ -551,10 +551,10 @@
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
-                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button>
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                     <el-input type="textarea" :rows="20" v-model="WSAMMO_Output" style="margin-top: 20px;"
                         class="el-place" />
-                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -1146,19 +1146,23 @@ const download = () => {
   switch (activeName.value) {
     case 'WSITEM':
       r = WSITEM_Output.value
-      name = WSITEM_Parameter['nameCn'] != '' ? WSITEM_Parameter['nameCn'] : WSITEM_Parameter['ID']
+      name = 'WSITEM_' + WSITEM_Parameter['ID']
       break
     case 'CM':
       r = CM_Output.value
-      name = CM_Parameter['ID']
+      name = 'CM_' + CM_Parameter['ID']
       break
     case 'WSAMMO':
       r = WSAMMO_Output.value
-      name = WSAMMO_Parameter['AID']
+      name = 'WSAMMO_' + WSAMMO_Parameter['AID']
       break
   }
   const blob = new Blob([r], {type: "application/json;charset=utf-8"});
   FileSaver.saveAs(blob, name + ".json");
+  ElMessage({
+    message: '下载成功，请在HGWSDATA.txt中添加 "WSITEM": ["' + name +'.json"]',
+    type: 'success',
+  })
 }
 
 onMounted(() => {
