@@ -1160,7 +1160,7 @@ const download = () => {
   const blob = new Blob([r], {type: "application/json;charset=utf-8"});
   FileSaver.saveAs(blob, name + ".json");
   ElMessage({
-    message: '下载成功，请在HGWSDATA.txt中添加 "WSITEM": ["' + name +'.json"]',
+    message: '下载成功',
     type: 'success',
   })
 }
