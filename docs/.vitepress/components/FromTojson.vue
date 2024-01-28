@@ -345,7 +345,8 @@
 
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
-                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button>
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                     <el-input type="textarea" :rows="30" v-model="WSITEM_Output" style="margin-top: 20px;"
                         class="el-place" />
                 </div>
@@ -419,7 +420,8 @@
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
-                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button>
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                     <el-input type="textarea" :rows="12" v-model="CM_Output" style="margin-top: 20px;" class="el-place" />
                 </div>
             </el-tab-pane>
@@ -549,7 +551,8 @@
                 </el-form>
                 <div style="margin-top: 20px;">
                     <!--<el-button type="primary" @click="generateOutput" :icon="Plus">生成JSON</el-button>-->
-                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button><br>
+                    <el-button type="primary" @click="copyToClipboard" :icon="DocumentCopy">复制到剪切板</el-button>
+                    <el-button type="warning" @click="download" :icon="Download">下载json文件</el-button>
                     <el-input type="textarea" :rows="20" v-model="WSAMMO_Output" style="margin-top: 20px;"
                         class="el-place" />
                 </div>
@@ -562,8 +565,9 @@
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-import { DocumentCopy, Plus, Delete } from '@element-plus/icons-vue'
+import { DocumentCopy, Plus, Delete, Download } from '@element-plus/icons-vue'
 import requests from './requests';
+import FileSaver from 'file-saver';
 
 const loading = ref(false)
 const options = ref([])
@@ -918,7 +922,7 @@ const CM_Parameter = reactive({
 })
 
 const WSAMMO_Parameter = reactive({
-    AID: 0,
+    AID: 10001,
     wakeType: 0,
     MPType: 0,
     AHP: '',
@@ -1013,7 +1017,7 @@ const generateOutput = () => {
         case 'WSITEM':
             WSITEM_Output.value = JSON.stringify(WSITEM_Parameter, (k, v) => {
                 if (v === "") {
-                    if (k === 'GOBJID' || k === 'nameCn') return '必填';
+                    if (k === 'nameCn') return '必填';
                     return;
                 }
                 // 武器，魔剑专属参数
@@ -1137,7 +1141,29 @@ const copyToClipboard = async () => {
         })
     }
 }
-
+const download = () => {
+  var r = '', name = '';
+  switch (activeName.value) {
+    case 'WSITEM':
+      r = WSITEM_Output.value
+      name = 'WSITEM_' + WSITEM_Parameter['ID']
+      break
+    case 'CM':
+      r = CM_Output.value
+      name = 'CM_' + CM_Parameter['ID']
+      break
+    case 'WSAMMO':
+      r = WSAMMO_Output.value
+      name = 'WSAMMO_' + WSAMMO_Parameter['AID']
+      break
+  }
+  const blob = new Blob([r], {type: "application/json;charset=utf-8"});
+  FileSaver.saveAs(blob, name + ".json");
+  ElMessage({
+    message: '下载成功',
+    type: 'success',
+  })
+}
 
 onMounted(() => {
     generateOutput()
