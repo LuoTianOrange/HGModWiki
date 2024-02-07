@@ -1,5 +1,5 @@
 .main {
-  display: unset;
+  display: block !important;
 }
 
 .VPSidebarItem.level-0.has-active > .item > .indicator{
