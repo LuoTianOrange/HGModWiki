@@ -1,3 +1,7 @@
+.main {
+  display: unset;
+}
+
 .VPSidebarItem.level-0.has-active > .item > .indicator{
   background-color: var(--vp-c-brand-1);
 }
