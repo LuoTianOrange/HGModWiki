@@ -61,6 +61,7 @@ export default defineConfig({
           { text: '弹幕ID', link: '/小工具/弹幕ID' },
           { text: '物品ID', link: '/小工具/物品ID' },
           { text: '工作站ID', link: '/小工具/工作站ID' },
+          { text: 'NPCID', link: '/小工具/NPCID' },
           { text: '随机生成器', link: '/小工具/随机生成器' },
         ]
       }
