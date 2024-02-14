@@ -1,0 +1,1 @@
+import{_ as i,c as s,o as a,V as t}from"./chunks/framework.CrCxTBa1.js";const g=JSON.parse('{"title":"了解参数","description":"","frontmatter":{},"headers":[],"relativePath":"基础内容/了解参数.md","filePath":"基础内容/了解参数.md"}'),h={name:"基础内容/了解参数.md"},l=t("",55),n=[l];function k(p,e,E,r,d,y){return a(),s("div",null,n)}const c=i(h,[["render",k]]);export{g as __pageData,c as default};
