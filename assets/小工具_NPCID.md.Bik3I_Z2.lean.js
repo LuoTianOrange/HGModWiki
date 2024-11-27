@@ -1,1 +1,0 @@
-import{_ as t,c as d,o as r,V as e}from"./chunks/framework.CrCxTBa1.js";const P=JSON.parse('{"title":"NPCID对照表","description":"","frontmatter":{},"headers":[],"relativePath":"小工具/NPCID.md","filePath":"小工具/NPCID.md"}'),a={name:"小工具/NPCID.md"},o=e("",3),_=[o];function n(s,c,i,h,l,p){return r(),d("div",null,_)}const D=t(a,[["render",n]]);export{P as __pageData,D as default};
